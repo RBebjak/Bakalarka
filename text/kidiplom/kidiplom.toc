@@ -1,0 +1,18 @@
+\babel@toc {slovak}{}\relax 
+\contentsline {section}{\numberline {1}Paralené programovanie}{7}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Paralelné a súbežné programovanie}{7}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Problémy súbežného programovania}{7}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Jazyk Go}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Goroutines}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Channels}{7}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Select}{7}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Synchronizačné primitíva}{7}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Go pamäťový model}{7}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Chat server}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Funkčné požiadavky}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Súbežná archytektúra}{7}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Paralelné algoritmy}{7}{section.4}%
+\contentsline {section}{\numberline {A}První příloha}{8}{appendix.A}%
+\contentsline {section}{\numberline {B}Druhá příloha}{8}{appendix.B}%
+\contentsline {section}{\numberline {C}Obsah elektronických dat}{8}{appendix.C}%
+\contentsline {section}{Zoznam skratiek}{9}{section*.3}%

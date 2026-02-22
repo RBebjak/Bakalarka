@@ -8,14 +8,12 @@ import (
 	"goChat/server/message"
 	"net"
 	"strings"
-	"sync"
 )
 
 func HandleConnection(conn net.Conn) {
 	defer conn.Close()
 	reader := bufio.NewScanner(conn)
 
-	// First line: username
 	if !reader.Scan() {
 		return
 	}
@@ -26,6 +24,7 @@ func HandleConnection(conn net.Conn) {
 	}
 
 	var chatLog *chatlog.ChatLog
+	var rooms []string
 	lastSeen := 0
 	currentRoom := ""
 
@@ -34,16 +33,31 @@ func HandleConnection(conn net.Conn) {
 	for reader.Scan() {
 		line := strings.TrimSpace(reader.Text())
 
+		if line == "logout" {
+			fmt.Fprintf(conn, "{\"status\":\"logged out\"}\n")
+			return
+		}
+
+		if chatLog == nil {
+			if line == "/fetch" || line == "exit" {
+				fmt.Fprintf(conn, "{\"error\":\"not in a room\"}\n")
+				continue
+			}
+			room := line
+			rooms = append(rooms, room)
+			chatLog = chatlog.GetLog(room)
+			currentRoom = room
+			lastSeen = 0
+			fmt.Fprintf(conn, "{\"status\":\"joined room %s\"}\n", room)
+			continue
+		}
+
 		switch line {
 
 		case "":
 			continue
 
 		case "/fetch":
-			if chatLog == nil {
-				fmt.Fprintf(conn, "{\"error\":\"not in a room\"}\n")
-				continue
-			}
 			newMsgs, newIndex := chatLog.GetMessagesSince(lastSeen, user)
 			resp := struct {
 				Messages []message.Message `json:"messages"`
@@ -52,47 +66,24 @@ func HandleConnection(conn net.Conn) {
 			fmt.Fprintf(conn, "%s\n", data)
 			lastSeen = newIndex
 
+		case "/broadcast":
+			reader.Scan()
+			line = strings.TrimSpace(reader.Text())
+			go chatlog.Broadcast(user, line, rooms)
+
+		case "/fetchAll":
+			var messages [][]message.Message
+			go chatlog.FetchAll(user, rooms, &messages)
+
 		case "exit":
-			if chatLog != nil {
-				fmt.Fprintf(conn, "{\"status\":\"left room %s\"}\n", currentRoom)
-				chatLog = nil
-				currentRoom = ""
-				lastSeen = 0
-			} else {
-				fmt.Fprintf(conn, "{\"error\":\"not in a room\"}\n")
-			}
-
-		case "logout":
-			fmt.Fprintf(conn, "{\"status\":\"bye %s\"}\n", user)
-			return
-
-		case "fetchAll":
-			if chatLog == nil {
-				fmt.Fprintf(conn, "{\"All messages:}\n")
-				allmsg := sync.WaitGroup{}
-				for reader.Scan() {
-					roomLine := strings.TrimSpace(reader.Text())
-					if roomLine == "end" {
-						allmsg.Wait()
-						allmsg.Done()
-						break
-					}
-					allmsg.Add(1)
-
-				}
-			}
+			fmt.Fprintf(conn, "{\"status\":\"left room %s\"}\n", currentRoom)
+			chatLog = nil
+			currentRoom = ""
+			lastSeen = 0
 
 		default:
-			if chatLog == nil {
-				room := line
-				chatLog = chatlog.GetLog(room)
-				currentRoom = room
-				lastSeen = 0
-				fmt.Fprintf(conn, "{\"status\":\"joined room %s\"}\n", room)
-			} else {
-				chatLog.AddMessage(user, line)
-				fmt.Fprintf(conn, "{\"status\":\"sent\"}\n")
-			}
+			chatLog.AddMessage(user, line)
+			fmt.Fprintf(conn, "{\"status\":\"sent\"}\n")
 		}
 	}
 }
