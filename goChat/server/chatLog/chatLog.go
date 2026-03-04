@@ -60,18 +60,26 @@ func Broadcast(user string, line string, rooms []string) {
 
 func FetchAll(user string, rooms []string, messages *[][]message.Message) {
 	var wg sync.WaitGroup
+	var mut sync.Mutex
+	var chatLog *ChatLog
 	for _, room := range rooms {
 		wg.Add(1)
 		emptyMessages := make([]message.Message, 0)
-		go fetchFromRoom(user, room, &emptyMessages)
+		go fetchFromRoom(user, room, &emptyMessages, chatLog, &mut, &wg)
+		mut.Lock()
 		*messages = append(*messages, emptyMessages)
+		mut.Unlock()
 	}
 	wg.Wait()
 }
 
-func fetchFromRoom(user string, room string, messages *[]message.Message) {
-	var chatLog *ChatLog
+func fetchFromRoom(user string, room string, messages *[]message.Message,
+	chatLog *ChatLog, mut *sync.Mutex, wg *sync.WaitGroup) {
+
+	defer wg.Done()
+	mut.Lock()
 	chatLog = GetLog(room)
 	roomMessages, _ := chatLog.GetMessagesSince(0, user)
-	messages = &roomMessages
+	mut.Unlock()
+	*messages = roomMessages
 }
