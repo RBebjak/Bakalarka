@@ -127,6 +127,9 @@
 %% práce.
 \usepackage{lipsum}
 \usepackage{longtable}
+\usepackage{listings}
+\usepackage{biblatex}
+\addbibresource{bibliografie.bib}
 
 \begin{document}
 %% Sazba úvodních stran -- titulní, s bibliografickými údaji, s
@@ -147,19 +150,66 @@
 %   dokumentace stylu, vyjma přílohy~\ref{sec:ObsahData}, je rozpracovaná
 %   a (značně) neúplná verze!!!}
 
-\section{Paralené programovanie}
-\subsection{Paralelné a súbežné programovanie}
-\subsection{Problémy súbežného programovania}
-\section{Jazyk Go}
-\subsection{Goroutines}
-\subsection{Channels}
+
+\section{Komunikačné kanály}
+Komunikačné kanály predstavujú jeden zo základných mechanizmov synchronizácie a komunikácie medzi goroutines. Sú zabudované referečným typom,
+ktorý umožňuje bezpečný prenos dát. Ich návrch vychádza z Communicating Sequential Processes, 
+ktorý zdôrazňuje komunikáciu medzi procesmi miesto zdieľania pamäte.\cite{cox2017}
+
+Komunikačné kanály sa deklarujú pomocou kľúčového slova \texttt{chan}
+a vždy sa deklarujú aj s určitým typom. To znamená, že kanál môže prenášať hodnoty
+iba tohoto typu. 
+Komunikačné kanály patria k referečným typom, preto ich deklarácia nevytvára potrebnú pamäťovú štruktúru.
+Pamäť sa alokuje pomocou zabudovanej funkcie \texttt{make}. Takto vytvorený komunikačný kanál umožňuje zapisovanie a čítanie hodnôt.
+Zápis do komunikačného kanála umožnuje operátor \texttt{<-}, ktorý sa umiestňuje na pravú stranu názvu komunikačného kanála,
+pre čítanie sa operátor umiestňuje na ľavú stranu názvu komunikačného kanála.
+\begin{lstlisting}[language=Go]
+    var channel = make(chan int, 1)
+
+    go func(){
+        channel <- 42
+    }()
+
+    result := <- channel
+    close(channel)
+\end{lstlisting}
+
+Dôležitou vlastnosťou komunikačného kanála je jeho blokujúce správanie. Ak goroutine zapisuje do komnikačného kanála, ktorý je plný, je jej proces
+blokovaný kým iná goroutine z komunikačného kanála hodnotu neprečíta. Podobne čítanie z prázdneho komunikačného kanála je blokovaný kým nie je do
+komunikačného kanála zapísaná nová hodnota.
+
+Komunikačný kanál je možné zavrieť pomocou funkcie \texttt{close}. Uzavretie sygnalizuje príjmateľovi, že do komunikačného kanála nebude viac zapisované.
+Pri čítaní z kanála je možné získať druhú návratovú hodnotu typu bool, ktorá indikuje jeho otvorenie.
+\subsection{Bufferované a nebufferované komunikačné kanály}
+Každý komunikačný kanál môže byť bufferovaný alebo nebufferovaný. Nebufferovaný komunikačný kanál nemá žiadnu kapacitu a každá operácia zápisu musí
+byť okamžite spravovaná operáciou čítania.
+
+Bufferovaný komunikačný kanál sa definuje pomocou voliteľného druhého argumentu funkcie make.
+Bufferovaný komunikačný kanál obsahuje bugger s definovanou kapacitou, ktorá umožní uložiť určitý počet hodnôt do buffera bez okamžitého čítania.
+Bufferovaný komunikačný kanál zablokuje zápis až v momente keď je buffer plný.
+\subsection{Jednosmerný komunikačný kanál}
+Jazyk Go umožňuje definovanie jednosmerných kanálov, ktoré podporujú iba zápis alebo čítanie. Tieto komunikačné kanály sa používanú ako parametre 
+funkcií, aby určili akým spôsobom sa komunikačný kanál v danej časti programu používa. Tento mechanizmus zvyšuje bezpečnosť programu, pretože
+kompilátor dokáže zachytiť nesprávne použitie.
+
+\section{Synchronizačné primitíva}
+Jazyk Go poskytuje sync package, ktorý obsahuje synchronizačné primitíva. Tieto synchronizačné primitíva sú používane pri nízko úrovňovom
+prístupe do pamäti. Rozdiel medzi ostatnými jazykmi a jazykom Go je, že Go poskytuje novú sadu synchronizačných primitív pre súbežnosť nad 
+sadov primitív pre synchronizáciu prístupu k pamäti.
+
+\newpage
+\subsection{WaitGroup}
 \subsection{Select}
-\subsection{Synchronizačné primitíva}
 \subsection{Go pamäťový model}
 \section{Chat server}
 \subsection{Funkčné požiadavky}
 \subsection{Súbežná archytektúra}
 \section{Paralelné algoritmy}
+\section{Paralené programovanie}
+\subsection{Paralelné a súbežné programovanie}
+\subsection{Problémy súbežného programovania}
+\section{Jazyk Go}
+\subsection{Goroutines}
 
 
 

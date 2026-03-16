@@ -44,10 +44,10 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>kidiplom.bcf</file>
+      <file>bebjak.bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>kidiplom.bbl</file>
+      <file>bebjak.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -71,22 +71,22 @@
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>kidiplom</infile>
+      <infile>bebjak</infile>
     </cmdline>
     <input>
-      <file>kidiplom.bcf</file>
+      <file>bebjak.bcf</file>
     </input>
     <output>
-      <file>kidiplom.bbl</file>
+      <file>bebjak.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>kidiplom.bbl</file>
+      <file>bebjak.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>kidiplom.bcf</file>
+      <file>bebjak.bcf</file>
     </requires>
     <requires type="editable">
-      <file>bibliografie.bib</file>
+      <file>bebjak.bib</file>
     </requires>
   </external>
 </requests>
