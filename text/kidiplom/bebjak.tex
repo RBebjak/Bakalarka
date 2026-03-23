@@ -43,7 +43,7 @@ ktorý zdôrazňuje komunikáciu medzi procesmi miesto zdieľania pamäte.\cite{
 
 Komunikačné kanály sa deklarujú pomocou kľúčového slova \texttt{chan}
 a vždy sa deklarujú aj s určitým typom. To znamená, že kanál môže prenášať hodnoty
-iba tohoto typu. 
+iba tohto typu. 
 Komunikačné kanály patria k referečným typom, preto ich deklarácia nevytvára potrebnú pamäťovú štruktúru.
 Pamäť sa alokuje pomocou zabudovanej funkcie \texttt{make}. 
 \begin{lstlisting}[language=Go]
@@ -64,8 +64,8 @@ komunikačného kanála zapísaná nová hodnota.
 Komunikačný kanál je možné zavrieť pomocou funkcie \texttt{close}.
 Pri čítaní z kanála je možné získať druhú návratovú hodnotu typu bool, ktorá indikuje jeho otvorenie.
 Uzavretie teda sygnalizuje príjmateľovi, že do komunikačného kanála nebude viac zapisované. Ak odosielateľ pošle data do uzavretého komunikačného kanálu,
-príjmateľ obdrží error \texttt{send on closed channel}.
-\begin{lstlisting}[language=Go]
+príjmateľ obdrží error \texttt{send on closed channel}. Nasledujúci príklad demonštruje použitie.
+\begin{lstlisting}[language=Go, numbers=left]
     var channel = make(chan int, 1)
 
     go func(){
@@ -77,8 +77,7 @@ príjmateľ obdrží error \texttt{send on closed channel}.
 \end{lstlisting}
 Na riadku jedna si vytvoríme komunikačný kanál s referečným typom int a veľkosťou buffera jedna. Na riadku tri spustíme novú goroutine.
 Na riadku štyry v goroutine uložíme do komunikačného kanála hodnotu 42. Na riadku 7 hlavné vlákno čaká na data z komunikačného kanála. Ak dáta prídu,
-uloží do premennej "result" data z komunikačného kanála, v tomto prípade 42. Na riadku 8 uzavrieme komunikačný kanál.
-%pozri uvodzovky pre result.
+uloží do premennej \uv{result} data z komunikačného kanála, v tomto prípade 42. Na riadku 8 uzavrieme komunikačný kanál.
 \subsection{Bufferované a nebufferované komunikačné kanály}
 Každý komunikačný kanál môže byť bufferovaný alebo nebufferovaný. Nebufferovaný komunikačný kanál nemá žiadnu kapacitu a každá operácia zápisu musí
 byť okamžite spravovaná operáciou čítania.
@@ -93,12 +92,103 @@ funkcií, aby určili akým spôsobom sa komunikačný kanál v danej časti pro
 kompilátor dokáže zachytiť nesprávne použitie.
 
 \section{Synchronizačné primitíva}
-Jazyk Go poskytuje sync package, ktorý obsahuje synchronizačné primitíva. Tieto synchronizačné primitíva sú používane pri nízko úrovňovom
-prístupe do pamäti. Rozdiel medzi ostatnými jazykmi a jazykom Go je, že Go poskytuje novú sadu synchronizačných primitív pre súbežnosť nad 
-sadov primitív pre synchronizáciu prístupu k pamäti.
+Jazyk Go poskytuje sync balík, ktorý obsahuje synchronizačné primitíva. Tieto synchronizačné primitíva sú používane pri nízkoúrovňovom
+prístupe do pamäte. Rozdiel medzi ostatnými jazykmi a jazykom Go je, že Go poskytuje novú sadu synchronizačných primitív pre súbežnosť nad 
+sady primitív pre synchronizáciu prístupu k pamäti.
+
+\subsection{WaitGroup}
+Je to nástroj z balíka sync, ktorého účelom je umožniť programu počkať na dokončenie skupiny goroutine pred tým, než bude pokračovať.
+Mechanizmus sa využíva v prípade, že sa vykonáva viacero nezávislých úloh.
+WaitGroup si môžeme predstaviť ako bezpečný čítač. Tento čítač eviduje počet goroutine, ktoré ešte nedokončili svoju činnosť.
+Čítač sa zvyšuje pomocou metódy \texttt{Add(n)}, kde \uv{n} udáva počet goroutine, ktoré sa majú vykonať.
+Čítač sa znižuje pomocou metódy \texttt{Done()}.
+Program je zablokovaný na metóde \texttt{Wait()}, kým hodnota čítača nedosiahne nulovú hodnotu. Nasledujúci príklad demonštruje použitie.
+\begin{lstlisting}[language=Go, numbers=left]
+    var wg sync.WaitGroup
+
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			fmt.Println("Goroutine", i)
+			time.Sleep(200)
+		}(i)
+	}
+	wg.Wait()
+	fmt.Println("End")
+\end{lstlisting}
+Na prvom riadku si definujeme WaitGroup. Následne v cykle na riadku tri zvýšime hodnotu WaitGroup o jedna. Na riadku štyri pustíme novú goroutine.
+V goroutine na riadku päť zabezpečíme, že po dokončení činnosti, zníži hodnotu WaitGroup o jedna. 
+Následne vykoná vypís a čakanie pre simuláciu paralelného výpočtu.
+Na riadku jedenásť program čaká, kým hodnota WaitGroup bude nulová. následne vypíše \uv{End}.
+
+\subsection{Mutex a RWMutex}
+Mutex to nástroj z balíka sync, ktorého účelom je chrániť časť programu so zdieľanými zdrojmi, ku ktorým môže pristupovať iba jedna goroutine.
+Pred vstupom do časti programu so zdieľanými zdrojmi, musí goroutine získať zámok pomocou metódy \texttt{Lock()}. Po ukončení činnosti
+v danej časti programu, uvoľní zámok pomocou metódy \texttt{Unlock}. Počas držania zámku, nemôže iná goroutine vstúpiť do tejto časti programu.
+RWMutex rozširuje Mutex o zámok, ktorý rozlišuje operácie čítania a zápisu. Metódy na získanie zámku \texttt{RLock() / Lock()}, 
+metódy na uvoľnenie zámku \texttt{RUnlock() / Unlock()}. RWMutex umožňuje získať zámok pre čítanie viacerým goroutine,
+ale pre zápis umožňuje získať zámok jednej goroutine. Počas zápisu nie je umožnené získať zámok pre čítanie. Pri zápise čaká kým sú uvoľnené
+všetky zámky. Nasledujúci príklad demonštruje použitie.
+\begin{lstlisting}[language=Go, numbers=left]
+    var wg sync.WaitGroup
+	var rw sync.RWMutex
+
+	observer := func(i int) {
+		defer wg.Done()
+		rw.RLock()
+		fmt.Println("Reading started", i)
+		time.Sleep(400 * time.Millisecond)
+		fmt.Println("Reading ends", i)
+		rw.RUnlock()
+	}
+
+	writter := func(i int) {
+		defer wg.Done()
+		defer rw.Unlock()
+		rw.Lock()
+		fmt.Println("Writting started", i)
+		time.Sleep(400 * time.Millisecond)
+		fmt.Println("Writting ended", i)
+	}
+
+	for i := 0; i < 100; i++ {
+		wg.Add(1)
+		if i%25 == 0 {
+			go writter(i)
+		} else {
+			go observer(i)
+		}
+	}
+	wg.Wait()
+	fmt.Println("End")
+    
+\end{lstlisting}
+Na riadku dva si definujeme RWMutex. Na riakdu štyry si definujeme funkciu čitateľa, ktorá sa pokúsi získať zámok pre čítanie
+vypíše, že začala, počká, vypíše, že skončila a po skončení uvoľní zámok pre čítanie.
+Na riadku trinásť si definujeme funkciu zapisovateľa, ktorá sa pokúsi získať zámok, vypíše, že začala, počká, vypíše, že skončila
+a po skončení uvoľní zámok.
+Na riadku dvadsaťdva je cyklus, v ktorom voláme funkciu zapisovateľa ak \uv{i} modulo 25 je nula, inak voláme funkciu čitateľa.
+Následne počkáme na dokončenie všetkých goroutine a vypíšeme že sme skončili. Výsledok tohto kódu bude približne.
+\begin{lstlisting}
+    "Writting started 0"
+    "Writting ended 0"
+    "Reading started 1"
+    "Reading started 2"
+    "Reading started 5"
+    ...
+    "Reading ended 98"
+    "Reading ended 97"
+    "Reading ended 99"
+    "Writting started 50"
+    "Writting ended 50"
+    "Writting started 75"
+    "Writting ended 75"
+\end{lstlisting}
+Z tohto výsledku vidíme, že RWMutex uprednostňuje čitateľov. Vynútenie zámku pre zapisovateľa je možné pomocou ďalších
+synchronizačných nástrojov ako napríklad pomocou komunikačných kanálov.
 
 \newpage
-\subsection{WaitGroup}
 \subsection{Select}
 \subsection{Go pamäťový model}
 \section{Chat server}

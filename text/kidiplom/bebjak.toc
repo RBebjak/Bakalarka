@@ -3,18 +3,19 @@
 \contentsline {subsection}{\numberline {1.1}Bufferované a nebufferované komunikačné kanály}{8}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Jednosmerný komunikačný kanál}{8}{subsection.1.2}%
 \contentsline {section}{\numberline {2}Synchronizačné primitíva}{8}{section.2}%
-\contentsline {subsection}{\numberline {2.1}WaitGroup}{9}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Select}{9}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Go pamäťový model}{9}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Chat server}{9}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Funkčné požiadavky}{9}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Súbežná archytektúra}{9}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Paralelné algoritmy}{9}{section.4}%
-\contentsline {section}{\numberline {5}Paralené programovanie}{9}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Paralelné a súbežné programovanie}{9}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Problémy súbežného programovania}{9}{subsection.5.2}%
-\contentsline {section}{\numberline {6}Jazyk Go}{9}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Goroutines}{9}{subsection.6.1}%
-\contentsline {section}{Literatúra}{10}{section*.3}%
+\contentsline {subsection}{\numberline {2.1}WaitGroup}{8}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Mutex a RWMutex}{9}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Select}{11}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Go pamäťový model}{11}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Chat server}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Funkčné požiadavky}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Súbežná archytektúra}{11}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Paralelné algoritmy}{11}{section.4}%
+\contentsline {section}{\numberline {5}Paralené programovanie}{11}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Paralelné a súbežné programovanie}{11}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Problémy súbežného programovania}{11}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Jazyk Go}{11}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Goroutines}{11}{subsection.6.1}%
+\contentsline {section}{Literatúra}{12}{section*.3}%
 \babel@toc {english}{}\relax 
 \babel@toc {slovak}{}\relax 
