@@ -52,13 +52,6 @@ func main() {
 			continue
 		}
 
-		if room == "fetchAll" {
-			fmt.Fprintf(conn, "%s\n", room)
-			for _, r := range myRooms.Rooms {
-				fmt.Fprintf(conn, "%s\n", r)
-			}
-			fmt.Fprintf(conn, "%s\n", "end")
-		}
 		if room == "logout" {
 			return
 		}

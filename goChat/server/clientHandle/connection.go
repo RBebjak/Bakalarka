@@ -8,6 +8,7 @@ import (
 	"goChat/server/message"
 	"net"
 	"strings"
+	"sync"
 )
 
 func HandleConnection(conn net.Conn) {
@@ -33,11 +34,6 @@ func HandleConnection(conn net.Conn) {
 	for reader.Scan() {
 		line := strings.TrimSpace(reader.Text())
 
-		if line == "logout" {
-			fmt.Fprintf(conn, "{\"status\":\"logged out\"}\n")
-			return
-		}
-
 		if chatLog == nil {
 			if line == "/fetch" || line == "exit" {
 				fmt.Fprintf(conn, "{\"error\":\"not in a room\"}\n")
@@ -53,6 +49,9 @@ func HandleConnection(conn net.Conn) {
 		}
 
 		switch line {
+		case "logout":
+			fmt.Fprintf(conn, "{\"status\":\"logged out\"}\n")
+			return
 
 		case "":
 			continue
@@ -69,11 +68,15 @@ func HandleConnection(conn net.Conn) {
 		case "/broadcast":
 			reader.Scan()
 			line = strings.TrimSpace(reader.Text())
-			go chatlog.Broadcast(user, line, rooms)
+			Broadcast(user, line, rooms)
 
 		case "/fetchAll":
-			var messages [][]message.Message
-			go chatlog.FetchAll(user, rooms, &messages)
+			allMessages := FetchAll(user, rooms)
+			resp := struct {
+				Messages map[string][]message.Message `json:"messages"`
+			}{allMessages}
+			data, _ := json.Marshal(resp)
+			fmt.Fprintf(conn, "%s\n", data)
 
 		case "exit":
 			fmt.Fprintf(conn, "{\"status\":\"left room %s\"}\n", currentRoom)
@@ -86,4 +89,36 @@ func HandleConnection(conn net.Conn) {
 			fmt.Fprintf(conn, "{\"status\":\"sent\"}\n")
 		}
 	}
+}
+
+func Broadcast(user string, line string, rooms []string) {
+	var wg sync.WaitGroup
+	for _, room := range rooms {
+		wg.Add(1)
+		go func(room string) {
+			defer wg.Done()
+			chatLog := chatlog.GetLog(room)
+			chatLog.AddMessage(user, line)
+		}(room)
+	}
+	wg.Wait()
+}
+
+func FetchAll(user string, rooms []string) map[string][]message.Message {
+	var wg sync.WaitGroup
+	var mutex sync.Mutex
+	allMessages := make(map[string][]message.Message)
+	for _, room := range rooms {
+		wg.Add(1)
+		go func(room string) {
+			defer wg.Done()
+			defer mutex.Unlock()
+			chatLog := chatlog.GetLog(room)
+			messages, _ := chatLog.GetMessagesSince(0, user)
+			mutex.Lock()
+			allMessages[room] = messages
+		}(room)
+	}
+	wg.Wait()
+	return allMessages
 }

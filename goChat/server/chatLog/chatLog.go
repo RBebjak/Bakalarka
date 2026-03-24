@@ -2,7 +2,6 @@ package chatlog
 
 import (
 	message "goChat/server/message"
-	"sync"
 )
 
 type ChatLog struct {
@@ -48,38 +47,4 @@ func (cl *ChatLog) GetMessagesSince(lastSeen int, excludeUser string) ([]message
 		return result, len(cl.Messages)
 	}
 	return []message.Message{}, lastSeen
-}
-
-func Broadcast(user string, line string, rooms []string) {
-	var chatLog *ChatLog
-	for _, room := range rooms {
-		chatLog = GetLog(room)
-		chatLog.AddMessage(user, line)
-	}
-}
-
-func FetchAll(user string, rooms []string, messages *[][]message.Message) {
-	var wg sync.WaitGroup
-	var mut sync.Mutex
-	var chatLog *ChatLog
-	for _, room := range rooms {
-		wg.Add(1)
-		emptyMessages := make([]message.Message, 0)
-		go fetchFromRoom(user, room, &emptyMessages, chatLog, &mut, &wg)
-		mut.Lock()
-		*messages = append(*messages, emptyMessages)
-		mut.Unlock()
-	}
-	wg.Wait()
-}
-
-func fetchFromRoom(user string, room string, messages *[]message.Message,
-	chatLog *ChatLog, mut *sync.Mutex, wg *sync.WaitGroup) {
-
-	defer wg.Done()
-	mut.Lock()
-	chatLog = GetLog(room)
-	roomMessages, _ := chatLog.GetMessagesSince(0, user)
-	mut.Unlock()
-	*messages = roomMessages
 }
