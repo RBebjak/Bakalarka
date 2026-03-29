@@ -1,20 +1,20 @@
 # Fdb version 4
-["biber bebjak"] 0 "bebjak.bcf" "bebjak.bbl" "bebjak" 1774253363.04122 -1
-  "bebjak.bcf" 1774253362.94447 99726 ec02f0dd92b9eddd709fe32bb17b5246 "pdflatex"
-  "bebjak.bib" 1773169009.95198 260 36a44e8503481fe45ffc4c3e18e3afc0 ""
+["biber bebjak"] 1774798400.83891 "bebjak.bcf" "bebjak.bbl" "bebjak" 1774798404.58967 0
+  "bebjak.bcf" 1774798404.48458 99854 5da2f4263967cb43df048d1c7158073f "pdflatex"
+  "bebjak.bib" 1774473216.29893 565 185ea5a0abc49a89cdd5a60241ab50bb ""
   (generated)
   "bebjak.bbl"
   "bebjak.blg"
   (rewritten before read)
-["makeindex bebjak.idx"] 1774252707.01608 "bebjak.idx" "bebjak.ind" "bebjak" 1774253363.04101 0
-  "bebjak.idx" 1774253362.24548 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex bebjak.idx"] 1774731171.45498 "bebjak.idx" "bebjak.ind" "bebjak" 1774798404.58949 0
+  "bebjak.idx" 1774798403.67353 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "bebjak.ilg"
   "bebjak.ind"
   (rewritten before read)
-["pdflatex"] 1774253361.76842 "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" "bebjak.pdf" "bebjak" 1774253363.04142 0
+["pdflatex"] 1774798403.15335 "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" "bebjak.pdf" "bebjak" 1774798404.58988 0
   "/etc/texmf/web2c/texmf.cnf" 1757513971.43968 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" 1774253361.59748 9415 96f8d49a5d62d6e4e86a1bd08091ba2d ""
+  "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" 1774798399.17026 12265 ca01264cbe818eaae38700e69ec8902d ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -179,6 +179,9 @@
   "/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1655411236 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
+  "/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
+  "/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc" 1202520719 2840 216e6e45ad352e2456e1149f28885bee ""
+  "/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc" 1202520719 2327 9d6df24f9c4f7368395224341a95523a ""
   "/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc" 1254269338 3031 6c4d3515bf7115d8518af1c9ab97ca44 ""
   "/usr/share/texmf/fonts/tfm/public/lm/ec-lmbx10.tfm" 1254269338 12076 b54175e02101bea1addf6b2d0197ed12 ""
   "/usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm" 1254269338 12088 d750ac78274fa7c9f73ba09914c04f8a ""
@@ -201,10 +204,12 @@
   "/usr/share/texmf/fonts/tfm/public/lm/ts1-lmr12.tfm" 1254269338 1596 1d4548788e389ded56d0b01b28377882 ""
   "/usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb" 1255129361 121021 1bf809ce4a594679006bd72263eba59b ""
   "/usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb" 1255129361 116908 1fca96723793882c2e0160350c192fc8 ""
+  "/usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb" 1254269338 30696 2654571912f9cd384da9f7cb8a60c568 ""
   "/usr/share/texmf/fonts/type1/public/lm/lmr10.pfb" 1255129361 119235 f35b44530a1d90eb90fe15d9cba67ea0 ""
   "/usr/share/texmf/fonts/type1/public/lm/lmr12.pfb" 1255129361 113634 f99c44d58bae0863375faf0e1d74d612 ""
   "/usr/share/texmf/fonts/type1/public/lm/lmr17.pfb" 1255129361 119752 1bd8d06e4079df624bf59ce3ad7c9aa6 ""
   "/usr/share/texmf/fonts/type1/public/lm/lmri12.pfb" 1255129361 109265 32320cb6133d4d76bf83e27b5eb4009b ""
+  "/usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb" 1254269338 27863 09ce3735688ffde955e72da27c95b61a ""
   "/usr/share/texmf/tex/latex/lm/lmodern.sty" 1616454256 1608 b00724785a9e9c599e5181bb8729160b ""
   "/usr/share/texmf/tex/latex/lm/omllmm.fd" 1616454256 890 57f5adccd504fb5c98bdf99ed7e7f195 ""
   "/usr/share/texmf/tex/latex/lm/omslmsy.fd" 1616454256 807 3de192f3efa968913bd2f096a7b430d8 ""
@@ -215,13 +220,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1757513991.50552 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1757514077 8215117 c567d941616b0da19a49769531f0f5a5 ""
-  "bebjak.aux" 1774253362.93647 10199 6c288df1c8386effbcaa456543fd1232 "pdflatex"
-  "bebjak.bbl" 1773689852.80797 1690 5ee3de48bbe4c4e68d78807e3497d091 "biber bebjak"
-  "bebjak.ind" 1774252707.12091 0 d41d8cd98f00b204e9800998ecf8427e "makeindex bebjak.idx"
-  "bebjak.lot" 1774253362.94574 88 741010b6681b86da28d707cf9e75a1ee "pdflatex"
-  "bebjak.run.xml" 1774253362.94574 2545 ae8d4b91b7f22fa744104a38fbc4af27 "pdflatex"
-  "bebjak.tex" 1774253361.59748 9415 96f8d49a5d62d6e4e86a1bd08091ba2d ""
-  "bebjak.toc" 1774253362.94574 1587 8af612ecda8587b0ac17b774b3fed79d "pdflatex"
+  "bebjak.aux" 1774798404.47258 11675 2c555f4518c68405dbd6bc3c082c0b1d "pdflatex"
+  "bebjak.bbl" 1774798401.62923 3529 6db12f2e213b901a0d64fdfecadfd6eb "biber bebjak"
+  "bebjak.ind" 1774731171.63607 0 d41d8cd98f00b204e9800998ecf8427e "makeindex bebjak.idx"
+  "bebjak.lot" 1774798404.4862 147 5a6cda62e732f9b2bc5f4840e9d5baa4 "pdflatex"
+  "bebjak.run.xml" 1774798404.4862 2545 ae8d4b91b7f22fa744104a38fbc4af27 "pdflatex"
+  "bebjak.tex" 1774798399.17026 12265 ca01264cbe818eaae38700e69ec8902d ""
+  "bebjak.toc" 1774798404.4862 1838 3aef03f5941d01adf4b73f2312012e5c "pdflatex"
   "czech-iso.lbx" 1771778656.49127 294 7ce53d925459ba9e674024c57d6c7af9 ""
   "czech.lbx" 1771778656.49275 23857 01707bd906156286610d5e5bcb06aa09 ""
   "english-iso.lbx" 1771778656.49145 292 ce1004c4c0d380cc5ae6d84de8c03da6 ""

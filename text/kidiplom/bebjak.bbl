@@ -19,6 +19,50 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
+    \entry{hoare1978}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=d6facc8397f631d3ef01dd70be993640}{%
+           family={Hoare},
+           familyi={H\bibinitperiod},
+           given={C.\bibnamedelimi A.\bibnamedelimi R.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=b8b396d2a5b86e4ea5b6b4dd4d8897e7}{%
+           family={Graham},
+           familyi={G\bibinitperiod},
+           given={S.\bibnamedelimi L.},
+           giveni={S\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=6a630bbc1f4da3f000de53a8c3fcda9a}{%
+           family={Rivest},
+           familyi={R\bibinitperiod},
+           given={R.\bibnamedelimi L.},
+           giveni={R\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Academic Press}%
+      }
+      \strng{namehash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{fullhash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{bibnamehash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{authorbibnamehash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{authornamehash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{authorfullhash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{editorbibnamehash}{166b962fd1ac73a11294d41b43d06d23}
+      \strng{editornamehash}{166b962fd1ac73a11294d41b43d06d23}
+      \strng{editorfullhash}{166b962fd1ac73a11294d41b43d06d23}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Programming Techniques}
+      \field{langid}{english}
+      \field{title}{Communicating Sequential Processes}
+      \field{year}{1978}
+    \endentry
     \entry{cox2017}{book}{}
       \name{author}{1}{}{%
         {{hash=cb15fceac7ca486986e56681239bdd6a}{%
@@ -39,8 +83,8 @@
       \strng{authorbibnamehash}{cb15fceac7ca486986e56681239bdd6a}
       \strng{authornamehash}{cb15fceac7ca486986e56681239bdd6a}
       \strng{authorfullhash}{cb15fceac7ca486986e56681239bdd6a}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{edition}{first}

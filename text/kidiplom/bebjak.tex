@@ -3,6 +3,7 @@
   seconds=true,
   language=slovak,
   figures=false,
+  urldate=iso,
   glossaries,
   index
 ]{kidiplom}
@@ -35,6 +36,39 @@
 \maketitle
 
 \newcommand{\BibLaTeX}{\textsc{Bib}\LaTeX}
+
+\section{Čo je to Communication Sequential Process}
+\textit{Communication Sequential Process} (CSP) je základný teoretický prístup ku súbežnému programovaniu.\cite{hoare1978}
+Tento prístup definuje ako môžu súbežne bežiace procesy spolupracovať a komunikovať. Na rozdiel od tradičných prístupov založených
+na zdiaľanej pamäti, CSP je založené na komunikácií medzi procesmy ako hlavným mechanizmom koordinácie. Procesy si neposkytujú priamy
+prístup k pamäti, čím sa znižuje počet chýb súbehu. Základnou myšlienkou CSP je, že program sa skladá z viacerých sekvečých procesov
+vykonávaných súbežne, ktoré medzi sebou komunikú prostredníctvom vstupno-výstupných operácií. 
+
+V CSP sú vstup a výstup základné operácie,
+na rozdiel od tradičného prístupu, kde je základnou operáciou priradenie. Tietp operácie umožňujú procesom medzi sebou komunikovať a koordinovať
+svoju činnosť. CSP umožňuje definovať paralelné vykonávanie viacerých procesov pomocou paralelného príkazu. 
+Všetky procesy sa vykonávajú súčasne a program pokračuje až po ich dokončení.
+Komunikácia medzi procesmi v CSP je synchronná, čo znamená, že odosielateľ aj príjemca musia byť pripravení na komunikáciu v rovnakom čase.
+Neexistuje žiadne implicitné bufferovanie správ, čím sa zabezpečuje deterministické správanie komunikácie. Model CSP predpokladá daný počet
+procesov. Nepodporuje dynamické vytváranie procesov ani rekurziu, čo zjednodušuje model.
+
+\subsection{Výrobca a spotrebiteľ CSP}
+CSP sa dá v tomto príklade chápať ako monitor s ktorým komunikujú viaceré procesy. Procesy musia byt odlišne pomenované napr. \uv{Výrobca} a \uv{Spotrebiteľ},
+alebo odlišný index napríklad \uv{X(0)}. Každá komunikácia musí mať jednoznačne určný svoj zdroj alebo cieľ. Keď je monitor pripravený komunikovať
+s ktorýmkoľvek používateľským procesom, zväčša ktorý príde prvý, používa strážený príkaz s rozsahom.
+\[
+[(i:1..100);\; X(i)?(value\ parameters) \rightarrow \dots ;\; X(i)!(results);]
+\]
+Premenná \uv{i} sa poúžíva na posielanie výsledkov späť procesu,ktorý komunikáciu inicioval. 
+
+Ako monitor nie je pripravený na komunikáciu od konkrétneho procesu napríklad \uv{X(j)}, môže byť vstupný príkaz doplnený o booleovskú podmienku,
+tak zvanú stráž. Napríklad dve po sebe idúce požiadavky od rovnakého procesu, môžu byť zablokované pomocou podmienky \uv{j=0}.
+\[
+*[(i:1..100)i\neq j;\; X(i)?(parameters) \rightarrow \dots ;\; i := j ;\;]
+\]
+V tomto prípade bude výstup procesu \uv{X(j)} odložený, kým nebude spracovaná požiadavka iného procesu.
+Podobne je možné použiť podmienky na oddialenie prijatia vstupov, ktoré by porušili plánovacie obmedzenia. \cite{hoare1978}
+
 
 \section{Komunikačné kanály}
 Komunikačné kanály predstavujú jeden zo základných mechanizmov synchronizácie a komunikácie medzi goroutines. Sú zabudované referečným typom,
@@ -187,6 +221,7 @@ Následne počkáme na dokončenie všetkých goroutine a vypíšeme že sme sko
 \end{lstlisting}
 Z tohto výsledku vidíme, že RWMutex uprednostňuje čitateľov. Vynútenie zámku pre zapisovateľa je možné pomocou ďalších
 synchronizačných nástrojov ako napríklad pomocou komunikačných kanálov.
+
 
 \newpage
 \subsection{Select}
