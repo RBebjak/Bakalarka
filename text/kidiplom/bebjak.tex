@@ -69,6 +69,41 @@ tak zvanú stráž. Napríklad dve po sebe idúce požiadavky od rovnakého proc
 V tomto prípade bude výstup procesu \uv{X(j)} odložený, kým nebude spracovaná požiadavka iného procesu.
 Podobne je možné použiť podmienky na oddialenie prijatia vstupov, ktoré by porušili plánovacie obmedzenia. \cite{hoare1978}
 
+\section{Goroutine}
+Goroutine je funkcia ktorá sa vykonáva súbežne.
+Nie sú to vláklna operaščného systému ani vlákna riadene runtime prostredím. Ide o
+vyššiu abstrakciu nazývanú korutiny. Korutiny sú súbežné podprogramy, ktoré nemôžu byť
+prerušené zvonka. Obsahujú však body, v ktorých môžu byť pozastavené a znovu spustené. 
+Na rozdiel od vláken je prepínanie medzi gorutinami rýchlejšie približne o 1,242\mu s.\cite{cox2017}
+Goroutine sa dajú spustiť pomocou kľúčového slova \texttt{go}.
+\begin{lstlisting}[language=Go]
+	func main{
+		go SayHello()
+	}
+
+	func SayHello(){
+		fmt.Println("Hello")
+	}
+\end{lstlisting}
+Je možné goroutine implementovať ako anonymné funkcie.
+\begin{lstlisting}[language=Go]
+	go func(){
+		fmt.Println("Hello")
+	}
+\end{lstlisting}
+Ako anonymné funkcie musia byť zavolané okamžite. Vieme goroutine priradiť do premennej.
+\begin{lstlisting}[language=Go]
+	sayHello := func(){
+		fmt.Println("Hello")
+	}
+
+	go sayHello()
+\end{lstlisting}
+Goroutine sú špefické pre jazyk Go, pretože sú integrované do runtime prostredia Go.
+Goroutinesi sami neurčujú bady pozastavenia. Runtime Go sleduje ich správanie a 
+automaticky ich pozastaví, a znovu spustí, keď sú opätovne pripravené pokračovať.
+
+
 
 \section{Komunikačné kanály}
 Komunikačné kanály predstavujú jeden zo základných mechanizmov synchronizácie a komunikácie medzi goroutines. Sú zabudované referečným typom,
