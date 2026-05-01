@@ -94,6 +94,29 @@
       \field{title}{Concurrency in Go}
       \field{year}{2017}
     \endentry
+    \entry{Beckingsale2015}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=624d94bb5eb5b468c9fc6a6cb415321b}{%
+           family={Beckingsale},
+           familyi={B\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{fullhash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{bibnamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{authorbibnamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{authornamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{authorfullhash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Towards Scalable Adaptive Mesh Refinement on Future Parallel Architectures}
+      \field{type}{phdthesis}
+      \field{year}{2015}
+      \true{nocite}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

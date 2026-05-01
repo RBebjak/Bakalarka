@@ -30,6 +30,7 @@
 \usepackage{longtable}
 \usepackage{listings}
 \usepackage{biblatex}
+\usepackage{graphicx}
 \addbibresource{bebjak.bib}
 
 \begin{document}
@@ -43,6 +44,27 @@ Tento prístup definuje ako môžu súbežne bežiace procesy spolupracovať a k
 na zdiaľanej pamäti, CSP je založené na komunikácií medzi procesmy ako hlavným mechanizmom koordinácie. Procesy si neposkytujú priamy
 prístup k pamäti, čím sa znižuje počet chýb súbehu. Základnou myšlienkou CSP je, že program sa skladá z viacerých sekvečých procesov
 vykonávaných súbežne, ktoré medzi sebou komunikú prostredníctvom vstupno-výstupných operácií.
+
+\subsection{Základné myšlienky CSP}
+Hoare navrhol riešenie na základe troch princípov:
+\begin{enumerate}
+\item Strážené príkazy
+\item Paralelná kompozícia procesov
+\item Komunikácia pomocou vstupu a výstupu
+\end{}
+Koncept strážených príkazov zavedení Djikstrom umožňuje riadiť vetvenie a nedeterministické správanie. Paralelná kompozícia opisuje
+program tak, že program môže pozostávať z viacerých procesov, ktoré sa spúšťajú súčasne, vykonávajú sa nezávisle a končia
+až keď skončia všetky súbežné procesy. Komunikácia pomocou vstupu a výstupu znamená, že procesy spolu komunikujú výhradne
+pomocou vstupno-výstupných operácií. Procesy tak nezdieľajú pamäť a ich komunikácia prebieha synchronizovane.
+
+V CSP možno chápať každý proces ako samostatnú výpočtovú jednotku s vlastným stavom, ktorá vykonáva príkazy v definovanom poradí.
+Procesy nie sú izolované, ich spolupráca je kľúčová na dosiahnutie požadovaného výsledku. Ich spolupráca je realizovaná
+pomocou synchronnej komunikácie, pri ktorej musí byť odosieľateľ aj príjimateľ pripravený na výmenu údajov v rovnakom okamihu.
+Tento prístup eliminuje problémy spojené s chybamy súbehu a nekonzistentným stavom pamäte.
+
+\subsection{Komunikácia v CSP}
+Hlavnou vlastnosťou CS je prenos dát medzi procesmy. Hodnota odoslaná jedným procesom je priamo priradená premennej v druhom
+procese. Prenos hodnoty je atomický
 
 V CSP sú vstup a výstup základné operácie,
 na rozdiel od tradičného prístupu, kde je základnou operáciou priradenie. Tietp operácie umožňujú procesom medzi sebou komunikovať a koordinovať
@@ -74,7 +96,7 @@ Goroutine je funkcia ktorá sa vykonáva súbežne.
 Nie sú to vláklna operaščného systému ani vlákna riadene runtime prostredím. Ide o
 vyššiu abstrakciu nazývanú korutiny. Korutiny sú súbežné podprogramy, ktoré nemôžu byť
 prerušené zvonka. Obsahujú však body, v ktorých môžu byť pozastavené a znovu spustené.
-Na rozdiel od vláken je prepínanie medzi gorutinami rýchlejšie približne o 1,242\mu s.\cite{cox2017}
+Na rozdiel od vláken je prepínanie medzi gorutinami rýchlejšie približne o 1,242 $\mu\text{s}$.\cite{cox2017}
 Goroutine sa dajú spustiť pomocou kľúčového slova \texttt{go}.
 \begin{lstlisting}[language=Go]
 	func main{
@@ -106,9 +128,15 @@ Goroutine bežia súbežne, čo nie je ich vlastnosťou, preto potrebujú mechan
 súbežne.
 
 \subsection{Model a plánovač goroutine}
-Go používa plánovač \uv{M:N} a model súbežnosti fork-join.\cite{cox2017} Teda na \uv{M} vláknach sa vykonáva \uv{N} goroutine. Goroutine
-sú mapované na tieto vlákna a runtime sa stará o ich rozdelenie a efektívne vykonávanie. Podľa modelu môže program vytvoriť novú
-goroutine, ktorá sa vykonáva súbežne s rodičovským kódom. Neskôr sa tieto vetvy spoja v mieste nazývanom join point.
+Go používa plánovač \uv{M:N} a model súbežnosti fork-join.\cite{cox2017}
+Teda na \uv{M} vláknach sa vykonáva \uv{N} goroutine. Goroutine
+sú mapované na tieto vlákna a go runtime sa stará o ich rozdelenie a efektívne vykonávanie. Stará sa o ich spúštanie,
+ak je nejaká goroutine blokovaná tak go runtime môže spustiť inú.
+
+Podľa modelu fork-join, \uv{Fork} znamená, že program môže vytvoriť novú
+goroutine, ktorá sa vykonáva súbežne s rodičovským kódom. A \uv{Join} znamená, že sa tieto vetvy spoja v mieste nazývanom
+join point.
+\ref{fork-join}
 Spájanie vetviev nie je funkciou programu, preto je nutná synchronizácia pri goroutine.
 
 
@@ -266,7 +294,68 @@ synchronizačných nástrojov ako napríklad pomocou komunikačných kanálov.
 
 
 \newpage
-\subsection{Select}
+\section{Select}
+\section{Chat server}
+Navrhnutý prototyp servru je založený na architektúre klient-server, kde server zabezpečuje výmenu správ medzi pripojenými
+klientmi. Komunikácia medzi klientom a serverom je realizovaná cez Transmission Control Protocol (TCP), ktorý zabezpečuje
+spoľahlivý prenos dát, zachovanie poradia správ a detekciu chýb pri prenose. Server je implementovaný v programovacom jazyku Go,
+využívajúc jeho vstavanú podporu pre súbežné programovanie prostredníctvom goroutine. Hlavná úloha servera spočíva v príjmaní
+nových klientských spojení, spracovaní ich požiadavkov a správe komunikačných miestností.
+
+\subsection{Klientské spojenie}
+\begin{lstlisting}[language=Go]
+	for{
+		conn, err := ln.Accept()
+		go clientHandle.HandleConnection(conn)
+	}
+\end{figure}
+
+Pri spustení server vytvorí TCP listener \uv{ln}. Následne v nekonečnom cykle
+čaká na nové pripojenie, ak je pripojenie úspešné tak vytvorý pre to spojenie novú goroutine. Týmto je zabezpečené, že každý
+klient je obslúžený súbežne a bez blokovania príjmania ďalších klientov.
+
+Každý klient je obsúžený na samostatnej goroutine, ktorá vykonáva funkciu \texttt{HandleConnection}. Toto riešenie predstavuje
+z pohľadu architektúry model:
+\begin{enumerate}
+	\item[--] jeden hlavný serverový proces
+	\item[--] jedna goroutine na klienta
+\end{enumerate}
+Riešenie je efektívne, pretože goroutine sú ľahšie ako klasické vlákna a umožňujú vysokú mieru škálovateľnosti.
+
+\subsection{Klientské požiadavky}
+Po pripojení je od klienta vyžiadané meno. Následne v nekonečnom cykle prvá podmienka pripojí klienta do komukačnej
+miestnosti a v následných cykloch spracúva požiadavky:
+\begin{enumerate}
+	\item \texttt{/fetch} Získanie nových správ v komunikačnej miestnosti
+	\item \texttt{/fetchAll} Získanie správ zo všetkých navštívených komunikačných miestností
+	\item \texttt{/broadcast} Poslanie správy do všetkých navštívených komunikačných miestností
+	\item \texttt{exit} Opustenie komunikačnej miestnosti
+	\item \texttt{logout} Odhlásenie sa zo serveru. Teda ukončenie nekonečného cyklu.
+	\item \texttt{default} Poslanie správy
+\end{enumerate}
+
+\section{Posielanie správ}
+Na správu správ sme použili štruktúru \texttt{Message}, kde sa eviduje odosielateľ
+a obsah správy. Pre každú komunikačnú miestnosť sme použili štruktúru \texttt{ChatLog}, 
+ktorá obsahuje \texttt{Message} v zozname ako poslané správy v danej komunikačnej 
+miestnosti. Táto štruktúra obsahuje aj komunikačný kanál, pomocou
+ktorého sa správy ukladajú súbežne.
+\begin{lstlisting}[language=Go,numbers=left]
+	for msg:= range cl.writeCh {
+		cl.Message = append(cl.Message, msg)
+	}	
+\end{lstlisting}
+Týmto je zabezpečené, že komunikačný kanál čaká kým doň nie je zapisované.
+Ak chce klient zapísať správu, tak komunikačným kanálom pošle správu,
+ktorá sa pridá do zoznamu.
+\begin{lstlisting}[language=Go]
+cl.writeCh <- message.Message{User: user, Message: text}	
+\end{lstlisting}
+Klient posiela správu cez kanál. Aj keď môže viacero klientov poslať správu súčastne,
+komunikačný kanál umožňuje poslanie iba jednej správy, ktorá sa spracuje predtým ako
+je umožnené ďalšiemu klientovy poslanie správy cez komunikačný kanál. Je preto klient
+pozastavený a čaká kým je opäť program pripravený spracovať ďalšiu správu.
+
 \subsection{Go pamäťový model}
 \section{Chat server}
 \subsection{Funkčné požiadavky}
@@ -279,7 +368,12 @@ synchronizačných nástrojov ako napríklad pomocou komunikačných kanálov.
 \subsection{Goroutines}
 
 \appendix
-
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.6\linewidth]{forkJoinModel.png}
+	\caption{Text pod obrazkom}
+	\label{fork-join}
+\end{figure}
 \nocite{*}
 \printbibliography
 
