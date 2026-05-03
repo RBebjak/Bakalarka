@@ -1,29 +1,22 @@
 \babel@toc {slovak}{}\relax 
 \contentsline {section}{\numberline {1}Čo je to Communication Sequential Process}{7}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Výrobca a spotrebiteľ CSP}{7}{subsection.1.1}%
-\contentsline {section}{\numberline {2}Goroutine}{8}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Model a plánovač goroutine}{8}{subsection.2.1}%
-\contentsline {section}{\numberline {3}Komunikačné kanály}{9}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Bufferované a nebufferované komunikačné kanály}{10}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Jednosmerný komunikačný kanál}{10}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Synchronizačné primitíva}{10}{section.4}%
-\contentsline {subsection}{\numberline {4.1}WaitGroup}{10}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Mutex a RWMutex}{11}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Select}{13}{section.5}%
-\contentsline {section}{\numberline {6}Chat server}{13}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Klientské spojenie}{13}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Klientské požiadavky}{14}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Go pamäťový model}{15}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Chat server}{15}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Funkčné požiadavky}{15}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Súbežná archytektúra}{15}{subsection.7.2}%
-\contentsline {section}{\numberline {8}Paralelné algoritmy}{15}{section.8}%
-\contentsline {section}{\numberline {9}Paralené programovanie}{15}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Paralelné a súbežné programovanie}{15}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Problémy súbežného programovania}{15}{subsection.9.2}%
-\contentsline {section}{\numberline {10}Jazyk Go}{15}{section.10}%
-\contentsline {subsection}{\numberline {10.1}Goroutines}{15}{subsection.10.1}%
-\contentsline {section}{Literatúra}{17}{section*.3}%
+\contentsline {subsection}{\numberline {1.1}Základné myšlienky CSP}{7}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Komunikácia v CSP}{7}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Výrobca a spotrebiteľ CSP}{8}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Goroutine}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Model a plánovač goroutine}{10}{subsection.2.1}%
+\contentsline {section}{\numberline {3}Komunikačné kanály}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Druhy komunikačných kanálov}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Implementácia}{11}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Synchronizačné primitíva}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}WaitGroup}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Mutex a RWMutex}{14}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Select}{16}{section.5}%
+\contentsline {section}{\numberline {6}Chat server}{16}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Klientské spojenie}{16}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Klientské požiadavky}{16}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Posielanie správ}{17}{section.7}%
+\contentsline {section}{Literatúra}{20}{section*.3}%
 \babel@toc {english}{}\relax 
 \babel@toc {slovak}{}\relax 
 \babel@toc {english}{}\relax 
