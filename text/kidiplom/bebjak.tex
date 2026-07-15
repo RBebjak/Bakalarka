@@ -41,8 +41,8 @@
 \section{Úvod}
 Paralelné a súbežné programovanie predstavuje dôležitú súčasť moderného vývoja softvéru. So zvyšujúcou sa elektronizáciou,
 vzniká potreba efektívne spracovať viacero úloh naraz. S potrebou pribúdajú riešenia a mechanizmy na spracovanie viacerých
-úloh súčastne. Tradišný prístup na základe zdieľania pamäte však vytvára komplikácie ako chyby súbehu alebo uviaznutie.
-Z toho dôvodu vznikajú nové metódy, založené na synchronizácií procesov prostredníctvom komunikácie na základe posialania
+úloh súčastne. Tradičný prístup na základe zdieľania pamäte však vytvára komplikácie ako chyby súbehu alebo uviaznutie.
+Z toho dôvodu vznikajú nové metódy, založené na synchronizácií procesov prostredníctvom komunikácie na základe posielania
 správ medzi procesmi. Jedným z významných konceptov v oblasti konkurenčného programovania je model
 Communication Sequential Process. Programovací jazyk Go implementuje princípy Communication Sequential Process prostredníctvom
 goroutine a komunikačných kanálov. Cieľom bakalárskej práce je analyzovať princípy paralelného programovania v jazyku Go
@@ -52,39 +52,51 @@ je implementácia prototypu chat serveru, navrhnutie paralelných algorytmov pre
 
 \section{Communication Sequential Process}
 \textit{Communication Sequential Process} (CSP) je základný teoretický prístup ku súbežnému programovaniu.\cite{hoare1978}
-Tento prístup definuje ako môžu súbežne bežiace procesy spolupracovať a komunikovať. Na rozdiel od tradičných prístupov založených
-na zdiaľanej pamäti, CSP je založené na komunikácii medzi procesmi ako hlavným mechanizmom koordinácie. Procesy si neposkytujú priamy
+Tento prístup definuje spôsob, akým môžu súbežne vykonávané procesy spolupracovať a komunikovať. Na rozdiel od tradičných prístupov založených
+na zdieľanej pamäti, CSP je založené na komunikácii medzi procesmi, ktorá predstavuje hlavný mechanizmus ich koordinácie a synchronizácie. Procesy si neposkytujú priamy
 prístup k pamäti, čím sa znižuje počet chýb súbehu. Základnou myšlienkou CSP je, že program sa skladá z viacerých sekvenčných procesov
 vykonávaných súbežne, ktoré medzi sebou komunikujú prostredníctvom vstupno-výstupných operácií.
 
 \subsection{Základné myšlienky CSP}
-Hoare navrhol riešenie na základe troch princípov:
+Hoare pri návrhu CSP vychádza z troch základných princípov, ktoré umožňujú vytvárať bezpečné súbežné programy:
 \begin{itemize}
 	\item Strážené príkazy
 	\item Paralelná kompozícia procesov
 	\item Komunikácia pomocou vstupu a výstupu
 \end{itemize}
-Koncept strážených príkazov zavedený Djikstrom umožňuje riadiť vetvenie a nedeterministické správanie. Ide o príkazy, ktoré
-sa vykonajú až po splnení určitej podmienky.
+Koncept strážených príkazov zavedený Dijkstrom umožňuje riadiť vetvenie a nedeterministické správanie. Ide o príkazy, ktorých vykonanie je podmienené splnením logickej podmienky.
+Ak podmienka nie je splnená, proces čaká, kým podmienka nie je splnená.
 Paralelná kompozícia opisuje
 program tak, že program môže pozostávať z viacerých procesov, ktoré sa spúšťajú súčasne, vykonávajú sa nezávisle a končia
 až keď skončia všetky súbežné procesy. Komunikácia pomocou vstupu a výstupu znamená, že procesy spolu komunikujú výhradne
-pomocou vstupno-výstupných operácií. Procesy tak nezdieľajú pamäť a ich komunikácia prebieha synchronizovane.
+pomocou vstupno-výstupných operácií. Každá komunikácia predstavuje synchronizačný bod medzi dvoma procesmi pretože, prenos údajov prebieha iba vtedy, keď sú odosielateľ aj prijímateľ pripravený komunikovať.
+Procesy tak nezdieľajú pamäť a ich komunikácia prebieha synchronizovane.
 
 V CSP možno chápať každý proces ako samostatnú výpočtovú jednotku s vlastným stavom, ktorá vykonáva príkazy v definovanom poradí.
-Procesy nie sú izolované, ich spolupráca je kľúčová na dosiahnutie požadovaného výsledku. Ich spolupráca je realizovaná
-pomocou synchrónnej komunikácie, pri ktorej musí byť odosieľateľ aj prijímateľ pripravený na výmenu údajov v rovnakom okamihu.
-Prístup odňatím prístupu k pamäti
-eliminuje problémy spojené s chybami súbehu a nekonzistentným stavom pamäte. Tento prístp ale môže viesť k
+Na opis správania procesu sa používa pojem \texttt{udalosť}. Udalosť predstavuje elementárnu akciu,
+ktorú môže proces vykonať. Nie je dôležitá implementácia, ale navonok pozorovateľné správanie.
+Udalosť predstavuje okamich
+pozorovatelný ostatnými procesmi. Postupnosť udalostí sa označuje ako \texttt{stopa}. Stopa predstavuje
+chronologický záznam všetkých udalostí, ktoré proces od svojho vzniku vykonal.
+Správanie procesu je preto možné opísať ako postupnosť udalostí vykonaných procesom, bez potreby poznať jeho implementáciu.
+Tento spôsob opisu je jeden zo základných princípov formálneho modelovania v CSP.
+Procesy nie sú izolované. Ich spolupráca je kľúčová na dosiahnutie požadovaného výsledku a je realizovaná
+pomocou synchronizovanej komunikácie. Pri ktorej musí byť odosieľateľ aj prijímateľ pripravený na výmenu údajov v rovnakom okamihu.
+Proces nikdy nepristupuje priamo do pamäte iného procesu. Všetky informácie získava alebo odosiela
+prostredníctvom výmeny správ.
+Eliminácia prístupu k pamäti
+znižuje vznik nekonzistentného stavu pamäte a chýb súbehu. Tento prístup ale môže viesť k
 situácii, kedy procesy čakajú bez možnosti pokračovať, teda uviaznutiu pre jeho správanie, kedy odosieteľ čaká na príjemcu a naopak.
 
 \subsection{Komunikácia v CSP}
-Hlavnou vlastnosťou CSP je prenos dát medzi procesmi. Hodnota odoslaná jedným procesom je priamo priradená premennej v druhom
+Hlavnou vlastnosťou CSP je prenos dát medzi procesmi prostredníctvom zasielania správ. Hodnota odoslaná jedným procesom je priamo priradená premennej v druhom
 procese. Procesy musia byť pripravené na komunikáciu v rovnakom okamihu.
+Proces nemôže pokračovať, kým druhý proces nie je pripravený na komunikáciu.
 Prenos hodnoty je atomický a synchronizovaný, teda nemôže prísť k čiastočnému prenosu alebo nekonzistentnému stavu.
-Zjednodušuje uvažovanie o správnosti programu, pretože eliminuje potrebu zamykania a konflikty pri prístupe k pamäti.
+Komunikácia medzi procesmi súčasne zabezpečuje prenos dát aj synchronizáciu procesov.
+Tento spôsob komunikácie zjednodušuje uvažovanie o správnosti programu, pretože eliminuje potrebu zamykania a konflikty pri prístupe k pamäti.
 
-CSP používa príkazy:
+CSP používa na opis správania procesov príkazy:
 \begin{itemize}
 	\item Priradenie hodnoty
 	\item Vstup
@@ -96,15 +108,43 @@ CSP používa príkazy:
 		      \item Repetitívny príkaz
 	      \end{itemize}
 \end{itemize}
-Priradenie hodnoty premennej funguje ako ho poznáme. Vstup a výstup sú synchronizované tak, že proces posielajúci výstupnú operáciu musí
-čakať kým proces s adekvátnou vstuponou operáciou je pripravený na komunikáciu a naopak. Štruktúrové príkazy umožňujú vytvárať
-alternatívy a repetetívy. Alternatívny príkaz umožňuje výber z viacerých možností, podľa splnenia podmienky. Umožňuje
+Priradenie hodnoty premennej funguje ako ho poznáme.
+Vstup a výstup sú synchronizované tak, že proces posielajúci výstupnú operáciu musí
+čakať kým proces s adekvátnou vstuponou operáciou je pripravený na komunikáciu a naopak. 
+Obidve operácie tvoria jednu spoločnú komunikačnú udalosť.
+Štruktúrové príkazy umožňujú vytvárať
+alternatívne príkazy a repetetívne príkazy. Alternatívny príkaz umožňuje výber z viacerých možností, podľa splnenia podmienky. Umožňuje
 synchronizovanie medzi viacerými procesmi naraz. Podľa splnenia podmienky, ak nie je splnená žiadna podmienka, čaká. Ak je splnená
-jedna podmienka vykoná proces priradený danej podmienke. Ak je splnených viacero podmienok, vykoná náhodnú, výber je
-nedeterministický. Tento príkaz umožňuje modelovať situácie, kde správanie programu závisí od aktuálnych podmienok alebo
+jedna podmienka vykoná proces priradený danej podmienke. Ak je splnených viacero podmienok, vykoná jednu z nich. Výber je
+nedeterministický. Alternatívny príkaz umožňuje modelovať situácie, kde správanie programu závisí od aktuálnych podmienok alebo
 interakcie s inými procesmi. Repetitívny príkaz predstavuje cyklus alternatívnych príkazov, kedy sa príkaz vykonáva opakovane, kým je
-splnená aspoň jedna podmienka. Inak sa cyklus ukončí. Tento príkaz umožňuje modelovať situácie, kde program reaguje na
+splnená aspoň jedna podmienka. Inak sa cyklus ukončí. Repetitívny príkaz umožňuje modelovať situácie, kde program reaguje na
 prichádzajúce správy alebo udalosti.
+
+\subsection{Syntax CSP}
+Na opis správania procesov CSP používa vlastnú syntax. Jednotlivé symboli predstavujú základné operácie
+komunikácie, synchronizácie a riadenia toku programu. \cite{hoare1978s}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Syntax} & \textbf{Význam} \\ \hline
+$a := b$ & Priradenie hodnoty premennej. \\ \hline
+$P?x$ & Prijatie hodnoty od procesu alebo komunikačného kanála $P$ a uloženie do premennej $x$. \\ \hline
+$P!x$ & Odoslanie hodnoty $x$ procesu alebo komunikačnému kanálu $P$. \\ \hline
+$SKIP$ & Prázdny príkaz, ktorý nevykonáva žiadnu operáciu a okamžite končí. \\ \hline
+$A \rightarrow B$ & Po vykonaní udalosti alebo splnení podmienky $A$ pokračuje proces vykonaním časti $B$. \\ \hline
+$G \rightarrow S$ & Strážený príkaz (guard). Ak je splnená podmienka $G$, vykoná sa príkaz $S$. V opačnom prípade proces čaká. \\ \hline
+$[\,]$ & Alternatívny príkaz. Vyberie jednu z možných vetiev, ktorej podmienka je splnená. Ak je splnených viac podmienok, výber je nedeterministický. \\ \hline
+$*[\,]$ & Repetitívny príkaz. Opakovane vykonáva alternatívny príkaz, pokiaľ je splnená aspoň jedna podmienka. \\ \hline
+$(i:1..n)$ & Rozsah indexov používaný pri komunikácii s ľubovoľným procesom zo skupiny procesov. \\ \hline
+$P || Q$ & Paralelné vykonávanie procesov $P$ a $Q$. \\ \hline
+$\mu X$ & Rekurzívna definícia procesu, ktorá umožňuje vytvoriť proces vykonávajúci sa opakovane. \\ \hline
+$\dots$ & Činnosť vykonávaná monitorom po prijatí údajov, ktorej implementácia nie je z pohľadu CSP podstatná \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection{Výrobca a spotrebiteľ CSP}
 CSP sa dá v tomto príklade chápať ako monitor s ktorým komunikujú viaceré procesy. Procesy musia byt odlišne pomenované napr. \uv{Výrobca} a \uv{Spotrebiteľ},
