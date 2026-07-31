@@ -110,8 +110,8 @@
       \strng{authorbibnamehash}{9aad599a484912a0011df020dcea8d57}
       \strng{authornamehash}{9aad599a484912a0011df020dcea8d57}
       \strng{authorfullhash}{9aad599a484912a0011df020dcea8d57}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{isbn}{9781453636671}
@@ -132,8 +132,8 @@
       \strng{authorbibnamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
       \strng{authornamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
       \strng{authorfullhash}{624d94bb5eb5b468c9fc6a6cb415321b}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Towards Scalable Adaptive Mesh Refinement on Future Parallel Architectures}
@@ -160,8 +160,8 @@
       \strng{authorbibnamehash}{cb15fceac7ca486986e56681239bdd6a}
       \strng{authornamehash}{cb15fceac7ca486986e56681239bdd6a}
       \strng{authorfullhash}{cb15fceac7ca486986e56681239bdd6a}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{edition}{first}
@@ -184,8 +184,8 @@
       \strng{authornamehash}{d6c272fa3fbbc22057be50e4fbf75dd5}
       \strng{authorfullhash}{d6c272fa3fbbc22057be50e4fbf75dd5}
       \field{extraname}{1}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://go.dev/src/runtime/chan.go}}
@@ -206,8 +206,8 @@
       \strng{authornamehash}{d6c272fa3fbbc22057be50e4fbf75dd5}
       \strng{authorfullhash}{d6c272fa3fbbc22057be50e4fbf75dd5}
       \field{extraname}{2}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://go.dev/src/runtime/select.go}}

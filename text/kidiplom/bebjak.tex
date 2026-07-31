@@ -55,44 +55,41 @@
 
 \newcommand{\BibLaTeX}{\textsc{Bib}\LaTeX}
 \section{Úvod}
-Paralelné programovanie predstavuje dôležitú súčasť moderného vývoja softvéru. S rastúcou zložitosťou softvérových systémov a rozšírením viacjadrových procesorov rastie požiadavka na efektívne využitie výpočtových prostriedkov prostredníctvom paralelného spracovania úloh. Preto pribúdajú riešenia a mechanizmy umožňujúce spracovanie viacerých úloh súčasne. Tradičný prístup založený na zdieľanej pamäti však prináša komplikácie, ako sú chyby súbehu alebo uviaznutie. Z tohto dôvodu vznikajú prístupy založené na synchronizácii procesov prostredníctvom komunikácie a výmeny správ medzi procesmi. Jedným z významných konceptov v oblasti súbežného programovania je model Communicating Sequential Processes (CSP) \cite{hoare1978s}. Programovací jazyk Go implementuje princípy modelu CSP prostredníctvom goroutine a komunikačných kanálov. Cieľom bakalárskej práce je predstaviť princípy súbežného programovania v jazyku Go, vysvetliť ich teoretické základy vychádzajúce z modelu CSP a demonštrovať ich využitie pri návrhu a implementácii prototypu chat servera. Práca sa venuje teoretickému opisu mechanizmov súbežného programovania, návrhu paralelných algoritmov pre server a analýze ich správnosti prostredníctvom dôkazov.
+Paralelné programovanie predstavuje dôležitú súčasť moderného vývoja softvéru. S rastúcou zložitosťou softvérových systémov a rozšírením viacjadrových procesorov rastie požiadavka na efektívne využitie výpočtových prostriedkov prostredníctvom paralelného spracovania úloh. Preto pribúdajú riešenia a mechanizmy umožňujúce spracovanie viacerých úloh súčasne. Tradičný prístup založený na zdieľanej pamäti však prináša komplikácie, ako sú chyby súbehu alebo uviaznutie. Z tohto dôvodu vznikajú prístupy založené na synchronizácii procesov prostredníctvom komunikácie a výmeny správ medzi procesmi. Jedným z významných konceptov v oblasti súbežného programovania je model Communicating Sequential Processes (CSP) \cite{hoare1978s}. Programovací jazyk Go implementuje princípy modelu CSP prostredníctvom goroutín a komunikačných kanálov. Cieľom bakalárskej práce je predstaviť princípy súbežného programovania v jazyku Go, vysvetliť ich teoretické základy vychádzajúce z modelu CSP a demonštrovať ich využitie pri návrhu a implementácii prototypu chat servera. Práca sa venuje teoretickému opisu mechanizmov súbežného programovania, návrhu paralelných algoritmov pre server a analýze ich správnosti prostredníctvom dôkazov.
 
-\section{Communicating Sequential Process}
-\textit{Communicating Sequential Process} (CSP) je základný teoretický prístup ku súbežnému programovaniu, ktorý predstavil Charles Antony Richard Hoare v roku 1978 ako formálny model súbežného programovania.\cite{hoare1978}
+\section{Communicating Sequential Processes}
+\textit{Communicating Sequential Process} (CSP) je formálny model súbežného programovania, ktorý predstavil Charles Antony Richard Hoare v roku 1978.\cite{hoare1978}
 Tento prístup definuje spôsob, akým medzi sebou súbežne vykonávané procesy komunikujú a koordinujú svoje vykonávanie. Na rozdiel od tradičných prístupov založených
-na zdieľanej pamäti, CSP je založené na komunikácii medzi procesmi, ktorá predstavuje hlavný mechanizmus ich koordinácie a synchronizácie. Koordinácia určuje spôsob spolupráce procesov pri riešení spoločnej úlohy, zatiaľ čo synchronizácia zabezpečuje správne časové usporiadanie ich vykonávania.
+na zdieľanej pamäti, CSP je založené na komunikácii medzi procesmi, ktorá predstavuje hlavný mechanizmus ich koordinácie a synchronizácie. \cite{hoare1978s} Koordinácia určuje spôsob spolupráce procesov pri riešení spoločnej úlohy, zatiaľ čo synchronizácia zabezpečuje správne časové usporiadanie ich vykonávania. 
 Procesy si neposkytujú priamy
 prístup k pamäti, čím sa znižuje riziko vzniku chýb súbehu. Základnou myšlienkou CSP je, že program sa skladá z viacerých sekvenčných procesov
-vykonávaných súbežne, ktoré medzi sebou komunikujú prostredníctvom vstupno-výstupných operácií.
+vykonávaných súbežne, ktoré medzi sebou komunikujú prostredníctvom vstupno-výstupných operácií. \cite{hoare1978s}
 
-CSP vychádza z troch základných princípov, ktoré umožňujú vytvárať bezpečné súbežné programy:
+Model CSP je založený na troch základných princípov, ktoré umožňujú vytvárať bezpečné súbežné programy:
 \begin{itemize}
 	\item strážené príkazy,
 	\item paralelná kompozícia procesov,
 	\item komunikácia pomocou vstupu a výstupu.
 \end{itemize}
-Koncept strážených príkazov zaviedol Edsger Wybe Dijkstra. Ten umožňuje riadiť vetvenie a nedeterministické správanie. Vetvenie znamená výber jednej z viacerých možných vetiev programu podľa splnenia podmienky. Nedeterministické správanie nastáva v situácii, keď je súčasne splnených viac podmienok a model nepredpisuje, ktorá z možných vetiev bude vykonaná. Dôležité je iba to, že bude zvolená jedna z povolených možností.
+Koncept strážených príkazov umožňuje riadiť vetvenie a nedeterministické správanie. Vetvenie znamená výber jednej z viacerých možných vetiev programu podľa splnenia podmienky. Nedeterministické správanie nastáva v situácii, keď je súčasne splnených viac podmienok a model nepredpisuje, ktorá z možných vetiev bude vykonaná. Dôležité je iba to, že bude zvolená jedna z povolených možností. \cite{hoare1978s}
 Ide o príkazy, ktorých vykonanie je podmienené splnením logickej podmienky.
 Ak podmienka nie je splnená, proces čaká, kým je podmienka splnená.
-Paralelná kompozícia opisuje
-program tak, že program môže pozostávať z viacerých procesov, ktoré sa spúšťajú súčasne, vykonávajú sa nezávisle a končia
-až keď skončia všetky súbežné procesy. Komunikácia pomocou vstupu a výstupu znamená, že procesy spolu komunikujú výhradne
+Paralelná kompozícia umožňuje vytvoriť program pozostávajúci z viacerých procesov, ktoré sa vykonávajú súčasne, nezávisle od seba a končia až po ukončení všetkých procesov. Komunikácia pomocou vstupu a výstupu znamená, že procesy spolu komunikujú výhradne
 pomocou vstupno-výstupných operácií. Výstupná operácia predstavuje odoslanie hodnoty procesom, zatiaľ čo vstupná operácia predstavuje prijatie hodnoty iným procesom. Komunikácia sa uskutoční iba vtedy, keď sú odosielateľ aj prijímateľ pripravení vykonať príslušné operácie.
-Každá komunikácia predstavuje synchronizačný bod medzi dvoma procesmi pretože, prenos údajov prebieha iba vtedy, keď sú odosielateľ aj prijímateľ pripravený komunikovať.
-Procesy tak nezdieľajú pamäť a ich komunikácia prebieha synchronizovane.
+Každá komunikácia predstavuje synchronizačný bod medzi dvoma procesmi, pretože prenos údajov prebieha iba vtedy, keď sú odosielateľ aj prijímateľ pripravení komunikovať.
+Procesy tak nezdieľajú pamäť a ich komunikácia prebieha synchronizovane. \cite{hoare1978s}
 
 V CSP možno chápať každý proces ako samostatnú výpočtovú jednotku s vlastným stavom, ktorá vykonáva príkazy v definovanom poradí.
-Na opis správania procesu sa používa pojem \emph{udalosť}. Udalosť predstavuje elementárnu akciu,
-ktorú môže proces vykonať. Nie je dôležitá implementácia, ale navonok pozorovateľné správanie.
+Na opis správania procesu sa používa pojem \emph{udalosť}. Udalosť predstavuje pozorovateľnú akciu procesu. Nie je dôležitá implementácia, ale navonok pozorovateľné správanie.
 Udalosť predstavuje okamih
 pozorovatelný ostatnými procesmi. Postupnosť udalostí sa označuje ako \emph{stopa}. Stopa predstavuje
-chronologický záznam všetkých udalostí, ktoré proces od svojho vzniku vykonal.
+chronologický záznam všetkých udalostí, ktoré proces od svojho vzniku vykonal. \cite{hoare1978s}
 Správanie procesu je možné opísať pomocou postupnosti udalostí, ktoré proces počas svojho vykonávania vyvolá, bez potreby poznať jeho implementáciu.
 Tento spôsob opisu je jeden zo základných princípov formálneho modelovania v CSP.
-Procesy nie sú izolované. Ich spolupráca je kľúčová na dosiahnutie požadovaného výsledku a je realizovaná
+Procesy nie sú izolované. \cite{hoare1978s} Ich spolupráca je kľúčová na dosiahnutie požadovaného výsledku a je realizovaná
 pomocou synchronizovanej komunikácie.
 Všetky informácie získava alebo odosiela
-prostredníctvom výmeny správ.
+prostredníctvom výmeny správ. 
 Tento prístup ale môže viesť k
 situácii, kedy procesy čakajú bez možnosti pokračovať, teda uviaznutiu pre jeho správanie, kedy odosieteľ čaká na príjemcu a naopak.
 
@@ -100,34 +97,9 @@ situácii, kedy procesy čakajú bez možnosti pokračovať, teda uviaznutiu pre
 Hlavnou vlastnosťou CSP je prenos dát medzi procesmi prostredníctvom zasielania správ. Hodnota odoslaná jedným procesom je priamo priradená premennej v druhom
 procese. Procesy musia byť pripravené na komunikáciu v rovnakom okamihu.
 Proces nemôže pokračovať, kým druhý proces nie je pripravený na komunikáciu.
-Prenos hodnoty je atomický a synchronizovaný, teda nemôže prísť k čiastočnému prenosu alebo nekonzistentnému stavu.
+Prenos hodnoty je atomický a synchronizovaný, teda nemôže prísť k čiastočnému prenosu alebo nekonzistentnému stavu. \cite{hoare1978}
 Komunikácia medzi procesmi súčasne zabezpečuje prenos dát aj synchronizáciu procesov.
-Tento spôsob komunikácie zjednodušuje uvažovanie o správnosti programu, pretože eliminuje potrebu zamykania a konflikty pri prístupe k pamäti.
-
-CSP používa na opis správania procesov príkazy:
-\begin{itemize}
-	\item Priradenie hodnoty
-	\item Vstup
-	\item Výstup
-	\item Prázdny príkaz
-	\item Štruktúrovaný príkaz
-	      \begin{itemize}
-		      \item Alternatívny príkaz
-		      \item Repetitívny príkaz
-	      \end{itemize}
-\end{itemize}
-Priradenie hodnoty premennej funguje ako ho poznáme.
-Vstup a výstup sú synchronizované tak, že proces posielajúci výstupnú operáciu musí
-čakať kým proces s adekvátnou vstuponou operáciou je pripravený na komunikáciu a naopak. 
-Obidve operácie tvoria jednu spoločnú komunikačnú udalosť.
-Štruktúrové príkazy umožňujú vytvárať
-alternatívne príkazy a repetetívne príkazy. Alternatívny príkaz umožňuje výber z viacerých možností, podľa splnenia podmienky. Umožňuje
-synchronizovanie medzi viacerými procesmi naraz. Podľa splnenia podmienky, ak nie je splnená žiadna podmienka, čaká. Ak je splnená
-jedna podmienka vykoná proces priradený danej podmienke. Ak je splnených viacero podmienok, vykoná jednu z nich. Výber je
-nedeterministický. Alternatívny príkaz umožňuje modelovať situácie, kde správanie programu závisí od aktuálnych podmienok alebo
-interakcie s inými procesmi. Repetitívny príkaz predstavuje cyklus alternatívnych príkazov, kedy sa príkaz vykonáva opakovane, kým je
-splnená aspoň jedna podmienka. Inak sa cyklus ukončí. Repetitívny príkaz umožňuje modelovať situácie, kde program reaguje na
-prichádzajúce správy alebo udalosti.
+Tento spôsob komunikácie zjednodušuje uvažovanie o správnosti programu, pretože eliminuje potrebu zamykania a konflikty pri prístupe k pamäti. \cite{hoare1978s}
 
 Na opis správania procesov CSP používa vlastnú syntax. Jednotlivé symboly predstavujú základné operácie
 komunikácie, synchronizácie a riadenia toku programu. \cite{hoare1978s}
@@ -138,57 +110,109 @@ komunikácie, synchronizácie a riadenia toku programu. \cite{hoare1978s}
 \hline
 \textbf{Syntax} & \textbf{Význam} \\ \hline
 $a := b$ & Priradenie hodnoty premennej. \\ \hline
-$P?x$ & Prijatie hodnoty od procesu alebo komunikačného kanála $P$ a uloženie do premennej $x$. \\ \hline
-$P!x$ & Odoslanie hodnoty $x$ procesu alebo komunikačnému kanálu $P$. \\ \hline
+$P?x$ & Prijatie hodnoty od procesu $P$ a uloženie do premennej $x$. \\ \hline
+$P!x$ & Odoslanie hodnoty $x$ procesu $P$. \\ \hline
 $SKIP$ & Prázdny príkaz, ktorý nevykonáva žiadnu operáciu a okamžite končí. \\ \hline
-$A \rightarrow B$ & Po vykonaní udalosti alebo splnení podmienky $A$ pokračuje proces vykonaním časti $B$. \\ \hline
-$G \rightarrow S$ & Strážený príkaz (guard). Ak je splnená podmienka $G$, vykoná sa príkaz $S$. V opačnom prípade proces čaká. \\ \hline
-$[\,]$ & Alternatívny príkaz. Vyberie jednu z možných vetiev, ktorej podmienka je splnená. Ak je splnených viac podmienok, výber je nedeterministický. \\ \hline
+$A \rightarrow B$ & Po vykonaní udalosti $A$ pokračuje proces vykonávaním procesu $B$. Tento zápis predstavuje prefixový operátor v CSP. \\ \hline
+$G \rightarrow S$ & Strážený príkaz (guard). Ak je splnená podmienka $G$, vykoná sa príkaz $S$. V opačnom prípade proces čaká, kým sa podmienka nestane pravdivou. \\ \hline
+$[\,]$ & Alternatívny príkaz. Vyberie jednu zo strážených alternatív, ktorých podmienka je splnená. Ak je splnených viac podmienok, výber je nedeterministický. \\ \hline
 $*[\,]$ & Repetitívny príkaz. Opakovane vykonáva alternatívny príkaz, pokiaľ je splnená aspoň jedna podmienka. \\ \hline
 $(i:1..n)$ & Rozsah indexov používaný pri komunikácii s ľubovoľným procesom zo skupiny procesov. \\ \hline
 $P || Q$ & Paralelné vykonávanie procesov $P$ a $Q$. \\ \hline
-$\mu X$ & Rekurzívna definícia procesu, ktorá umožňuje vytvoriť proces vykonávajúci sa opakovane. \\ \hline
-$\dots$ & Činnosť vykonávaná monitorom po prijatí údajov, ktorej implementácia nie je z pohľadu CSP podstatná \\
+$\mu X$ & Rekurzívna definícia procesu umožňuje definovať proces odkazujúci na svoju vlastnú definíciu, čím možno modelovať opakujúce sa alebo nekonečné správanie. \\ \hline
+$\dots$ & Ľubovoľná činnosť vykonaná procesom po úspešnej komunikácii, ktorej implementácia nie je z pohľadu modelu CSP podstatná. \\
 \hline
 \end{tabular}
 \end{table}
 
-\subsection{Výrobca a spotrebiteľ CSP}
-CSP sa dá v tomto príklade chápať ako monitor s ktorým komunikujú viaceré procesy. Procesy musia byť odlišne pomenované napr. \uv{Výrobca} a \uv{Spotrebiteľ},
+Priradenie hodnoty premennej má rovnaký význam ako v bežných imperatívnych programovacích jazykoch.
+Vstup a výstup sú synchronizované tak, že proces posielajúci výstupnú operáciu musí
+čakať, kým iný proces nevykoná zodpovedajúcu vstupnú operáciu.
+Napríklad, ak proces P odošle hodnotu operáciou \texttt{P!x}, druhý proces musí byť pripravený prijať túto hodnotu operáciou \texttt{P?y}. Až potom dôjde k samotnému prenosu údajov.
+Obidve operácie tvoria jednu spoločnú komunikačnú udalosť. \cite{hoare1978s}
+
+Štruktúrované príkazy predstavujú zloženejšie riadiace konštrukcie vytvorené z jednoduchých príkazov. 
+
+Alternatívny príkaz slúži na výber jednej z viacerých možných alternatív podľa splnenia strážených podmienok.
+\begin{lstlisting}
+[
+    x > 0 -> P!x
+[]
+    y > 0 -> Q!y
+]
+\end{lstlisting}
+Ak je splnená iba podmienka \texttt{x > 0}, vykoná sa prvá alternatíva. Ak je splnená iba podmienka \texttt{y > 0}, vykoná sa druhá alternatíva. Ak sú splnené obe podmienky, model CSP nedeterminizmom vyberie jednu z nich. Ak nie je splnená ani jedna podmienka, proces čaká, kým sa niektorá z podmienok nestane pravdivou. \cite{hoare1978s}
+Alternatívny príkaz slúži na modelovanie situácií, kde správanie programu závisí od aktuálnych podmienok alebo
+interakcie s inými procesmi. 
+
+Repetitívny príkaz predstavuje cyklus alternatívnych príkazov.
+\begin{lstlisting}
+*[
+    in?x -> out!x
+[]
+    stop -> SKIP
+]
+\end{lstlisting}
+Proces opakovane prijíma hodnoty zo vstupu \texttt{in} a odosiela ich na výstup \texttt{out}. Cyklus pokračuje dovtedy, kým je možné vykonať aspoň jednu z alternatív. Ak už nie je splnená žiadna podmienka, vykonávanie sa ukončí. \cite{hoare1978s}
+Repetitívny príkaz sa používa na modelovanie situácií, kde program opakovane reaguje na
+prichádzajúce správy alebo udalosti.
+
+\subsection{Výrobca a spotrebiteľ v CSP}
+Pri riešení zložitejších úloh často komunikuje viacero procesov s jedným spoločným procesom, ktorý koordinuje ich činnosť. Takýto proces možno chápať ako monitor. Monitor ako synchronizačný objekt prijímajúci požiadavky od ostatných procesov, zabezpečujúci ich vzájomnú synchronizáciu a rozhodujúci o poradí ich spracovania. V modeli CSP monitor nepredstavuje zdieľanú pamäť, ale samostatný proces komunikujúci prostredníctvom výmeny správ. \cite{hoare1978s}
+Procesy musia byť odlišne pomenované napr. \uv{Výrobca} a \uv{Spotrebiteľ},
 alebo mať odlišný index napríklad \uv{X(0)}. Každá komunikácia musí mať jednoznačne určený svoj zdroj alebo cieľ. Keď je monitor pripravený komunikovať
 s ktorýmkoľvek používateľským procesom, zväčša ktorý príde prvý, používa strážený príkaz s rozsahom.
+Predpokladajme, že existuje sto procesov označených ako X(1) až X(100), ktoré komunikujú s jedným monitorom. Monitor nevie dopredu, ktorý proces odošle požiadavku ako prvý. Preto musí byť pripravený prijať správu od ktoréhokoľvek z nich.
 \[
 	[(i:1..100);\; X(i)?(value\ parameters) \rightarrow \dots ;\; X(i)!(results);]
 \]
-Premenná \uv{i} sa používa na posielanie výsledkov späť procesu, ktorý komunikáciu inicioval.
+Premenná \uv{i} identifikuje proces, ktorý komunikáciu inicioval. Monitor ju následne využije pri odoslaní výsledku späť správnemu procesu.
 
-Ako monitor nie je pripravený na komunikáciu od konkrétneho procesu napríklad \uv{X(j)}, môže byť vstupný príkaz doplnený o booleovskú podmienku,
-takzvanú stráž. Napríklad dve po sebe idúce požiadavky od rovnakého procesu, môžu byť zablokované pomocou podmienky \uv{j=0}.
+Ak monitor nie je pripravený na komunikáciu od konkrétneho procesu napríklad \uv{X(j)}, môže byť vstupný príkaz doplnený o booleovskú podmienku,
+takzvanú stráž. Napríklad možno zabrániť tomu, aby monitor dvakrát po sebe obslúžil požiadavku od toho istého procesu. To možno dosiahnuť podmienkou $i \neq j$, kde premenná $j$ uchováva identifikátor naposledy obslúženého procesu.
+Predstavme si, že monitor obsluhuje požiadavky klientov. Ak by jeden klient posielal požiadavky nepretržite, ostatné procesy by mohli zostať dlhý čas neobslúžené. Preto možno pomocou stráženej podmienky dočasne zablokovať opätovné prijatie požiadavky od toho istého procesu, kým nebude spracovaná požiadavka od iného procesu.
 \[
 	*[(i:1..100)i\neq j;\; X(i)?(parameters) \rightarrow \dots ;\; i := j ;\;]
 \]
-V tomto prípade bude výstup procesu \uv{X(j)} odložený, kým nebude spracovaná požiadavka iného procesu.
-Podobne je možné použiť podmienky na oddialenie prijatia vstupov, ktoré by porušili plánovacie obmedzenia. \cite{hoare1978}
+V tomto prípade monitor neprijme ďalšiu požiadavku od procesu \uv{X(j)}, kým nebude spracovaná požiadavka iného procesu.
+Rovnakým spôsobom možno pomocou strážených podmienok odložiť spracovanie požiadaviek, ktoré by v danom okamihu porušili pravidlá plánovania alebo iné obmedzenia systému. \cite{hoare1978}
+
+Ako príklad možno uviesť problém výrobcu a spotrebiteľa. Predpokladajme, že existuje viacero procesov \uv{Výrobca}, ktoré vytvárajú údaje, a viacero procesov \uv{Spotrebiteľ}, ktoré ich spracúvajú. Medzi nimi sa nachádza monitor predstavujúci spoločný zásobník. Výrobcovia odosielajú vytvorené údaje monitoru, ktorý ich uloží, zatiaľ čo spotrebitelia od monitora požadujú ďalšiu dostupnú položku. Monitor zabezpečuje, aby sa údaje odovzdávali korektne aj v prípade, že viac výrobcov alebo spotrebiteľov komunikuje súčasne.
+\[
+\begin{aligned}
+Výrobca(i) &= Monitor!item \rightarrow Výrobca(i) \\
+Spotrebiteľ(j) &= Monitor?item \rightarrow Spotrebiteľ(j) \\
+Monitor &= *[
+    (i:1..m);\;
+    (j:1..n); \\
+&\qquad
+    Výrobca(i)?item
+    \rightarrow
+    Spotrebiteľ(j)!item
+]
+\end{aligned}
+\]
+V uvedenom príklade môže existovať ľubovoľný počet výrobcov a spotrebiteľov. Indexy $i$ a $j$ identifikujú konkrétny proces, ktorý práve komunikuje s monitorom. Monitor prijíma údaje od ľubovoľného výrobcu a poskytuje ich ľubovoľnému spotrebiteľovi, pričom zabezpečuje správnu synchronizáciu komunikácie medzi všetkými procesmi.
 
 \section{Jazyk Go}
 Programovací jazyk Go bol vyvinutý spoločnosťou Google s cieľom vytvoriť jednoduchý, efektívny a výkonný
-jazyk. Jazyk je vhodný pre vývoj moderných aplikácií. Pri návrhu bol kladený dôraz na rýchlosť kompilácie, jednoduchú syntax, bezpečnosť práce s pamäťou a natívnu podporu súbežného programovania.
+jazyk. Jazyk je vhodný na vývoj moderných aplikácií. Pri návrhu bol kladený dôraz na rýchlosť kompilácie, jednoduchú syntax, bezpečnosť práce s pamäťou a natívnu podporu súbežného programovania.
 Go patrí medzi kompilované, staticky typované programovacie jazyky a poskytuje automatickú
 správu pamäte pomocou garbage collectora. \cite{baugh2010go}
-Go obsahuje vstavané mechanizmy pre paralelné a súbežné programovanie, ktorým sa práca venuje.
+Go obsahuje vstavané mechanizmy na paralelné a súbežné programovanie, ktorým sa venuje táto práca.
 V Go je súbežnosť súčasťou návrhu jazyka a predstavuje jednu z jeho najvýznamnejších vlastností.
 
 Go je staticky typovaný jazyk, čo znamená, že typ každej premennej je známy už počas kompilácie.
 Vďaka tomu je možné odhaliť chyby s tým spojené ešte pred spustením programu.
-Typ premennej môže byť uvedený explicitne
+Typ premennej môže byť uvedený explicitne:
 \begin{lstlisting}[language=Go]
 	var <variable_name> <type> = <value>	
 \end{lstlisting}
-alebo pomocou skrátenej deklarácie, ktorú vie kompilátor odvodiť
+alebo pomocou skrátenej deklarácie, ktorú vie kompilátor odvodiť:
 \begin{lstlisting}[language=Go]
 	<variable_name> := <value>
 \end{lstlisting}
-Skrátená deklarácia patrí medzi najčastejšie používané zápisy v Go a znižuje množstvo potrebného kódu.
+Skrátená deklarácia patrí medzi najčastejšie používané zápisy v Go a znižuje množstvo potrebného kódu. \cite{baugh2010go}
 
 Go podporuje dátové typy:
 \begin{table}[H]
@@ -214,32 +238,32 @@ Go podporuje dátové typy:
 \end{tabular}
 \end{table}
 
-Funkcie sa deklarujú pomocou kľúčového slova \uv{func}. Návratový typ sa zapisuje za zoznam argumentov.
+Funkcie sa deklarujú pomocou kľúčového slova \uv{func}. Návratový typ sa zapisuje za zoznam argumentov. \cite{baugh2010go}
 \begin{lstlisting}[language=Go]
 	func <name>(<arguments>, <argument>) <return_type> {
 		return <value>
 	}
 \end{lstlisting}
-Významnou vlastnosťou Go je možnosť viacerých návratových hodnôt z funkcie. Často využíva pri návrate 
-výsledku spolu s informáciou o chybe
+Významnou vlastnosťou Go je možnosť viacerých návratových hodnôt z funkcie. Často sa využíva pri návrate 
+výsledku spolu s informáciou o chybe:
 \begin{lstlisting}[language=Go]
 	value, err := ReadFile(path)
 \end{lstlisting}
-Znižuje to potrebu výnimiek a predstavuje štandartný mechanizmus ošetrovania chýb v Go. 
+Takýto spôsob spracovania chýb znižuje potrebu používania výnimiek a predstavuje štandardný mechanizmus ošetrovania chýb v Go. 
 \cite{baugh2010go}
 
 Jedným z hlavných cieľov Go je jednoduchosť. Jazyk preto neobsahuje preťažovanie funkcií, preťažovanie
-operátorov, implicitné pretypovanie dátových typov ani aritmetiku ukazovateľov. Natívne však obsahuje
-mechanizmy na podporu súbežného a paralelného programovania. Poskytuje primitíva ako goroutine, 
+operátorov, implicitné pretypovanie dátových typov ani aritmetiku ukazovateľov. Natívne podporuje
+mechanizmy súbežného a paralelného programovania. Poskytuje primitíva ako goroutiny, 
 komunikačné kanály, synchronizačné primitíva v balíku sync a príkaz select. \cite{Beckingsale2015}
 
 \section{Goroutine}
-Goroutine je funkcia ktorá sa vykonáva súbežne.
+Goroutiny (\emph{goroutines}) je funkcia, ktorá sa vykonáva súbežne.
 Nie sú to vlákna operačného systému ani vlákna riadené runtime prostredím. Ide o
-vyššiu abstrakciu nazývanú korutiny v jazyku Go goroutine. Goroutines sú súbežné podprogramy, ktoré nemôžu byť
+vyššiu abstrakciu nazývanú v jazyku Go goroutiny. Goroutiny sú súbežné podprogramy, ktoré nemôžu byť
 prerušené zvonka. Obsahujú však body, v ktorých môžu byť pozastavené a znovu spustené.
-Na rozdiel od vláken je prepínanie medzi goroutine rýchlejšie približne o 1,242 $\mu\text{s}$.\cite{cox2017}
-Goroutine sa dajú spustiť pomocou kľúčového slova \emph{go}.
+Na rozdiel od vlákien je prepínanie medzi goroutinami rýchlejšie približne o 1,242 $\mu\text{s}$.\cite{cox2017}
+Goroutiny sa dajú spustiť pomocou kľúčového slova \emph{go}. 
 \begin{lstlisting}[language=Go]
 	func main{
 		go SayHello()
@@ -249,13 +273,13 @@ Goroutine sa dajú spustiť pomocou kľúčového slova \emph{go}.
 		fmt.Println("Hello")
 	}
 \end{lstlisting}
-Je možné goroutine implementovať ako anonymné funkcie.
+Gorutiny možno implementovať ako anonymné funkcie.
 \begin{lstlisting}[language=Go]
 	go func(){
 		fmt.Println("Hello")
 	}
 \end{lstlisting}
-Ako anonymné funkcie musia byť zavolané okamžite. Vieme goroutine priradiť do premennej.
+Pri použití anonymnej funkcie je potrebné funkciu bezprostredne zavolať. Vieme goroutinu priradiť do premennej.
 \begin{lstlisting}[language=Go]
 	sayHello := func(){
 		fmt.Println("Hello")
@@ -263,26 +287,24 @@ Ako anonymné funkcie musia byť zavolané okamžite. Vieme goroutine priradiť 
 
 	go sayHello()
 \end{lstlisting}
-Goroutine sú špefické pre jazyk Go, pretože sú integrované do runtime prostredia Go.
-Goroutine si sami neurčujú body pozastavenia. Runtime Go sleduje ich správanie a
-automaticky ich pozastaví, a znovu spustí, keď sú opätovne pripravené pokračovať.
-Goroutine bežia súbežne, čo nie je ich vlastnosťou, preto potrebujú mechanizmus, ktorý im umožní bežať a vykonávať sa
-súbežne.
+Goroutiny sú špecifické pre jazyk Go, pretože sú integrované do runtime prostredia Go.
+Goroutiny si sami neurčujú body pozastavenia. Runtime Go sleduje ich správanie a
+automaticky ich pozastaví a znovu spustí, keď sú opätovne pripravené pokračovať.
+Súbežné vykonávanie gorutín zabezpečuje plánovač runtime prostredia Go. \cite{baugh2010go}
 
 Go používa plánovač \uv{M:N} a model súbežnosti fork-join.\cite{cox2017}
-Teda na \uv{M} vláknach sa vykonáva \uv{N} goroutine. Goroutine
+Teda na \uv{M} vláknach sa vykonáva \uv{N} goroutín. Goroutiny
 sú mapované na tieto vlákna a go runtime sa stará o ich rozdelenie a efektívne vykonávanie. Stará sa o ich spúštanie,
-ak je nejaká goroutine blokovaná tak go runtime môže spustiť inú.
+ak je nejaká goroutina blokovaná, runtime môže spustiť inú.
 
 Podľa modelu fork-join, \uv{Fork} znamená, že program môže vytvoriť novú
-goroutine, ktorá sa vykonáva súbežne s rodičovským kódom. A \uv{Join} znamená, že sa tieto vetvy spoja v mieste nazývanom
+goroutinu, ktorá sa vykonáva súbežne s rodičovským kódom. Naopak, \uv{Join} označuje, že sa tieto vetvy spoja v mieste nazývanom
 join point.
-\ref{fork-join}
-Spájanie vetviev nie je funkciou programu, preto je nutná synchronizácia pri goroutine.
+Samotné vytvorenie gorutiny nezabezpečuje čakanie na jej dokončenie.
 
 
 \section{Komunikačné kanály}
-Komunikačné kanály predstavujú jeden zo základných mechanizmov synchronizácie a komunikácie medzi goroutines. Sú zabudované referenčným typom,
+Komunikačné kanály predstavujú jeden zo základných mechanizmov synchronizácie a komunikácie medzi goroutinami. Sú zabudované referenčným typom,
 ktorý umožňuje bezpečný prenos dát. Ich návrh vychádza z Communicating Sequential Processes,
 ktorý zdôrazňuje komunikáciu medzi procesmi miesto zdieľania pamäte.\cite{cox2017}
 
@@ -302,8 +324,8 @@ pre čítanie sa operátor umiestňuje na ľavú stranu názvu komunikačného k
     variable = <- channel
 \end{lstlisting}
 
-Dôležitou vlastnosťou komunikačného kanála je jeho blokujúce správanie. Ak goroutine zapisuje do komnikačného kanála, ktorý je plný, je jej proces
-blokovaný kým iná goroutine z komunikačného kanála hodnotu neprečíta. Podobne čítanie z prázdneho komunikačného kanála je blokované kým nie je do
+Dôležitou vlastnosťou komunikačného kanála je jeho blokujúce správanie. Ak goroutina zapisuje do komnikačného kanála, ktorý je plný, je jej proces
+blokovaný kým iná goroutina z komunikačného kanála hodnotu neprečíta. Podobne čítanie z prázdneho komunikačného kanála je blokované kým nie je do
 komunikačného kanála zapísaná nová hodnota.
 
 Komunikačný kanál je možné zavrieť pomocou funkcie \emph{close}.
@@ -323,7 +345,7 @@ Nasledujúci príklad demonštruje použitie.
     result := <- channel
     close(channel)
 \end{lstlisting}
-Na riadku jedna si vytvoríme komunikačný kanál s referečným typom int a veľkosťou buffera jedna. Na riadku tri spustíme novú goroutine.
+Na riadku jedna si vytvoríme komunikačný kanál s referečným typom int a veľkosťou buffera jedna. Na riadku tri spustíme novú goroutinu.
 Na riadku štyri v goroutine uložíme do komunikačného kanála hodnotu 42. Na riadku sedem hlavné vlákno čaká na dáta z komunikačného kanála. Ak dáta prídu,
 uloží do premennej \uv{result} dáta z komunikačného kanála, v tomto prípade 42. Na riadku osem uzavrieme komunikačný kanál.
 
@@ -341,7 +363,7 @@ kompilátor dokáže zachytiť nesprávne použitie.
 
 \subsection{Implementácia}
 V runtime prostredí je komunikačný kanál implementavaný ako štruktúra hchan. Obsahuje počet hodnôt v kanáli, maximálnu
-kapacitu, ukazovateľ na buffer, fronty čakajúcich goroutine a synchronizačný zámok. Zjednodušene štruktúra obsahuje:
+kapacitu, ukazovateľ na buffer, fronty čakajúcich goroutín a synchronizačný zámok. Zjednodušene štruktúra obsahuje:
 
 \begin{tabular}{p{4cm} p{10cm}}
 	qcount uint        & Počet prvkov v bufferi                                            \\
@@ -359,8 +381,8 @@ Pri dosiahnutí maximálneho indexu, ktorý určuje možný počet prvkov v buff
 sa pokračuje indexom nula. Ak sú indexy na rovnakej pozícii,
 značí to prázdny buffer. Ak je index posledného pridaného prvku o jedna menší ako index aktuálnej pozície alebo index posledného
 pridaného prvku je maximálny a index aktuálnej pozície je nula, značí to plný buffer.
-Komunikačný kanál je doplnený o mechanizmy blokujúce goroutine.\cite{goChan}
-Implementácia front \uv{sendq} a \uv{recvq} je hlavný prvok na synchronizáciu goroutine, kedy odosielateľ čaká na príjemcu
+Komunikačný kanál je doplnený o mechanizmy blokujúce goroutiny.\cite{goChan}
+Implementácia front \uv{sendq} a \uv{recvq} je hlavný prvok na synchronizáciu goroutin, kedy odosielateľ čaká na príjemcu
 a príjemca čaká na odosielateľa. To zabezpečuje bezpečnú synchronizáciu a absenciu problému súbehu zámkov v aplikačnom kóde.
 Zámok \uv{mutex} využíva komunikačný kanál pri operáciách, ktoré možu meniť jeho stav. Teda pri posielaní alebo odosielaní správ
 sa komunikačný kanál uzamkne aby nenastal nekonzistentný stav komunikačného kanála.
@@ -368,7 +390,7 @@ sa komunikačný kanál uzamkne aby nenastal nekonzistentný stav komunikačnéh
 Komunikačný kanál má operácie prijímanie a odosielanie hodnoty. Komunikačný kanál odosiela a prijíma dve hodnoty. Posielanú
 hodnotu a hodnotu typu bool, ktorá značí, či je kanál otvorený.
 Odosielanie hodnoty je implementované funkciou \emph{chansend}. Pri tejto operácii je komunikačný kanál uzamknutý, preto túto
-operáciu možne vykonať iba jedna goroutine v určitom čase.
+operáciu možne vykonať iba jedna goroutina v určitom čase.
 Jej správanie závisí od aktuálneho stavu komunikačného kanála. Zjednodušene, rozlišuje tri stavy.
 Ak existuje čakajúci príjemca, teda
 je hodnota v recvq goroutine, hodnota sa prenesie priamo bez použitia bufferu.
@@ -384,7 +406,7 @@ if buffer not full:
 	store value in buffer 
 	increment qcount	
 \end{lstlisting}
-Tretí stav ak neexistuje čakajúci príjemca a neexistuje voľné miesto na bufferi. V takom prípade sa goroutine uloží do fronty
+Tretí stav ak neexistuje čakajúci príjemca a neexistuje voľné miesto na bufferi. V takom prípade sa goroutina uloží do fronty
 \uv{sendq} a čaká na uvoľnenie miesta na bufferi.
 
 Prijímanie hodnoty je implementované funkciou \emph{chanrecv}. Rovnako jej správanie závisí od aktuálneho stavu komunikačného
@@ -401,15 +423,15 @@ if buffer not empty:
 	read value from buffer
 	decrement qcount	
 \end{lstlisting}
-Ak neexistuje čakajúci odosielateľ a buffer neobsahuje žiadnu hodnotu. V takom prípade sa goroutine uloží do fronty \uv{recvq}
+Ak neexistuje čakajúci odosielateľ a buffer neobsahuje žiadnu hodnotu. V takom prípade sa goroutina uloží do fronty \uv{recvq}
 a čaká na odosielateľa.
 
-Operácia uzavretia komunikačného kanála nastaví \uv{closed} na hodnotu \uv{False}. Zároveň sa odblokujú všetky čakajúce goroutine
-v \uv{recvq}. Goroutine v prvej návratovej hodnote obdržia prázdnu hodnotu, čo nie je vždy chcené a je potrebná reakcia
+Operácia uzavretia komunikačného kanála nastaví \uv{closed} na hodnotu \uv{False}. Zároveň sa odblokujú všetky čakajúce goroutiny
+v \uv{recvq}. Goroutiny v prvej návratovej hodnote obdržia prázdnu hodnotu, čo nie je vždy chcené a je potrebná reakcia
 programu na druhú návratovú hodnotu. Pri odosielaní na uzavretý komunikačný kanál, program vráti chybu.
 
 \section{Select}
-Príkaz select slúži na koordináciu komunikácie medzi goroutines. Zatiaľ čo komunikačný kanál slúži na synchronizáciu a prenos dát,
+Príkaz select slúži na koordináciu komunikácie medzi goroutinami. Zatiaľ čo komunikačný kanál slúži na synchronizáciu a prenos dát,
 príkaz select umožňuje efektívne kombinovať a riadiť komunikačné kanály na základe aktuálneho stavu programu.
 Používa sa na spájanie viaceých komunikačných kanálov, synchronizáciu, implementáciu časových limitov alebo reakciu na
 viacero udalostí súčastne. Select sa používa v spojení s komunikačnými kanálmi a má podobnú syntax ako príkaz switch.
@@ -466,11 +488,11 @@ Vetvy sú následne uložené do poľa, kde sa periodicky testuje prvok na náho
 Použitím náhodného testovania vetiev sa zabezpečí rovnaká pravdepodobnosť vykonania pre každú vetvu.
 Pred vykonaním výberu sa ale uzamkne príslušný komunikačný kanál aby sa predišlo uviaznutiu.
 
-Najprv select hľadá operáciu, ktorá je pripravená na vykonanie bez blokovania goroutine s príkazom select. Teda snaží sa vykonať
+Najprv select hľadá operáciu, ktorá je pripravená na vykonanie bez blokovania goroutín s príkazom select. Teda snaží sa vykonať
 príslušnú operáciu na komunikačný kanál bez toho, aby sa zapísala do fronty čakateľov, \uv{recvq} pre operáciu prijatia a
 \uv{sednq} pre operáciu odoslania.
 Ak nie je pripravená žiadna vetva na vykonanie
-tak sa goroutine s príkazom select zapíše do každého komunikačného kanála do fronty čakateľov.
+tak sa goroutina s príkazom select zapíše do každého komunikačného kanála do fronty čakateľov.
 Následne je blokovaná až kým ju neprebudí jeden z komunikačných kanálov. V takom prípade
 sa odstráni z fronty čakateľov u ostatných kanálov a pokračuje operáciou výberu. Ak je select použitý s vetvou \uv{default}
 a žiadna operácia nie je pripravená, vykoná sa vetva \uv{default} bez blokovania.
@@ -481,10 +503,10 @@ Jazyk Go poskytuje sync balík, ktorý obsahuje synchronizačné primitíva. Tie
 prístupe do pamäte. Rozdiel medzi ostatnými jazykmi a jazykom Go je, že Go poskytuje novú sadu synchronizačných primitív pre súbežnosť nad sadou primitív pre synchronizáciu prístupu k pamäti.
 
 \subsection{WaitGroup}
-Je to nástroj z balíka sync, ktorého účelom je umožniť programu počkať na dokončenie skupiny goroutine pred tým, než bude pokračovať.
+Je to nástroj z balíka sync, ktorého účelom je umožniť programu počkať na dokončenie skupiny goroutín pred tým, než bude pokračovať.
 Mechanizmus sa využíva v prípade, že sa vykonáva viacero nezávislých úloh.
-WaitGroup si môžeme predstaviť ako bezpečný čítač. Tento čítač eviduje počet goroutine, ktoré ešte nedokončili svoju činnosť.
-Čítač sa zvyšuje pomocou metódy \emph{Add(n)}, kde \uv{n} udáva počet goroutine, ktoré sa majú vykonať.
+WaitGroup si môžeme predstaviť ako bezpečný čítač. Tento čítač eviduje počet goroutín, ktoré ešte nedokončili svoju činnosť.
+Čítač sa zvyšuje pomocou metódy \emph{Add(n)}, kde \uv{n} udáva počet goroutín, ktoré sa majú vykonať.
 Čítač sa znižuje pomocou metódy \emph{Done()}.
 Program je zablokovaný na metóde \emph{Wait()}, kým hodnota čítača nedosiahne nulovú hodnotu. Nasledujúci príklad demonštruje použitie.
 \begin{lstlisting}[language=Go, numbers=left]
@@ -501,17 +523,17 @@ Program je zablokovaný na metóde \emph{Wait()}, kým hodnota čítača nedosia
 	wg.Wait()
 	fmt.Println("End")
 \end{lstlisting}
-Na prvom riadku si definujeme WaitGroup. Následne v cykle na riadku tri zvýšime hodnotu WaitGroup o jedna. Na riadku štyri pustíme novú goroutine.
+Na prvom riadku si definujeme WaitGroup. Následne v cykle na riadku tri zvýšime hodnotu WaitGroup o jedna. Na riadku štyri pustíme novú goroutinu.
 V goroutine na riadku päť zabezpečíme, že po dokončení činnosti, zníži hodnotu WaitGroup o jedna.
 Následne vykoná vypís a čakanie pre simuláciu paralelného výpočtu.
 Na riadku jedenásť program čaká, kým hodnota WaitGroup bude nulová. následne vypíše \uv{End}.
 
 \subsection{Mutex a RWMutex}
-Mutex je nástroj z balíka sync, ktorého účelom je chrániť časť programu so zdieľanými zdrojmi, ku ktorým môže pristupovať iba jedna goroutine.
-Pred vstupom do časti programu so zdieľanými zdrojmi, musí goroutine získať zámok pomocou metódy \emph{Lock()}. Po ukončení činnosti
-v danej časti programu, uvoľní zámok pomocou metódy \emph{Unlock}. Počas držania zámku, nemôže iná goroutine vstúpiť do tejto časti programu.
+Mutex je nástroj z balíka sync, ktorého účelom je chrániť časť programu so zdieľanými zdrojmi, ku ktorým môže pristupovať iba jedna goroutina.
+Pred vstupom do časti programu so zdieľanými zdrojmi, musí goroutina získať zámok pomocou metódy \emph{Lock()}. Po ukončení činnosti
+v danej časti programu, uvoľní zámok pomocou metódy \emph{Unlock}. Počas držania zámku, nemôže iná goroutina vstúpiť do tejto časti programu.
 RWMutex rozširuje Mutex o zámok, ktorý rozlišuje operácie čítania a zápisu. Metódy na získanie zámku \emph{RLock() / Lock()},
-metódy na uvoľnenie zámku \emph{RUnlock() / Unlock()}. RWMutex umožňuje získať zámok pre čítanie viacerým goroutine,
+metódy na uvoľnenie zámku \emph{RUnlock() / Unlock()}. RWMutex umožňuje získať zámok pre čítanie viacerým goroutinami,
 ale pre zápis umožňuje získať zámok jednej goroutine. Počas zápisu nie je umožnené získať zámok pre čítanie. Pri zápise čaká kým sú uvoľnené
 všetky zámky. Nasledujúci príklad demonštruje použitie.
 \begin{lstlisting}[language=Go, numbers=left]
@@ -553,7 +575,7 @@ vypíše, že začala, počká, vypíše, že skončila a po skončení uvoľní
 Na riadku trinásť si definujeme funkciu zapisovateľa, ktorá sa pokúsi získať zámok, vypíše, že začala, počká, vypíše, že skončila
 a po skončení uvoľní zámok.
 Na riadku dvadsaťdva je cyklus, v ktorom voláme funkciu zapisovateľa ak \uv{i} modulo 25 je nula, inak voláme funkciu čitateľa.
-Následne počkáme na dokončenie všetkých goroutine a vypíšeme, že sme skončili. Výsledok tohto kódu bude približne.
+Následne počkáme na dokončenie všetkých goroutín a vypíšeme, že sme skončili. Výsledok tohto kódu bude približne.
 \begin{lstlisting}
     "Writting started 0"
     "Writting ended 0"
@@ -576,7 +598,7 @@ synchronizačných nástrojov, ako napríklad pomocou komunikačných kanálov.
 Navrhnutý prototyp serveru je založený na architektúre klient-server, kde server zabezpečuje výmenu správ medzi pripojenými
 klientmi. Komunikácia medzi klientom a serverom je realizovaná cez Transmission Control Protocol (TCP), ktorý zabezpečuje
 spoľahlivý prenos dát, zachovanie poradia správ a detekciu chýb pri prenose. Server je implementovaný v programovacom jazyku Go,
-využívajúc jeho vstavanú podporu pre súbežné programovanie prostredníctvom goroutine. Hlavná úloha servera spočíva v prijímaní
+využívajúc jeho vstavanú podporu pre súbežné programovanie prostredníctvom goroutín. Hlavná úloha servera spočíva v prijímaní
 nových klientskych spojení, spracovaní ich požiadavkov a správe komunikačných miestností.
 
 \subsection{Klientské spojenie}
@@ -588,16 +610,16 @@ nových klientskych spojení, spracovaní ich požiadavkov a správe komunikačn
 \end{lstlisting}
 
 Pri spustení server vytvorí TCP listener \uv{ln}. Následne v nekonečnom cykle
-čaká na nové pripojenie, ak je pripojenie úspešné tak vytvorí pre to spojenie novú goroutine. Týmto je zabezpečené, že každý
+čaká na nové pripojenie, ak je pripojenie úspešné, vytvorí pre to spojenie novú goroutinu. Tým sa zabezpečí, že každý
 klient je obslúžený súbežne a bez blokovania príjmania ďalších klientov.
 
 Každý klient je obslúžený na samostatnej goroutine, ktorá vykonáva funkciu \emph{HandleConnection}. Toto riešenie predstavuje
 z pohľadu architektúry model:
 \begin{itemize}
 	\item jeden hlavný serverový proces
-	\item jedna goroutine na klienta
+	\item jedna goroutina na klienta
 \end{itemize}
-Riešenie je efektívne, pretože goroutine sú ľahšie ako klasické vlákna a umožňujú vysokú mieru škálovateľnosti.
+Riešenie je efektívne, pretože goroutiny sú ľahšie ako klasické vlákna a umožňujú vysokú mieru škálovateľnosti.
 
 Po pripojení je od klienta vyžiadané meno. Následne v nekonečnom cykle prvá podmienka pripojí klienta do komunikačnej
 miestnosti a v následných cykloch spracúva požiadavky:
@@ -661,7 +683,7 @@ pozastavený a čaká kým je opäť program pripravený spracovať ďalšiu spr
 	\end{tabular}
 \end{table}
 
-Vytvoríme groutine pre ukladanie dát, ktorá ukladá správy do databázy. Ďalej vytvoríme goroutine predstavujúcu obsluhu klienta.
+Vytvoríme groutine pre ukladanie dát, ktorá ukladá správy do databázy. Ďalej vytvoríme goroutinu predstavujúcu obsluhu klienta.
 Vidíme, že aj pri viacerých klientoch nevznikne problém súbehu a dáta sa zapíšu do databázy správne. Využívame blokovacie
 správanie komunikačného kanála, kedy pri prijatí viacerých správ odosielateľ čaká, kým je prijímateľ pripravený spracovať dáta.
 Dokážeme si to na príklade dvoch procesov klientov a procesu databázy.
@@ -693,8 +715,8 @@ Na tento problém sme použili mutex a WaitGroup.
 	wg.Wait()
 \end{lstlisting}
 
-Pre každú navštívenú komunikačnú miestnosť spustíme goroutine a zvýšime WaitGroup. Každá goroutine si potom zoberie zámok a
-získa správy. Následne uvoľní zámok a namapuje správy do odpovede klientovi. Hlavný proces čaká, kým všetky goroutine dokončia svoju činnosť.
+Pre každú navštívenú komunikačnú miestnosť spustíme goroutinu a zvýšime WaitGroup. Každá goroutina si potom zoberie zámok a
+získa správy. Následne uvoľní zámok a namapuje správy do odpovede klientovi. Hlavný proces čaká, kým všetky goroutiny dokončia svoju činnosť.
 Správy sa získavajú cez komunikačný kanál. Ten definujeme ako
 odkaz na štruktúru. Preto je mutex potrebný, aby nenastalo, že sa pred získaním správ
 prepíše odkaz na komunikačný kanál a tým sa nezískajú všetky správy, ale nežiadane sa niektoré správy duplikujú.
@@ -727,21 +749,26 @@ tak periodicky klient žiada o nové správy z komunikačnej miestnosti.
 Ak opustí komunikačnú miestnosť, kanál sa uzavrie. Uzavretím sa pošle správa cez komunikačný kanál a
 príkaz select vykoná vetvu, ktorá ukončí funkciu periodického žiadania o nové správy z komunikačnej miestnosti.
 
+\newpage
 \section{Záver}
-V bakalárskej práci boli analyzované princípy paralelného a súbežného programovania v jazyku Go so zameraním na model
-\textit{Communicating Sequential Processes}. Práca sa venovala problematike synchronizácie procesov, komunikácie medzi
-súbežne vykonávanými časťami programu a možnostiam využitia konkurenčných mechanizmov poskytovaných jazykom Go.
-V práci boli popísané základné koncepty modelu CSP, princíp komunikácie prostredníctvom správ, goroutine, komunikačné kanály a
-synchronizačné mechanizmy. Súčasťou práce bol návrh na implementáciu prototypu chat servera.
-Server umožňuje paralelné spracovanie viacerých klientov pomocou goroutine a využíva komunikačné kanály na
-synchronizáciu a bezpečný prenos dát medzi jednotlivými časťami systému. Súčasťou implementácie boli aj návrhy paralelných
-algoritmov a dôkazy ich správnosti, ktoré demonštrujú korektnosť spracovania správ a elimináciu problémov súbehu. Na základe
-realizácie prototypu možno konštatovať, že jazyk Go poskytuje efektívne a prehľadné nástroje na tvorbu paralelných sieťových
-aplikácií. Mechanizmy založené na modeli CSP umožňujú vytvárať riešenia s nižšou implementačnou zložitosťou a zároveň zvyšujú
-bezpečnosť komunikácie medzi procesmi. V budúcnosti by bolo možné prácu rozšíriť o implementáciu databázového úložiska,
-autentifikácie používateľov, distribuovaného spracovania správ alebo šifrovanej komunikácie medzi klientom a serverom.
-Ďalším možným rozšírením by bolo porovnanie výkonnosti implementovaného riešenia s inými programovacími jazykmi alebo modelmi
-paralelného programovania.
+Cieľom bakalárskej práce bolo priblížiť princípy paralelného a súbežného programovania v jazyku Go so zameraním na model \textit{Communicating Sequential Processes} a opísať mechanizmy, ktoré jazyk Go poskytuje na tvorbu súbežných aplikácií. Súčasťou práce bolo aj navrhnúť a implementovať prototyp chat servera, na ktorom boli demonštrované princípy komunikácie prostredníctvom komunikačných kanálov, synchronizácie a správy súbežne vykonávaných úloh.
+
+Stanovené ciele práce boli splnené. V teoretickej časti boli opísané základné koncepty modelu CSP, goroutiny, komunikačné kanály a synchronizačné mechanizmy využívané v jazyku Go. Praktická časť preukázala ich využitie pri implementácii sieťovej aplikácie schopnej súbežne obsluhovať viacerých klientov. Návrh paralelných algoritmov spolu s dôkazmi ich správnosti zároveň ukázal možnosti vytvárania korektných riešení eliminujúcich problémy súbežného programovania.
+
+Realizovaný prototyp potvrdil, že jazyk Go poskytuje prehľadné a efektívne prostriedky na vývoj súbežných sieťových aplikácií. Vďaka mechanizmom založeným na modeli CSP je možné navrhovať riešenia, ktoré sú zrozumiteľné, bezpečné z hľadiska komunikácie medzi goroutinami a zároveň jednoducho rozšíriteľné.
+
+V budúcnosti by bolo možné implementované riešenie rozšíriť o databázové úložisko, autentifikáciu používateľov, šifrovanú komunikáciu alebo podporu distribuovaného spracovania správ.
+
+\newpage 
+\section{Conclusion} 
+The aim of this bachelor's thesis was to introduce the principles of parallel and concurrent programming in the Go programming language, with a focus on the \textit{Communicating Sequential Processes} (CSP) model, and to describe the mechanisms that Go provides for developing concurrent applications. The thesis also included the design and implementation of a prototype chat server demonstrating the principles of communication through channels, synchronization, and the management of concurrently executing tasks.
+
+The objectives of the thesis were successfully achieved. The theoretical part described the fundamental concepts of the CSP model, goroutines, communication channels, and synchronization mechanisms used in the Go programming language. The practical part demonstrated their application in the implementation of a network application capable of concurrently serving multiple clients. The design of parallel algorithms, together with proofs of their correctness, further demonstrated approaches to developing correct solutions that eliminate common concurrency-related issues.
+
+The implemented prototype confirmed that the Go programming language provides clear and efficient tools for developing concurrent network applications. Thanks to the mechanisms based on the CSP model, it is possible to design solutions that are understandable, safe in terms of communication between goroutines, and easily extensible.
+
+In the future, the implemented solution could be extended by adding persistent database storage, user authentication, encrypted communication, or support for distributed message processing.
+
 \appendix
 \nocite{*}
 \printbibliography

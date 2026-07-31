@@ -1,24 +1,25 @@
 \babel@toc {slovak}{}\relax 
 \contentsline {section}{\numberline {1}Úvod}{7}{section.1}%
-\contentsline {section}{\numberline {2}Communicating Sequential Process}{7}{section.2}%
+\contentsline {section}{\numberline {2}Communicating Sequential Processes}{7}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Komunikácia v CSP}{8}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Výrobca a spotrebiteľ CSP}{10}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.2}Výrobca a spotrebiteľ v CSP}{10}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Jazyk Go}{11}{section.3}%
 \contentsline {section}{\numberline {4}Goroutine}{12}{section.4}%
 \contentsline {section}{\numberline {5}Komunikačné kanály}{13}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Implementácia}{14}{subsection.5.1}%
-\contentsline {section}{\numberline {6}Select}{16}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Implementácia}{17}{subsection.6.1}%
+\contentsline {subsection}{\numberline {5.1}Implementácia}{15}{subsection.5.1}%
+\contentsline {section}{\numberline {6}Select}{17}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Implementácia}{18}{subsection.6.1}%
 \contentsline {section}{\numberline {7}Synchronizačné primitíva}{18}{section.7}%
-\contentsline {subsection}{\numberline {7.1}WaitGroup}{18}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.1}WaitGroup}{19}{subsection.7.1}%
 \contentsline {subsection}{\numberline {7.2}Mutex a RWMutex}{19}{subsection.7.2}%
-\contentsline {section}{\numberline {8}Chat server}{20}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Klientské spojenie}{20}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Posielanie správ}{21}{subsection.8.2}%
+\contentsline {section}{\numberline {8}Chat server}{21}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Klientské spojenie}{21}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Posielanie správ}{22}{subsection.8.2}%
 \contentsline {subsection}{\numberline {8.3}Získanie správ}{23}{subsection.8.3}%
 \contentsline {subsection}{\numberline {8.4}Prkíkaz select}{24}{subsection.8.4}%
-\contentsline {section}{\numberline {9}Záver}{24}{section.9}%
-\contentsline {section}{Literatúra}{26}{section*.3}%
+\contentsline {section}{\numberline {9}Záver}{26}{section.9}%
+\contentsline {section}{\numberline {10}Conclusion}{27}{section.10}%
+\contentsline {section}{Literatúra}{28}{section*.3}%
 \babel@toc {english}{}\relax 
 \babel@toc {slovak}{}\relax 
 \babel@toc {english}{}\relax 
