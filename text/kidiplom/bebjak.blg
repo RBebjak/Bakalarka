@@ -1,14 +1,14 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'bebjak.blg'
-[41] biber:340> INFO - === Wed Jul 29, 2026, 16:47:24
+[40] biber:340> INFO - === Fri Jul 31, 2026, 18:45:13
 [49] Biber.pm:419> INFO - Reading 'bebjak.bcf'
-[77] Biber.pm:976> INFO - Using all citekeys in bib section 0
-[84] Biber.pm:4419> INFO - Processing section 0
+[78] Biber.pm:976> INFO - Using all citekeys in bib section 0
+[85] Biber.pm:4419> INFO - Processing section 0
 [91] Biber.pm:4610> INFO - Looking for bibtex file 'bebjak.bib' for section 0
 [91] bibtex.pm:1713> INFO - LaTeX decoding ...
-[94] bibtex.pm:1519> INFO - Found BibTeX data source 'bebjak.bib'
-[132] UCollate.pm:68> INFO - Overriding locale 'sk_SK' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[132] UCollate.pm:68> INFO - Overriding locale 'sk_SK' defaults 'variable = shifted' with 'variable = non-ignorable'
-[132] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'sk_SK'
-[136] bbl.pm:660> INFO - Writing 'bebjak.bbl' with encoding 'UTF-8'
-[138] bbl.pm:763> INFO - Output to bebjak.bbl
+[95] bibtex.pm:1519> INFO - Found BibTeX data source 'bebjak.bib'
+[131] UCollate.pm:68> INFO - Overriding locale 'sk_SK' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[131] UCollate.pm:68> INFO - Overriding locale 'sk_SK' defaults 'variable = shifted' with 'variable = non-ignorable'
+[131] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'sk_SK'
+[135] bbl.pm:660> INFO - Writing 'bebjak.bbl' with encoding 'UTF-8'
+[137] bbl.pm:763> INFO - Output to bebjak.bbl

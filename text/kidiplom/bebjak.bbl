@@ -40,8 +40,8 @@
       \strng{authornamehash}{d6facc8397f631d3ef01dd70be993640}
       \strng{authorfullhash}{d6facc8397f631d3ef01dd70be993640}
       \field{extraname}{1}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{langid}{english}
@@ -84,8 +84,8 @@
       \strng{editornamehash}{166b962fd1ac73a11294d41b43d06d23}
       \strng{editorfullhash}{166b962fd1ac73a11294d41b43d06d23}
       \field{extraname}{2}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Programming Techniques}
@@ -192,6 +192,12 @@
       \field{note}{Part of the Go programming language runtime implementation. Accessed 2026-05-02}
       \field{title}{Go Runtime Source Code: runtime/chan.go}
       \field{year}{2026}
+      \verb{urlraw}
+      \verb https://go.dev/src/runtime/chan.go
+      \endverb
+      \verb{url}
+      \verb https://go.dev/src/runtime/chan.go
+      \endverb
     \endentry
     \entry{select}{misc}{}
       \name{author}{1}{}{%
@@ -206,14 +212,20 @@
       \strng{authornamehash}{d6c272fa3fbbc22057be50e4fbf75dd5}
       \strng{authorfullhash}{d6c272fa3fbbc22057be50e4fbf75dd5}
       \field{extraname}{2}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://go.dev/src/runtime/select.go}}
       \field{note}{Part of the Go programming language runtime implementation. Accessed 2026-05-02}
       \field{title}{Go Runtime Source Code: runtime/select.go}
       \field{year}{2026}
+      \verb{urlraw}
+      \verb https://go.dev/src/runtime/select.go
+      \endverb
+      \verb{url}
+      \verb https://go.dev/src/runtime/select.go
+      \endverb
     \endentry
   \enddatalist
 \endrefsection
