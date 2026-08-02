@@ -19,6 +19,35 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
+    \entry{hoare1978s}{book}{}
+      \name{author}{1}{}{%
+        {{hash=d6facc8397f631d3ef01dd70be993640}{%
+           family={Hoare},
+           familyi={H\bibinitperiod},
+           given={C.\bibnamedelimi A.\bibnamedelimi R.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Englewood Cliffs, NJ}%
+      }
+      \list{publisher}{1}{%
+        {Prentice-Hall International}%
+      }
+      \strng{namehash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{fullhash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{bibnamehash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{authorbibnamehash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{authornamehash}{d6facc8397f631d3ef01dd70be993640}
+      \strng{authorfullhash}{d6facc8397f631d3ef01dd70be993640}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{english}
+      \field{title}{Communicating Sequential Processes}
+      \field{year}{1978}
+    \endentry
     \entry{hoare1978}{incollection}{}
       \name{author}{1}{}{%
         {{hash=d6facc8397f631d3ef01dd70be993640}{%
@@ -54,14 +83,62 @@
       \strng{editorbibnamehash}{166b962fd1ac73a11294d41b43d06d23}
       \strng{editornamehash}{166b962fd1ac73a11294d41b43d06d23}
       \strng{editorfullhash}{166b962fd1ac73a11294d41b43d06d23}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Programming Techniques}
       \field{langid}{english}
       \field{title}{Communicating Sequential Processes}
       \field{year}{1978}
+    \endentry
+    \entry{baugh2010go}{book}{}
+      \name{author}{1}{}{%
+        {{hash=9aad599a484912a0011df020dcea8d57}{%
+           family={Baugh},
+           familyi={B\bibinitperiod},
+           given={John\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {CreateSpace Independent Publishing Platform}%
+      }
+      \strng{namehash}{9aad599a484912a0011df020dcea8d57}
+      \strng{fullhash}{9aad599a484912a0011df020dcea8d57}
+      \strng{bibnamehash}{9aad599a484912a0011df020dcea8d57}
+      \strng{authorbibnamehash}{9aad599a484912a0011df020dcea8d57}
+      \strng{authornamehash}{9aad599a484912a0011df020dcea8d57}
+      \strng{authorfullhash}{9aad599a484912a0011df020dcea8d57}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781453636671}
+      \field{title}{Go Programming}
+      \field{year}{2010}
+    \endentry
+    \entry{Beckingsale2015}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=624d94bb5eb5b468c9fc6a6cb415321b}{%
+           family={Beckingsale},
+           familyi={B\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{fullhash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{bibnamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{authorbibnamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{authornamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \strng{authorfullhash}{624d94bb5eb5b468c9fc6a6cb415321b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Towards Scalable Adaptive Mesh Refinement on Future Parallel Architectures}
+      \field{type}{phdthesis}
+      \field{year}{2015}
     \endentry
     \entry{cox2017}{book}{}
       \name{author}{1}{}{%
@@ -83,8 +160,8 @@
       \strng{authorbibnamehash}{cb15fceac7ca486986e56681239bdd6a}
       \strng{authornamehash}{cb15fceac7ca486986e56681239bdd6a}
       \strng{authorfullhash}{cb15fceac7ca486986e56681239bdd6a}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{edition}{first}
@@ -106,37 +183,49 @@
       \strng{authorbibnamehash}{d6c272fa3fbbc22057be50e4fbf75dd5}
       \strng{authornamehash}{d6c272fa3fbbc22057be50e4fbf75dd5}
       \strng{authorfullhash}{d6c272fa3fbbc22057be50e4fbf75dd5}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://go.dev/src/runtime/chan.go}}
       \field{note}{Part of the Go programming language runtime implementation. Accessed 2026-05-02}
       \field{title}{Go Runtime Source Code: runtime/chan.go}
       \field{year}{2026}
+      \verb{urlraw}
+      \verb https://go.dev/src/runtime/chan.go
+      \endverb
+      \verb{url}
+      \verb https://go.dev/src/runtime/chan.go
+      \endverb
     \endentry
-    \entry{Beckingsale2015}{thesis}{}
+    \entry{select}{misc}{}
       \name{author}{1}{}{%
-        {{hash=624d94bb5eb5b468c9fc6a6cb415321b}{%
-           family={Beckingsale},
-           familyi={B\bibinitperiod},
-           given={David},
-           giveni={D\bibinitperiod}}}%
+        {{hash=d6c272fa3fbbc22057be50e4fbf75dd5}{%
+           family={{Go Authors}},
+           familyi={G\bibinitperiod}}}%
       }
-      \strng{namehash}{624d94bb5eb5b468c9fc6a6cb415321b}
-      \strng{fullhash}{624d94bb5eb5b468c9fc6a6cb415321b}
-      \strng{bibnamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
-      \strng{authorbibnamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
-      \strng{authornamehash}{624d94bb5eb5b468c9fc6a6cb415321b}
-      \strng{authorfullhash}{624d94bb5eb5b468c9fc6a6cb415321b}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \strng{namehash}{d6c272fa3fbbc22057be50e4fbf75dd5}
+      \strng{fullhash}{d6c272fa3fbbc22057be50e4fbf75dd5}
+      \strng{bibnamehash}{d6c272fa3fbbc22057be50e4fbf75dd5}
+      \strng{authorbibnamehash}{d6c272fa3fbbc22057be50e4fbf75dd5}
+      \strng{authornamehash}{d6c272fa3fbbc22057be50e4fbf75dd5}
+      \strng{authorfullhash}{d6c272fa3fbbc22057be50e4fbf75dd5}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Towards Scalable Adaptive Mesh Refinement on Future Parallel Architectures}
-      \field{type}{phdthesis}
-      \field{year}{2015}
-      \true{nocite}
+      \field{howpublished}{\url{https://go.dev/src/runtime/select.go}}
+      \field{note}{Part of the Go programming language runtime implementation. Accessed 2026-05-02}
+      \field{title}{Go Runtime Source Code: runtime/select.go}
+      \field{year}{2026}
+      \verb{urlraw}
+      \verb https://go.dev/src/runtime/select.go
+      \endverb
+      \verb{url}
+      \verb https://go.dev/src/runtime/select.go
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

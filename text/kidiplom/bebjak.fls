@@ -476,6 +476,14 @@ INPUT ./bebjak.lot
 INPUT ./bebjak.lot
 INPUT bebjak.lot
 OUTPUT bebjak.lot
+INPUT ./bebjak.lof
+INPUT ./bebjak.lof
+INPUT bebjak.lof
+OUTPUT bebjak.lof
+INPUT ./bebjak.lol
+INPUT ./bebjak.lol
+INPUT bebjak.lol
+OUTPUT bebjak.lol
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
