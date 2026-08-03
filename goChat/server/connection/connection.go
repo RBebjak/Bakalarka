@@ -1,4 +1,4 @@
-package clientHandle
+package connection
 
 import (
 	"bufio"
@@ -34,8 +34,28 @@ func HandleConnection(conn net.Conn) {
 	for reader.Scan() {
 		line := strings.TrimSpace(reader.Text())
 
+		if line == "/broadcast" {
+			fmt.Println("Broadcsating")
+			reader.Scan()
+			lineForAll := strings.TrimSpace(reader.Text())
+			fmt.Println("Dobre")
+			Broadcast(user, lineForAll, rooms)
+			fmt.Fprint(conn, "{\"status\":\"sent broadcast\"}\n")
+			continue
+		}
+
+		if line == "/fetchAll" {
+			allMessages := FetchAll(user, rooms)
+			resp := struct {
+				Messages map[string][]message.Message `json:"messages"`
+			}{allMessages}
+			data, _ := json.Marshal(resp)
+			fmt.Fprintf(conn, "%s\n", data)
+			continue
+		}
+
 		if chatLog == nil {
-			if line == "/fetch" || line == "exit" {
+			if line == "/fetch" || line == "exit" || line == "/broadcast" {
 				fmt.Fprintf(conn, "{\"error\":\"not in a room\"}\n")
 				continue
 			}
@@ -65,19 +85,6 @@ func HandleConnection(conn net.Conn) {
 			fmt.Fprintf(conn, "%s\n", data)
 			lastSeen = newIndex
 
-		case "/broadcast":
-			reader.Scan()
-			line = strings.TrimSpace(reader.Text())
-			Broadcast(user, line, rooms)
-
-		case "/fetchAll":
-			allMessages := FetchAll(user, rooms)
-			resp := struct {
-				Messages map[string][]message.Message `json:"messages"`
-			}{allMessages}
-			data, _ := json.Marshal(resp)
-			fmt.Fprintf(conn, "%s\n", data)
-
 		case "exit":
 			fmt.Fprintf(conn, "{\"status\":\"left room %s\"}\n", currentRoom)
 			chatLog = nil
@@ -92,6 +99,9 @@ func HandleConnection(conn net.Conn) {
 }
 
 func Broadcast(user string, line string, rooms []string) {
+	if line == "" {
+		return
+	}
 	var wg sync.WaitGroup
 	for _, room := range rooms {
 		wg.Add(1)
@@ -116,8 +126,8 @@ func FetchAll(user string, rooms []string) map[string][]message.Message {
 			mutex.Lock()
 			chatLog = chatlog.GetLog(room)
 			messages, _ := chatLog.GetMessagesSince(0, user)
-			mutex.Unlock()
 			allMessages[room] = messages
+			mutex.Unlock()
 		}(room, chatLog)
 	}
 	wg.Wait()

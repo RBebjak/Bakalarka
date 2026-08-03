@@ -1,7 +1,7 @@
 package main
 
 import (
-	"goChat/server/clientHandle"
+	"goChat/server/connection"
 	"log"
 	"net"
 )
@@ -21,6 +21,6 @@ func main() {
 			log.Println("accept error:", err)
 			continue
 		}
-		go clientHandle.HandleConnection(conn)
+		go connection.HandleConnection(conn)
 	}
 }

@@ -15,18 +15,22 @@ type Message struct {
 	Message string `json:"message"`
 }
 
+type FetchResponse struct {
+	Messages map[string][]Message `json:"messages"`
+}
+
 type Rooms struct {
 	Rooms []string
 }
 
 func main() {
-	if len(os.Args) < 3 {
-		fmt.Println("Usage: go run client.go <server:port> <username>")
+	if len(os.Args) < 2 {
+		fmt.Println("Usage: go run client.go <username>")
 		return
 	}
 
-	addr := os.Args[1]
-	username := os.Args[2]
+	addr := ":8080"
+	username := os.Args[1]
 
 	conn, err := net.Dial("tcp", addr)
 	if err != nil {
@@ -56,20 +60,41 @@ func main() {
 			return
 		}
 
+		if room == "/broadcast" {
+			fmt.Fprintf(conn, "%s\n", room)
+			fmt.Print("Broadcasting message: ")
+			console.Scan()
+			broadcastingText := strings.TrimSpace(console.Text())
+			fmt.Fprintf(conn, "%s\n", broadcastingText)
+			fmt.Println(readLine(reader))
+			continue
+		}
+
+		if room == "/fetchAll" {
+			fmt.Fprintf(conn, "%s\n", room)
+			fetchAll(reader)
+			continue
+		}
+
 		// Send room
 		fmt.Fprintf(conn, "%s\n", room)
 		fmt.Println(readLine(reader))
 
 		myRooms.Rooms = append(myRooms.Rooms, room)
 
-		stopFetch := make(chan struct{})
+		stopFetch := make(chan int)
 
 		go func() {
 			for {
 				select {
-				case <-stopFetch:
+				case num := <-stopFetch:
+					if num == 1 {
+						_ = <-stopFetch
+						continue
+					}
 					return
-				case <-time.After(2 * time.Second):
+
+				case <-time.After(1 * time.Second):
 					fmt.Fprintf(conn, "/fetch\n")
 					line := readLine(reader)
 					var resp struct {
@@ -105,6 +130,20 @@ func main() {
 				return
 			}
 
+			if text == "/broadcast" {
+				stopFetch <- 1
+				fmt.Print("Broadcasting message: ")
+				console.Scan()
+				broadcastingText := strings.TrimSpace(console.Text())
+				fmt.Fprintf(conn, "%s\n", broadcastingText)
+				stopFetch <- 2
+			}
+
+			if text == "/fetchAll" {
+				fetchAll(reader)
+				continue
+			}
+
 			// Print server response
 			fmt.Println(readLine(reader))
 		}
@@ -117,4 +156,30 @@ func readLine(reader *bufio.Reader) string {
 		return ""
 	}
 	return strings.TrimSpace(line)
+}
+
+func fetchAll(reader *bufio.Reader) {
+	var resp FetchResponse
+
+	jsonText := readLine(reader)
+	fmt.Println(jsonText)
+
+	if err := json.Unmarshal([]byte(jsonText), &resp); err != nil {
+		fmt.Println("Failed to parse response:", err)
+		return
+	}
+
+	for roomName, messages := range resp.Messages {
+		if roomName == "/fetchAll" {
+			continue
+		}
+
+		fmt.Printf("[%s]\n", roomName)
+
+		for _, msg := range messages {
+			fmt.Printf("[%s] %s\n", msg.User, msg.Message)
+		}
+
+		fmt.Println()
+	}
 }
