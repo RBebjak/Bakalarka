@@ -96,7 +96,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Čeština.
-\def\@bachelorcz{bakal\'a\v rsk\'a pr\'ace}
+\def\@bachelorcz{bakal\'arska pr\'aca}
 \def\@mastercz{diplomov\'a pr\'ace}
 \def\@programinfcz{Informatika}
 \def\@programainfcz{Aplikovan\'a informatika}
@@ -106,7 +106,7 @@
 	st\v redn\'i \v skoly}
 \def\@programbinfcz{Bioinformatika}
 \def\@specialoicz{Obecn\'a informatika}
-\def\@specialpvscz{Programov\'an\'i a v\'yvoj software}
+\def\@specialpvscz{Programovanie a v\'yvoj software}
 \def\@specialuicz{Um\v el\'a inteligence}
 \def\@specialvscz{V\'yvoj software}
 \def\@specialpstcz{Po\v c\'ita\v cov\'e syst\'emy a technologie}
@@ -117,17 +117,17 @@
 \def\@sklangcz{slovensk\'y}
 
 \def\@textbibinfocz{Bibliografick\'e \'udaje}
-\def\@texttitlecz{N\'azev pr\'ace}
+\def\@texttitlecz{N\'azov pr\'ace}
 \def\@textauthorcz{Autor}
 \def\@textthesistypecz{Typ pr\'ace}
-\def\@textdeptcz{Pracovi\v st\v e}
+\def\@textdeptcz{Pracovisko}
 \def\@textyearofsubmitcz{Rok obhajoby}
-\def\@textpagescz{Po\v cet stran}
-\def\@textsupplcz{P\v r\'ilohy}
-\def\@textsupervisorcz{Vedouc\'i pr\'ace}
-\def\@textprogramcz{Studijn\'i program}
+\def\@textpagescz{Po\v cet str\'an}
+\def\@textsupplcz{Pr\'ilohy}
+\def\@textsupervisorcz{Ved\'uci pr\'ace}
+\def\@textprogramcz{\v Studijn\'y program}
 %\def\@textfieldcz{Studijn\'i obor}
-\def\@textspecialcz{Specializace}
+\def\@textspecialcz{\v Specializ\'acia}
 \def\@textlangcz{Jazyk práce}
 \def\@textanotcz{Anotace}
 \def\@textkeywordscz{Klí\v cov\'a slova}

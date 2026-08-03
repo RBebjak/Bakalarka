@@ -1,20 +1,20 @@
 # Fdb version 4
-["biber bebjak"] 1785747211.86572 "bebjak.bcf" "bebjak.bbl" "bebjak" 1785764988.63911 0
-  "bebjak.bcf" 1785764988.55001 101071 904a550f655283afe2acfeba11b5b2cc "pdflatex"
+["biber bebjak"] 1785747211.86572 "bebjak.bcf" "bebjak.bbl" "bebjak" 1785792808.52271 0
+  "bebjak.bcf" 1785792808.43528 101071 904a550f655283afe2acfeba11b5b2cc "pdflatex"
   "bebjak.bib" 1785747134.41174 2505 d95da270f29705db0c25167ecc0834ed ""
   (generated)
   "bebjak.bbl"
   "bebjak.blg"
   (rewritten before read)
-["makeindex bebjak.idx"] 1785703284.54154 "bebjak.idx" "bebjak.ind" "bebjak" 1785764988.63896 0
-  "bebjak.idx" 1785764987.44301 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex bebjak.idx"] 1785703284.54154 "bebjak.idx" "bebjak.ind" "bebjak" 1785792808.52259 0
+  "bebjak.idx" 1785792807.32926 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "bebjak.ilg"
   "bebjak.ind"
   (rewritten before read)
-["pdflatex"] 1785764987.01684 "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" "bebjak.pdf" "bebjak" 1785764988.6393 0
+["pdflatex"] 1785792806.88232 "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" "bebjak.pdf" "bebjak" 1785792808.52289 0
   "/etc/texmf/web2c/texmf.cnf" 1757513971.43968 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" 1785764985.23567 59303 eaa416085369965de0787b3fb6ca16d9 ""
+  "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" 1785792805.08324 60013 bd151b6b0e3746685a62fd382a43c755 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -223,15 +223,15 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1757513991.50552 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1757514077 8215117 c567d941616b0da19a49769531f0f5a5 ""
-  "bebjak.aux" 1785764988.53969 16578 059a6c7da054c1682497bd847ada307e "pdflatex"
+  "bebjak.aux" 1785792808.42495 16548 d788da014d652b1c8fced45ae3938924 "pdflatex"
   "bebjak.bbl" 1785747212.40601 11299 bd569646f6084b7d7ecec290a3176791 "biber bebjak"
   "bebjak.ind" 1785703284.63431 0 d41d8cd98f00b204e9800998ecf8427e "makeindex bebjak.idx"
-  "bebjak.lof" 1785764988.55101 542 c588a10640a88f168fca1f068190141f "pdflatex"
-  "bebjak.lol" 1785764988.55101 767 244e98aa581d34d446971c7d62d323e8 "pdflatex"
-  "bebjak.lot" 1785764988.55101 595 fcff2ccf7486b484cce75968003b1479 "pdflatex"
-  "bebjak.run.xml" 1785764988.55087 2545 ae8d4b91b7f22fa744104a38fbc4af27 "pdflatex"
-  "bebjak.tex" 1785764985.23567 59303 eaa416085369965de0787b3fb6ca16d9 ""
-  "bebjak.toc" 1785764988.55087 2068 f35b94d19fe4e47c3c234d6700a78c28 "pdflatex"
+  "bebjak.lof" 1785792808.43668 542 c588a10640a88f168fca1f068190141f "pdflatex"
+  "bebjak.lol" 1785792808.43668 767 244e98aa581d34d446971c7d62d323e8 "pdflatex"
+  "bebjak.lot" 1785792808.43668 595 fcff2ccf7486b484cce75968003b1479 "pdflatex"
+  "bebjak.run.xml" 1785792808.43668 2545 ae8d4b91b7f22fa744104a38fbc4af27 "pdflatex"
+  "bebjak.tex" 1785792805.08324 60013 bd151b6b0e3746685a62fd382a43c755 ""
+  "bebjak.toc" 1785792808.43668 2067 e1cf207bc688a9f6a6072c97f97286c0 "pdflatex"
   "channelDokaz .png" 1778081031.41698 265503 c8793cefeb85cd0ebede4a507383c2a2 ""
   "czech-iso.lbx" 1771778656.49127 294 7ce53d925459ba9e674024c57d6c7af9 ""
   "czech.lbx" 1771778656.49275 23857 01707bd906156286610d5e5bcb06aa09 ""
@@ -242,7 +242,7 @@
   "iso-numeric.cbx" 1771778656.49656 73 45828f8df9dead5135d2c8a727f5b601 ""
   "iso.bbx" 1771778656.49377 13233 9f9e9c852fe772bfe1efaacc6b415eb7 ""
   "kibase.sty" 1771778656.49301 23853 021ae8236751950ac5e18f6a5bcf1da7 ""
-  "kidiplom.cls" 1785513893.95718 19100 209cc8e7354c814e8eb2b10e65c1b970 ""
+  "kidiplom.cls" 1785789838.95782 19093 4da005c11af021f04b04efa6dfcbd787 ""
   "mutexDokaz.png" 1778095498.72902 169614 a85635d449dea6f6063674d68298f39a ""
   "slovak.lbx" 1771778656.49252 23931 3ecb2be0846478eeab38da1cbc06bb32 ""
   (generated)

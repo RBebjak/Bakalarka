@@ -29,7 +29,7 @@ func main() {
 		return
 	}
 
-	addr := ":8080"
+	addr := "localhost:8080"
 	username := os.Args[1]
 
 	conn, err := net.Dial("tcp", addr)
@@ -82,13 +82,14 @@ func main() {
 
 		myRooms.Rooms = append(myRooms.Rooms, room)
 
-		stopFetch := make(chan int)
+		stopFetch := make(chan string)
 
+		//Goroutine that ask for new messages
 		go func() {
 			for {
 				select {
-				case num := <-stopFetch:
-					if num == 1 {
+				case text := <-stopFetch:
+					if text == "broadcasting" {
 						_ = <-stopFetch
 						continue
 					}
@@ -131,12 +132,12 @@ func main() {
 			}
 
 			if text == "/broadcast" {
-				stopFetch <- 1
+				stopFetch <- "broadcasting"
 				fmt.Print("Broadcasting message: ")
 				console.Scan()
 				broadcastingText := strings.TrimSpace(console.Text())
 				fmt.Fprintf(conn, "%s\n", broadcastingText)
-				stopFetch <- 2
+				stopFetch <- "end"
 			}
 
 			if text == "/fetchAll" {

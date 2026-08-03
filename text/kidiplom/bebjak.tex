@@ -8,7 +8,7 @@
   index
 ]{kidiplom}
 
-\title{Paralelní Programování v jazyku Go}
+\title{Paralelné programovanie v jazyku Go}
 \title[english]{Paralel programing in language Go}
 
 \author{Richard Bebjak}
@@ -93,7 +93,7 @@ Procesy tak nezdieľajú pamäť a ich komunikácia prebieha synchronizovane.
 V CSP možno chápať každý proces ako samostatnú výpočtovú jednotku s~vlastným stavom, ktorá vykonáva príkazy v definovanom poradí.
 Na opis správania procesu sa používa pojem \emph{udalosť}. Udalosť predstavuje pozorovateľnú akciu procesu. Nie je dôležitá implementácia, ale navonok pozorovateľné správanie.
 Udalosť predstavuje okamih
-pozorovatelný ostatnými procesmi. Postupnosť udalostí sa označuje ako \emph{stopa}. Stopa predstavuje
+pozorovateľný ostatnými procesmi. Postupnosť udalostí sa označuje ako \emph{stopa}. Stopa predstavuje
 chronologický záznam všetkých udalostí, ktoré proces od svojho vzniku vykonal.
 Správanie procesu je možné opísať pomocou postupnosti udalostí, ktoré proces počas svojho vykonávania vyvolá, bez potreby poznať jeho implementáciu.
 Tento spôsob opisu je jeden zo~základných princípov formálneho modelovania v CSP.
@@ -637,7 +637,7 @@ synchronizačných nástrojov, ako napríklad pomocou komunikačných kanálov, 
 
 Navrhnutý prototyp servera je založený na architektúre klient--server, v ktorej server zabezpečuje výmenu správ medzi pripojenými klientmi. Komunikácia medzi klientom a serverom je realizovaná prostredníctvom protokolu \textit{Transmission Control Protocol} (TCP), ktorý zabezpečuje spoľahlivý prenos dát, zachovanie ich poradia a detekciu chýb pri prenose. Server je implementovaný v programovacom jazyku Go a využíva jeho vstavanú podporu súbežného programovania prostredníctvom goroutín. Hlavná úloha servera spočíva v prijímaní nových klientskych spojení, spracovaní požiadaviek klientov a správe komunikačných miestností.
 
-\subsection{Klientské spojenie}
+\subsection{Klientske spojenie}
 
 \begin{lstlisting}[language=Go, numbers=left, caption={Klientské spojenie}, captionpos=b, label={zd:connection}]
 	ln, err := net.Listen("tcp", ":8080")
@@ -737,7 +737,7 @@ Využíva sa pritom blokujúce správanie komunikačného kanála. Ak sa viacer�
 \end{figure}
 
 Na obrázku \ref{channelsDokaz} sú znázornené procesy dvoch klientov posielajúcich správu ako \texttt{Klient 1} a \texttt{Klient 2} a jeden proces obsluhujúci zápis klientských správ ako \texttt{Databáza}. Proces klientov pozostáva z krokov poslanie správy cez komunikačný kanál, pokračovanie a ukončenie, ktoré su označené ciframi dva, jedna a nula. Proces obluhujúci databázu vykonáva kroky prijatie správy cez komunikačný kanál, uloženie správy a opakovanie cyklu, označené ciframi dva, jedna a nula.
-Z obrázka vyplýva, že klientské procesy zostávajú blokované dovtedy, kým proces ukladania dát nie je pripravený údaje prijať. Prenos údajov prebieha synchrónne v zodpovedajúcich stavoch procesu databázy a klienta. Mimo tejto komunikácie sa jednotlivé procesy vykonávajú nezávisle. Takýmto spôsobom je zabezpečené korektné poradie prijímania a ukladania správ.
+Z obrázka vyplýva, že klientske procesy zostávajú blokované dovtedy, kým proces ukladania dát nie je pripravený údaje prijať. Prenos údajov prebieha synchrónne v zodpovedajúcich stavoch procesu databázy a klienta. Mimo tejto komunikácie sa jednotlivé procesy vykonávajú nezávisle. Takýmto spôsobom je zabezpečené korektné poradie prijímania a ukladania správ.
 
 \subsection{Algoritmus získania správ}
 
@@ -763,7 +763,7 @@ Pri získavaní správ je potrebné zabezpečiť, aby boli všetky správy získ
 	wg.Wait()
 \end{lstlisting}
 
-V kóde~\ref{zd:prijatieSpravy} sa pre každú navštívenú komunikačnú miestnosť spustí samostatná goroutina na riadku šesť. Na riadku štyri počítadlo mechanizmu \texttt{WaitGroup} sa zvýšime o hodnotu jeden. Každá goroutina následne získa zámok na riadku deväť. Na riadku desať načíta správy, uvoľní zámok na riadku jedenásť. Po uvoľnení zámku načítané správy namapuje do odpovede určenej klientovi. Hlavná goroutina čaká prostredníctvom operácie \texttt{wg.Wait()}, kým všetky spustené goroutiny dokončia svoju činnosť.
+V kóde~\ref{zd:prijatieSpravy} sa pre každú navštívenú komunikačnú miestnosť spustí samostatná goroutina na riadku šesť. Na riadku štyri počítadlo mechanizmu \texttt{WaitGroup} zvýšime o hodnotu jeden. Každá goroutina následne získa zámok na riadku deväť. Na riadku desať načíta správy, uvoľní zámok na riadku jedenásť. Po uvoľnení zámku načítané správy namapuje do odpovede určenej klientovi. Hlavná goroutina čaká prostredníctvom operácie \texttt{wg.Wait()}, kým všetky spustené goroutiny dokončia svoju činnosť.
 
 Správy sa získavajú prostredníctvom komunikačného kanála, ktorý je definovaný ako odkaz na príslušnú štruktúru. Mutex je preto potrebný na ochranu kritickej sekcie, aby počas získavania správ nedošlo k zmene zdieľaného odkazu alebo k nekorektnému súbežnému prístupu. Bez tejto synchronizácie by mohlo dôjsť k vynechaniu alebo neželanému duplikovaniu niektorých správ.
 
@@ -826,6 +826,16 @@ The results of the thesis therefore indicate that Go is a suitable tool for deve
 
 \appendix
 \section{Obsah elektronických dát}
+Elektronické dáta tejto bakalárskej práce sú rozdelené do nasledujúcej štruktúry adresárov a súborov:
+
+\subsection*{README.md}
+Textový súbor obsahujúci informácie o požiadavkách na prostredie, postupe zostavenia a spustenia aplikácie, štruktúre projektu a popise podporovaných príkazov klienta.
+
+\subsection*{source.zip}
+ZIP archív obsahujúci kompletné zdrojové kódy implementovanej klient-server aplikácie vrátane definície Go modulu a všetkých súborov potrebných na zostavenie projektu.
+
+\subsection*{/text}
+Adresár obsahujúci text bakalárskej práce vo formáte PDF a ZIP archív so zdrojovými súbormi práce, ktoré sú potrebné na vytvorenie výsledného PDF dokumentu.
 \nocite{*}
 \printbibliography
 

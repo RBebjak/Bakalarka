@@ -13,7 +13,7 @@
 \contentsline {subsubsection}{\numberline {3.4.1}WaitGroup}{22}{subsubsection.3.4.1}%
 \contentsline {subsubsection}{\numberline {3.4.2}Mutex a RWMutex}{23}{subsubsection.3.4.2}%
 \contentsline {section}{\numberline {4}Chat server}{26}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Klientské spojenie}{26}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.1}Klientske spojenie}{26}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Algoritmus posielania správ}{27}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Algoritmus získania správ}{29}{subsection.4.3}%
 \contentsline {subsection}{\numberline {4.4}Algoritmus príkazu select}{30}{subsection.4.4}%
@@ -21,7 +21,7 @@
 \contentsline {section}{\numberline {6}Záver}{33}{section.6}%
 \contentsline {section}{\numberline {7}Conclusion}{34}{section.7}%
 \contentsline {section}{\numberline {A}Obsah elektronických dát}{35}{appendix.A}%
-\contentsline {section}{Literatúra}{36}{section*.5}%
+\contentsline {section}{Literatúra}{36}{section*.8}%
 \babel@toc {english}{}\relax 
 \babel@toc {slovak}{}\relax 
 \babel@toc {english}{}\relax 

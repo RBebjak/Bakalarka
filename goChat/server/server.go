@@ -1,7 +1,7 @@
 package main
 
 import (
-	"goChat/server/connection"
+	connection "goChat/server/connection"
 	"log"
 	"net"
 )
