@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.10)  2 AUG 2026 02:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.10)  3 AUG 2026 15:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1232,100 +1232,103 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 \tf@lof=\write11
 \openout11 = `bebjak.lof'.
 
- (./bebjak.lol)
+ [7
+
+] (./bebjak.lol)
 \tf@lol=\write12
 \openout12 = `bebjak.lol'.
 
- [7
-
-]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 75.
+ [8] [9]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 78.
  (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [8{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}] [9]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 139.
+) [10{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}] [11]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 142.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [10
+) [12
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.152 \]
-        {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}] [11]
+l.146 \newpage
+              {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}]
 
-LaTeX Warning: Command \' invalid in math mode on input line 193.
+Package amsmath Warning: Bracket group [& \\ &x > 0 \rightarrow P!x\\ &y > 0 \rightarrow Q!y\\ ] at formula start!
+(amsmath)                It could be a misspelled positional argument.
+(amsmath)                If it belongs to the formula add a \relax in
+(amsmath)                front to hide it on input line 153.
 
+[13]
 
-LaTeX Warning: Command \' invalid in math mode on input line 193.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 194.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 194.
+LaTeX Warning: Command \' invalid in math mode on input line 196.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 199.
+LaTeX Warning: Command \v invalid in math mode on input line 197.
 
 
-LaTeX Warning: Command \v invalid in math mode on input line 201.
+LaTeX Warning: Command \' invalid in math mode on input line 202.
 
-[12] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+
+LaTeX Warning: Command \v invalid in math mode on input line 204.
+
+
+Overfull \hbox (13.39986pt too wide) in paragraph at lines 207--209
+\T1/pcr/m/n/12 Výrobca \T1/lmr/m/n/12 odo²le správu pro-stred-níc-tvom synch-ro-ni-zo-va-nej ko-mu-ni-ká-cie \T1/pcr/m/n/12 Monitoru
+ []
+
+[14] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang2.sty
 File: lstlang2.sty 2023/02/27 1.9 listings language file
 ) (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang3.sty
 File: lstlang3.sty 2023/02/27 1.9 listings language file
-)
-Overfull \hbox (13.49625pt too wide) in paragraph at lines 253--254
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[13
+) [15
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.274 \begin{lstlisting}[language=Go]
-                                     ] [14]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 346.
- [15] [16
+l.274 
+      ] [16] [17]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 371.
+ [18] [19
 pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.410 
+l.445 
       ]
-Overfull \hbox (6.6377pt too wide) in paragraph at lines 450--453
-[]\T1/lmr/m/n/12 Operácia uzav-re-tia ko-mu-ni-ka£-ného ka-nála na-staví ^^R  clo-sed^^P na hod-notu ^^R  False^^P .
+Overfull \hbox (9.08228pt too wide) in paragraph at lines 463--466
+[]\T1/lmr/m/n/12 Operácia uzav-re-tia ko-mu-ni-ka£-ného ka-nála na-staví \T1/pcr/m/n/12 closed \T1/lmr/m/n/12 na hod-notu \T1/pcr/m/n/12 False\T1/lmr/m/n/12 .
  []
 
-[17] [18] [19] [20] [21] [22] [23]
-<channelDokaz .png, id=389, 1728.4575pt x 945.5325pt>
+[20] [21] [22] [23] [24] [25] [26] [27]
+<channelDokaz .png, id=420, 1728.4575pt x 945.5325pt>
 File: channelDokaz .png Graphic file (type png)
 <use channelDokaz .png>
-Package pdftex.def Info: channelDokaz .png  used on input line 713.
+Package pdftex.def Info: channelDokaz .png  used on input line 734.
 (pdftex.def)             Requested size: 409.50119pt x 224.00362pt.
- [24
+ [28
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.717 
-      ] [25
+l.741 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.735 		getMessages(
-                    ) <./channelDokaz .png>]
-<mutexDokaz.png, id=417, 1527.7075pt x 613.29124pt>
+l.741 
+       <./channelDokaz .png>] [29]
+<mutexDokaz.png, id=450, 1527.7075pt x 613.29124pt>
 File: mutexDokaz.png Graphic file (type png)
 <use mutexDokaz.png>
-Package pdftex.def Info: mutexDokaz.png  used on input line 751.
+Package pdftex.def Info: mutexDokaz.png  used on input line 772.
 (pdftex.def)             Requested size: 409.50119pt x 164.393pt.
- [26
+ [30
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.762 ...select}, captionpos=b, label={zd:select}]
-                                                   <./mutexDokaz.png>] [27] [28] [29] [30]
+l.794 
+       <./mutexDokaz.png>] [31] [32] [33] [34] [35
+
+]
 
 Package biblatex Warning: Name format 'last-first' deprecated.
 (biblatex)                Please use 'family-given' instead.
@@ -1336,8 +1339,7 @@ Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[31
-
+[36
 
 ] 
 enddocument/afterlastpage: lastpage setting LastPage.
@@ -1351,18 +1353,18 @@ Package logreq Info: Writing requests to 'bebjak.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 30686 strings out of 474222
- 541267 string characters out of 5748733
- 1959975 words of memory out of 5000000
- 52138 multiletter control sequences out of 15000+600000
+ 30708 strings out of 474222
+ 541720 string characters out of 5748733
+ 1958975 words of memory out of 5000000
+ 52147 multiletter control sequences out of 15000+600000
  615883 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  126i,16n,123p,2642b,4611s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on bebjak.pdf (31 pages, 445557 bytes).
+Output written on bebjak.pdf (36 pages, 454592 bytes).
 PDF statistics:
- 656 PDF objects out of 1000 (max. 8388607)
- 591 compressed objects within 6 object streams
- 260 named destinations out of 1000 (max. 500000)
- 229 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 697 PDF objects out of 1000 (max. 8388607)
+ 626 compressed objects within 7 object streams
+ 273 named destinations out of 1000 (max. 500000)
+ 237 words of extra memory for PDF output out of 10000 (max. 10000000)
 
