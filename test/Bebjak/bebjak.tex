@@ -63,9 +63,7 @@
 \section{Úvod}
 Paralelné programovanie predstavuje dôležitú súčasť moderného vývoja softvéru. S rastúcou zložitosťou softvérových systémov a rozšírením viacjadrových procesorov rastie požiadavka na efektívne využitie výpočtových prostriedkov prostredníctvom paralelného spracovania úloh. Z tohto dôvodu vznikajú nové metódy, mechanizmy a algoritmy, ktorých cieľom je efektívne využitie dostupných výpočtových prostriedkov pri minimalizácii chýb súvisiacich so súbežným vykonávaním programov. Tradičný prístup založený na zdieľanej pamäti však prináša komplikácie, ako sú chyby súbehu alebo uviaznutie. Alternatívou sú prístupy založené na synchronizácii procesov prostredníctvom komunikácie a výmeny správ medzi procesmi. Jedným z významných konceptov v oblasti súbežného programovania je model Communicating Sequential Processes (CSP)~\cite{hoare1978s}, ktorého princípy implementuje programovací jazyk Go prostredníctvom gorutín a komunikačných kanálov.
 
-V prvej časti práce sú predstavené teoretické základy súbežného programovania, model CSP a mechanizmy programovacieho jazyka Go určené na tvorbu súbežných aplikácií. 
-
-Druhá časť práce sa venuje návrhu a implementácii prototypu chat servera využívajúceho tieto mechanizmy, návrhu paralelných algoritmov a~analýze ich správnosti prostredníctvom dôkazov.
+V prvej časti práce sú predstavené teoretické základy súbežného programovania, model CSP a mechanizmy programovacieho jazyka Go určené na tvorbu súbežných aplikácií. Druhá časť práce sa venuje návrhu a implementácii prototypu chat servera využívajúceho tieto mechanizmy, návrhu paralelných algoritmov a~analýze ich správnosti prostredníctvom dôkazov.
 
 \newpage
 \section{Communicating Sequential Processes}
@@ -105,7 +103,7 @@ Procesy nie sú izolované. Ich spolupráca je kľúčová na dosiahnutie požad
 pomocou synchronizovanej komunikácie.
 Všetky informácie získava alebo odosiela
 prostredníctvom výmeny správ. 
-Rizikom tohto prístupu je možnosť uviaznutia procesov, kedy procesy čakajú bez možnosti pokračovať, teda odosieteľ čaká na príjemcu a naopak.
+Tento prístup ale môže viesť k~situácii, kedy procesy čakajú bez možnosti pokračovať, teda uviaznutiu pre jeho správanie, kedy odosieteľ čaká na príjemcu a naopak.
 
 \subsection{Komunikácia v CSP}
  Hlavnou vlastnosťou CSP je prenos dát medzi procesmi prostredníctvom zasielania správ. Hodnota odoslaná jedným procesom je priamo priradená premennej v druhom
@@ -177,7 +175,7 @@ Repetitívny príkaz sa používa na modelovanie situácií, kde program opakova
 Pri riešení zložitejších úloh často komunikuje viacero procesov s jedným spoločným procesom, ktorý koordinuje ich činnosť. Takýto proces možno chápať ako monitor. Monitor sa chápe ako synchronizačný objekt prijímajúci požiadavky od ostatných procesov, zabezpečujúci ich vzájomnú synchronizáciu a rozhodujúci o~poradí ich spracovania. V modeli CSP monitor nepredstavuje zdieľanú pamäť, ale samostatný proces komunikujúci prostredníctvom výmeny správ.
 Procesy musia byť odlišne pomenované napr. \uv{Výrobca} a \uv{Spotrebiteľ},
 alebo mať odlišný index napríklad \uv{X(0)}. Každá komunikácia musí mať jednoznačne určený svoj zdroj alebo cieľ. Keď je monitor pripravený komunikovať
-s ktorýmkoľvek používateľským procesom, zväčša s tým, ktorý príde prvý, používa strážený príkaz s rozsahom.
+s ktorýmkoľvek používateľským procesom, zväčša ktorý príde prvý, používa strážený príkaz s rozsahom.
 Predpokladajme, že existuje sto procesov označených ako \texttt{X(1)} až \texttt{X(100)}, ktoré komunikujú s jedným monitorom. Ich vnútorná implementácia nie je pre tento príklad podstatná. Dôležitá je iba udalosť komunikácie medzi procesom a~monitorom, prostredníctvom ktorej proces odovzdáva požiadavku a~prijíma výsledok. Monitor nevie dopredu, ktorý proces odošle požiadavku ako prvý. 
 Preto~musí byť pripravený prijať správu od ktoréhokoľvek z nich.
 \[
@@ -191,7 +189,7 @@ Predstavme si, že monitor obsluhuje požiadavky klientov. Ak by jeden klient po
 \[
 	*[(i:1..100);\; j\neq i \rightarrow X(i)?(parameters) \rightarrow j := i ;\;]
 \]
-V tomto prípade monitor neprijme ďalšiu požiadavku od procesu \texttt{X(i)}, kým nebude spracovaná požiadavka od iného procesu.
+V tomto prípade monitor neprijme ďalšiu požiadavku od procesu \texttt{X(i)}, kým nebude spracovaná požiadavka iného procesu.
 Rovnakým spôsobom možno pomocou strážených podmienok odložiť spracovanie požiadaviek, ktoré by v danom okamihu porušili pravidlá plánovania alebo iné obmedzenia systému.
 
 Ako príklad možno uviesť problém výrobcu a spotrebiteľa. Predpokladajme, že existuje viacero procesov \uv{Výrobca}, ktoré vytvárajú údaje, a viacero procesov \uv{Spotrebiteľ}, ktoré ich spracúvajú. Medzi nimi sa nachádza monitor. Výrobcovia odosielajú vytvorené údaje monitoru, zatiaľ čo spotrebitelia od monitora požadujú ďalšiu dostupnú položku. Monitor zabezpečuje, aby sa údaje odovzdávali korektne aj v prípade, že viac výrobcov alebo spotrebiteľov komunikuje súčasne.
@@ -295,7 +293,8 @@ Gorutiny možno implementovať ako anonymné funkcie. Pri použití anonymnej fu
 		fmt.Println("Hello")
 	}
 \end{lstlisting}
-Gorutinu vieme priradiť do premennej.
+
+Vieme gorutinu priradiť do premennej.
 \begin{lstlisting}[language=Go]
 	sayHello := func(){
 		fmt.Println("Hello")
@@ -319,7 +318,7 @@ Go používa plánovač \emph{M:N} a model súbežnosti \emph{fork-join}.\cite{c
 Teda na \emph{M} vláknach sa vykonáva \emph{N} gorutín. Gorutiny
 sú mapované na tieto vlákna a go runtime sa stará o ich rozdelenie a efektívne vykonávanie. Stará sa o ich spúštanie,
 ak je nejaká gorutina blokovaná, runtime môže spustiť inú.
-Podľa modelu fork-join \emph{Fork} znamená, že program môže vytvoriť novú
+Podľa modelu fork-join, \emph{Fork} znamená, že program môže vytvoriť novú
 gorutinu, ktorá sa vykonáva súbežne s rodičovským kódom. Naopak, \emph{Join} označuje, že sa tieto vetvy spoja v~mieste nazývanom
 join point.
 Samotné vytvorenie gorutiny nezabezpečuje čakanie na jej dokončenie.
@@ -359,8 +358,8 @@ pre čítanie sa operátor umiestňuje na ľavú stranu názvu komunikačného k
     variable = <- channel
 \end{lstlisting}
 
-Dôležitou vlastnosťou komunikačného kanála je jeho blokujúce správanie. Keď chce gorutina zapísať do komnikačného kanála, ktorý je plný, je jej proces
-blokovaný, kým iná gorutina z komunikačného kanála hodnotu neprečíta. Podobne čítanie z prázdneho komunikačného kanála je blokované kým nie je do
+Dôležitou vlastnosťou komunikačného kanála je jeho blokujúce správanie. Ak gorutina zapisuje do komnikačného kanála, ktorý je plný, je jej proces
+blokovaný kým iná gorutina z komunikačného kanála hodnotu neprečíta. Podobne čítanie z prázdneho komunikačného kanála je blokované kým nie je do
 komunikačného kanála zapísaná nová hodnota.
 
 Komunikačný kanál je možné zavrieť pomocou funkcie \emph{close}.
@@ -419,7 +418,7 @@ značí to prázdny buffer. Ak je index \texttt{sendx} o jedna menší ako index
 Komunikačný kanál je doplnený o mechanizmy blokujúce gorutiny.\cite{goChan}
 Implementácia front \texttt{sendq} a \texttt{recvq} je hlavný prvok na synchronizáciu gorutín, kedy odosielateľ čaká na príjemcu
 a príjemca čaká na odosielateľa. To zabezpečuje bezpečnú synchronizáciu a absenciu problému súbehu zámkov v aplikačnom kóde.
-Zámok \texttt{mutex} využíva komunikačný kanál pri operáciách, ktoré možu meniť jeho stav. Teda pri prijímaní alebo odosielaní správ
+Zámok \texttt{mutex} využíva komunikačný kanál pri operáciách, ktoré možu meniť jeho stav. Teda pri posielaní alebo odosielaní správ
 sa komunikačný kanál uzamkne, aby nenastal nekonzistentný stav komunikačného kanála.
 
 Komunikačný kanál má operácie prijímanie hodnoty a odosielanie hodnoty. Komunikačný kanál odosiela a prijíma dve hodnoty. Posielanú
@@ -427,46 +426,38 @@ hodnotu a hodnotu typu bool, ktorá značí, či je kanál otvorený.
 Odosielanie hodnoty je implementované funkciou \emph{chansend}. Pri tejto operácii je komunikačný kanál uzamknutý, preto túto
 operáciu môže vykonať iba jedna gorutina v určitom čase.
 Jej správanie závisí od aktuálneho stavu komunikačného kanála. Zjednodušene, rozlišuje tri stavy.
-
 Ak existuje čakajúci príjemca, teda
-je hodnota v \texttt{recvq} gorutine, hodnota sa prenesie priamo bez použitia bufferu.
+je hodnota v recvq gorutine, hodnota sa prenesie priamo bez použitia bufferu.
 \begin{lstlisting}[language=Go]
 if receiver exist:
 	copy data directly to receiver
 	wake up receiver 	
 \end{lstlisting}
-Je to najrýchlejší scenár, nakoľko sa neukladá hodnota do bufferu. 
-
-Ďalší stav, ak neexistuje čakajúci príjemca ale existuje voľné
-miesto v bufferi. Tak sa hodnota uloží na buffer a zvýší sa index.
+Najrýchlejší scenár, nakoľko sa neukladá hodnota do bufferu. Ďalší stav, ak neexistuje čakajúci príjemca ale existuje voľné
+miesto v bufferi. Tak sa hodnota uloží na buffer a zvýší sa počítadlo.
 \begin{lstlisting}[language=Go]
 if buffer not full:
 	store value in buffer 
-	increment sendx	
+	increment qcount	
 \end{lstlisting}
-
-Tretí stav, ak neexistuje čakajúci príjemca a neexistuje voľné miesto na bufferi. V takom prípade sa gorutina uloží do fronty
+Tretí stav ak neexistuje čakajúci príjemca a neexistuje voľné miesto na bufferi. V takom prípade sa gorutina uloží do fronty
 \texttt{sendq} a čaká na uvoľnenie miesta na bufferi.
 
 Prijímanie hodnoty je implementované funkciou \texttt{chanrecv}. Rovnako jej správanie závisí od aktuálneho stavu komunikačného
-kanála a rozlišuje tri stavy. 
-
-Ak existuje čakajúci odosielateľ, teda je hodnota v sendq, hodnota sa prenesie priamo
+kanála a rozlišuje tri stavy. Ak existuje čakajúci odosielateľ, teda je hodnota v sendq, hodnota sa prenesie priamo
 bez použitia bufferu.
 \begin{lstlisting}[language=Go]
 if sender exist:
 	receive value directly
 	wake sender
 \end{lstlisting}
-
-Ak neexistuje čakajúci odosielateľ, ale buffer obsahuje aspoň jednu hodnotu, je táto hodnota načítaná a zvýši sa index.
+Ak neexistuje čakajúci odosielateľ, ale buffer obsahuje aspoň jednu hodnotu, je táto hodnota načítaná a zníži sa hodnota počítadla.
 \begin{lstlisting}[language=Go]
 if buffer not empty:
 	read value from buffer
-	increment recvx	
+	decrement qcount	
 \end{lstlisting}
-
-Ak neexistuje čakajúci odosielateľ a buffer neobsahuje žiadnu hodnotu, gorutina sa uloží do fronty \texttt{recvq}
+Ak neexistuje čakajúci odosielateľ a buffer neobsahuje žiadnu hodnotu. V takom prípade sa gorutina uloží do fronty \texttt{recvq}
 a čaká na odosielateľa.
 
 Operácia uzavretia komunikačného kanála nastaví \texttt{closed} na hodnotu \texttt{False}. Zároveň sa odblokujú všetky čakajúce gorutiny
@@ -474,20 +465,20 @@ v \texttt{recvq}. Gorutiny v prvej návratovej hodnote obdržia prázdnu hodnotu
 programu na druhú návratovú hodnotu. Pri odosielaní na uzavretý komunikačný kanál program vráti chybu.
 
 \subsection{Select}
-Príkaz select slúži na koordináciu komunikácie medzi komunikačnými kanálmi. Zatiaľ čo komunikačný kanál slúži na synchronizáciu a prenos dát,
+Príkaz select slúži na koordináciu komunikácie medzi gorutinami. Zatiaľ čo komunikačný kanál slúži na synchronizáciu a prenos dát,
 príkaz select umožňuje efektívne kombinovať a riadiť komunikačné kanály na základe aktuálneho stavu programu.
 Používa sa na spájanie viacerých komunikačných kanálov, ich synchronizáciu, implementáciu časových limitov alebo reakciu na
 viacero udalostí súčasne. Select sa používa v spojení s komunikačnými kanálmi a má podobnú syntax ako príkaz switch. \cite{cox2017}
 Pozostáva z príkazu \emph{select} a viacerých vetiev \texttt{case}, kde každá vetva
 reprezentuje operáciu nad kanálom. Môže to byť operácia čítania alebo zápisu. Jeho hlavnou vlastnosťou pre synchronizáciu
 je jeho blokovacie správanie. Proces je blokovaný, kým nie je pripravená na vykonanie aspoň jedna z~jeho vetiev.
-Pripravenosť znamená, že pri zápise do komunikačného kanála nie je komunikačný kanál zaplnený a pri čítaní z komunikačného kanála komunikačný kanál obsahuje dáta alebo je uzavretý. Pre neblokujúce správanie
+Pripravenosť znamená, že pri zápise do komunikačného kanála, nie je komunikačný kanál zaplnený a pri čítaní z komunikačného kanála, komunikačný kanál obsahuje dáta alebo je uzavretý. Pre neblokujúce správanie
 príkazu select slúži jeho posledná vetva \texttt{default}, ktorá sa vykoná v prípade, ak nie je pripravená na vykonanie
 žiadna z ostatných vetiev. \cite{select}
 Rozdiel oproti príkazu switch je, že jednotlivé vetvy sa nevyhodnocujú postupne ale všetky súčasne.
 Ak je pripravená niektorá z vetiev, tak sa vykoná. Ak je pripravených viacero vetiev v rovnakom okamihu, runtime Go vyberie
 jednu z pripravených a vykoná ju. Výber je rovnomerne rozdelený medzi všetky pripravené vetvy, preto má každá rovnakú
-pravdepodobnosť vykonania\cite{cox2017}. Príkaz select umožňuje implementáciu časových limitov pomocou funkcie \texttt{time.After}
+pravdepodobnosť vykonania\cite{cox2017}. Príkaz select umožňuje implementáciu časových limitov. Pomocou funkcie \texttt{time.After}
 z balíka \texttt{time}, ktorá vracia komunikačný kanál aktivovaný po uplynutí zadaného času. \cite{time} Tento prístup umožňuje riešenie situácií,
 kde nie je žiadúce čakať neobmedzene dlho.
 \begin{lstlisting}[language=Go, numbers=left, caption={Príklad použitia príkazu select},captionpos=b, label={lst:select}]
@@ -512,7 +503,7 @@ kde nie je žiadúce čakať neobmedzene dlho.
 \end{lstlisting}
 V príklade~\ref{lst:select} sme si na riadku jedna vytvorili komunikačný kanál a na riadkoch dva až osem jednoduchú funkciu, ktorá vyberie náhodné číslo od nula do štyri,
 pošle ho cez komunikačný kanál a počká
-taký počet sekúnd. Funkcia je spustená v novej gorutine. V nekonečnom cykle na riadku jedenásť máme príkaz \emph{select}. Prvý \texttt{case} na riadku dvanásť je blokovaný, kým nie je cez komunikačný kanál poslaná hodnota. Po prijatí hodnoty ju vypíše. Druhý \texttt{case} na riadku pätnásť je blokovaný pri každej interakcii cyklu tri sekundy, po uplynutí troch sekúnd sa vykoná vetva na riadku šestnásť a proces sa ukončí. S každou interakciou sa vytvorí nový časovač.
+taký počet sekúnd. Funkcia je spustená v novej gorutine. V nekonečnom cykle na riadku jedenásť máme príkaz \emph{select}. Prvý \texttt{case} na riadku dvanásť je blokovaný kým nie je cez komunikačný kanál poslaná hodnota. Po prijatí hodnoty ju vypíše. Druhý \texttt{case} na riadku pätnásť je blokovaný pri každej interakcii cyklu tri sekundy, po uplynutí troch sekúnd sa vykoná vetva na riadku šestnásť a proces sa ukončí. S každou interakciou sa vytvorí nový časovač.
 Na tom môžme vidieť, že select si vyhodnocuje
 všetky vetvy súčasne. Ak je aspoň jedna pripravená na vykonanie, vykoná ju, inak je blokovaný.
 
@@ -535,13 +526,13 @@ príslušnú operáciu na komunikačný kanál bez toho, aby sa zapísala do fro
 \texttt{sednq} pre operáciu odoslania.
 Ak nie je pripravená žiadna vetva na vykonanie
 tak sa gorutina s príkazom select zapíše do každého komunikačného kanála do fronty čakateľov.
-Následne je blokovaná, až kým ju neprebudí jeden z komunikačných kanálov. V takom prípade
+Následne je blokovaná až kým ju neprebudí jeden z komunikačných kanálov. V takom prípade
 sa odstráni z fronty čakateľov u ostatných kanálov a pokračuje operáciou výberu. Príkaz select môže obsahovať vetvu \texttt{default}, ktorá sa netestuje, ale
 ak žiadna iná operácia nie je pripravená na vykonanie, vykoná sa vetva \texttt{default} bez blokovania.
 
 
 \subsection{Synchronizačné primitíva}
-V tejto podkapitole čerpáme z \cite{sync}.
+V podkapitole čerpáme z \cite{sync}.
 Jazyk Go poskytuje \emph{sync} balík, ktorý obsahuje synchronizačné primitíva. Tieto synchronizačné primitíva sú používané pri nízkoúrovňovom
 prístupe do pamäte. Rozdiel medzi ostatnými jazykmi a jazykom Go je, že Go poskytuje novú sadu synchronizačných primitív pre súbežnosť nad sadou primitív pre synchronizáciu prístupu k pamäti.
 
@@ -579,7 +570,7 @@ v danej časti programu, uvoľní zámok pomocou metódy \emph{Unlock}. Počas d
 
 RWMutex rozširuje Mutex o zámok, ktorý rozlišuje operácie čítania a zápisu. Metódy na získanie zámku \emph{RLock()} pre čítanie a \emph{Lock()} pre zápis a
 metódy na uvoľnenie zámku \emph{RUnlock()} pre čítanie a \emph{Unlock()} pre zápis. RWMutex umožňuje získať zámok pre čítanie viacerými gorutinami,
-ale pre zápis umožňuje získať zámok jednej gorutine. Počas zápisu nie je umožnené získať zámok pre čítanie. Pri zápise čaká, kým sú uvoľnené
+ale pre zápis umožňuje získať zámok jednej gorutine. Počas zápisu nie je umožnené získať zámok pre čítanie. Pri zápise čaká kým sú uvoľnené
 všetky zámky. Nasledujúci príklad demonštruje použitie RWMutexu.
 \newpage
 \begin{lstlisting}[language=Go, numbers=left, caption={Použitie RWMutex}, captionpos=b, label={lst:rwmutex}]
@@ -621,7 +612,7 @@ vypíše, že začala, počká, vypíše, že skončila a po skončení uvoľní
 Na riadku trinásť si definujeme funkciu zapisovateľa, ktorá sa pokúsi získať zámok, vypíše, že začala, počká, vypíše, že skončila
 a po skončení uvoľní zámok.
 Na riadku dvadsaťdva je cyklus, v ktorom voláme funkciu zapisovateľa ak \texttt{i} modulo 25 je nula, inak voláme funkciu čitateľa.
-Následne počkáme na dokončenie všetkých gorutín a vypíšeme, že sme skončili. Výsledok tohto kódu bude približne:
+Následne počkáme na dokončenie všetkých gorutín a vypíšeme, že sme skončili. Výsledok tohto kódu bude približne.
 \newpage
 \begin{lstlisting}
     "Writting started 0"
@@ -746,7 +737,7 @@ Využíva sa pritom blokujúce správanie komunikačného kanála. Ak sa viacer�
 	\label{channelsDokaz}
 \end{figure}
 
-Na obrázku \ref{channelsDokaz} sú znázornené procesy dvoch klientov posielajúcich správu ako \texttt{Klient 1} a \texttt{Klient 2} a jeden proces obsluhujúci zápis klientských správ ako \texttt{Databáza}. Proces klientov pozostáva z krokov: poslanie správy cez komunikačný kanál, pokračovanie a ukončenie, ktoré sú označené ciframi dva, jedna a~nula. Proces obluhujúci databázu vykonáva kroky: prijatie správy cez komunikačný kanál, uloženie správy a opakovanie cyklu, označené ciframi dva, jedna a nula.
+Na obrázku \ref{channelsDokaz} sú znázornené procesy dvoch klientov posielajúcich správu ako \texttt{Klient 1} a \texttt{Klient 2} a jeden proces obsluhujúci zápis klientských správ ako \texttt{Databáza}. Proces klientov pozostáva z krokov: poslanie správy cez komunikačný kanál, pokračovanie a ukončenie, ktoré su označené ciframi dva, jedna a~nula. Proces obluhujúci databázu vykonáva kroky: prijatie správy cez komunikačný kanál, uloženie správy a opakovanie cyklu, označené ciframi dva, jedna a nula.
 Z obrázka vyplýva, že klientske procesy zostávajú blokované dovtedy, kým proces ukladania dát nie je pripravený údaje prijať. Prenos údajov prebieha synchrónne v zodpovedajúcich stavoch procesu databázy a klienta. Mimo tejto komunikácie sa jednotlivé procesy vykonávajú nezávisle. Takýmto spôsobom je zabezpečené korektné poradie prijímania a ukladania správ.
 
 \subsection{Algoritmus získania správ}
@@ -773,7 +764,7 @@ Pri získavaní správ je potrebné zabezpečiť, aby boli všetky správy získ
 	wg.Wait()
 \end{lstlisting}
 
-V kóde~\ref{zd:ziskanieSprav} sa pre každú navštívenú komunikačnú miestnosť spustí samostatná gorutina na riadku šesť. Na riadku štyri počítadlo mechanizmu \texttt{WaitGroup} zvýšime o hodnotu jeden. Každá gorutina následne získa zámok na riadku deväť. Na riadku desať načíta správy a uvoľní zámok na riadku jedenásť. Po uvoľnení zámku načítané správy namapuje do odpovede určenej klientovi. Hlavná gorutina čaká prostredníctvom operácie \texttt{wg.Wait()}, kým všetky spustené gorutiny dokončia svoju činnosť.
+V kóde~\ref{zd:prijatieSpravy} sa pre každú navštívenú komunikačnú miestnosť spustí samostatná gorutina na riadku šesť. Na riadku štyri počítadlo mechanizmu \texttt{WaitGroup} zvýšime o hodnotu jeden. Každá gorutina následne získa zámok na riadku deväť. Na riadku desať načíta správy, uvoľní zámok na riadku jedenásť. Po uvoľnení zámku načítané správy namapuje do odpovede určenej klientovi. Hlavná gorutina čaká prostredníctvom operácie \texttt{wg.Wait()}, kým všetky spustené gorutiny dokončia svoju činnosť.
 
 Správy sa získavajú prostredníctvom komunikačného kanála, ktorý je definovaný ako odkaz na príslušnú štruktúru. Mutex je preto potrebný na ochranu kritickej sekcie, aby počas získavania správ nedošlo k zmene zdieľaného odkazu alebo k nekorektnému súbežnému prístupu. Bez tejto synchronizácie by mohlo dôjsť k vynechaniu alebo neželanému duplikovaniu niektorých správ.
 
@@ -800,7 +791,7 @@ Príkaz \emph{select} bol použitý na strane klienta pri periodickom získavan�
 	}
 \end{lstlisting}
 
-Pri pripojení klienta do komunikačnej miestnosti sa vytvorí komunikačný kanál, ktorý sa používa na signalizáciu ukončenia periodického získavania správ. V~kóde~\ref{zd:select} príkaz select má jednu vetvu \texttt{case} a druhú vetvu \texttt{default}. Prvá podmienka na riadku dva kontroluje zatvorenie komunikačného kanála. Po opustení komunikačnej miestnosti sa kanál uzavrie. Uzavretím kanála sa neposiela samostatná správa, ale operácia prijímania z uzavretého kanála sa môže okamžite vykonať. Príkaz \texttt{select} preto vyberie vetvu \texttt{case <-ch:}, ktorá ukončí funk\-ciu zabezpečujúcu periodické získavanie nových správ. Vo vetve \texttt{default} klient požiada server o nové správy a následne počká jednu sekundu. Táto vetva sa vykoná vždy pokiaľ nie je prvá podmienka splnená.
+Pri pripojení klienta do komunikačnej miestnosti sa vytvorí komunikačný kanál, ktorý sa používa na signalizáciu ukončenia periodického získavania správ. V~kóde~\ref{zd:select} príkaz select má jednu vetvu \texttt{case} a druhú vetvu \texttt{default}. Prvá podmienka na riadku dva kontroluje zatvorenie komunikačného kanála. Po opustení komunikačnej miestnosti sa kanál uzavrie. Uzavretím kanála sa neposiela samostatná správa, ale operácia prijímania z uzavretého kanála sa môže okamžite vykonať. Príkaz \texttt{select} preto vyberie vetvu \texttt{case <-ch:}, ktorá ukončí funkciu zabezpečujúcu periodické získavanie nových správ. Vetva \texttt{default}, v ktorej klient požiada server o nové správy a následne počká jednu sekundu. Táto vetva sa vykoná vždy pokiaľ nie je prvá podmienka splnená.
 
 \newpage
 \section{Ďalšie možnosti použitia}
@@ -818,9 +809,9 @@ Implementovaný prototyp ukázal, že model súbežnosti jazyka Go umožňuje pr
 
 Výhodou jazyka Go je, že podpora súbežnosti nie je iba doplnkom poskytovaným externými knižnicami, ale je priamo súčasťou návrhu jazyka a jeho runtime prostredia. Gorutiny majú jednoduchý spôsob vytvárania a umožňujú obsluhovať jednotlivé úlohy oddelene, zatiaľ čo kanály poskytujú zrozumiteľný model ich komunikácie a synchronizácie. V porovnaní s riešeniami založenými výlučne na priamom riadení systémových vlákien a ručnej ochrane všetkých zdieľaných údajov môže tento prístup viesť k prehľadnejšiemu kódu a jednoduchšiemu odôvodneniu jeho správnosti.
 
-Praktická časť túto výhodu demonštruje na obsluhe klientskych spojení, bezpečnom ukladaní správ a súbežnom získavaní údajov z viacerých komunikačných miestností. Rozdelenie zodpovedností medzi samostatné gorutiny spolu s~použitím kanálov a synchronizačných mechanizmov umožnilo vytvoriť riešenie, v~ktorom možno presne určiť miesta komunikácie, blokovania a prístupu k~zdieľaným údajom. Tým sa znižuje riziko vzniku problémov súbehu a zároveň sa zvyšuje zrozumiteľnosť implementovaného algoritmu.
+Praktická časť túto výhodu demonštrovala na obsluhe klientskych spojení, bezpečnom ukladaní správ a súbežnom získavaní údajov z viacerých komunikačných miestností. Rozdelenie zodpovedností medzi samostatné gorutiny spolu s~použitím kanálov a synchronizačných mechanizmov umožnilo vytvoriť riešenie, v ktorom možno presne určiť miesta komunikácie, blokovania a prístupu k~zdieľaným údajom. Tým sa znižuje riziko vzniku problémov súbehu a zároveň sa zvyšuje zrozumiteľnosť implementovaného algoritmu.
 
-Výsledky práce preto poukazujú na to, že jazyk Go je vhodným nástrojom na vývoj súbežných sieťových aplikácií. Jeho mechanizmy umožňujú kombinovať efektívnu obsluhu väčšieho počtu úloh s relatívne jednoduchým programovým modelom. Práve spojenie gorutín, komunikačných kanálov a mechanizmov runtime prostredia predstavuje významnú výhodu jazyka Go pri implementácii systémov, v ktorých základnými požiadavkami sú komunikácia, synchronizácia a súbežné spracovanie.
+Výsledky práce preto poukazujú na to, že jazyk Go je vhodným nástrojom na vývoj súbežných sieťových aplikácií. Jeho mechanizmy umožňujú kombinovať efektívnu obsluhu väčšieho počtu úloh s relatívne jednoduchým programovým modelom. Práve spojenie gorutín, komunikačných kanálov a mechanizmov runtime prostredia predstavuje významnú výhodu Go pri implementácii systémov, v ktorých sú komunikácia, synchronizácia a súbežné spracovanie základnými požiadavkami.
 
 \newpage
 \section{Conclusion}

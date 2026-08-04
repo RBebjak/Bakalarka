@@ -163,7 +163,6 @@ func fetchAll(reader *bufio.Reader) {
 	var resp FetchResponse
 
 	jsonText := readLine(reader)
-	fmt.Println(jsonText)
 
 	if err := json.Unmarshal([]byte(jsonText), &resp); err != nil {
 		fmt.Println("Failed to parse response:", err)

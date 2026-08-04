@@ -1,0 +1,30 @@
+\babel@toc {slovak}{}\relax 
+\contentsline {section}{\numberline {1}Úvod}{9}{section.1}%
+\contentsline {section}{\numberline {2}Communicating Sequential Processes}{10}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Komunikácia v CSP}{11}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Monitor v CSP}{13}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Jazyk Go}{15}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Gorutiny}{16}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Komunikačné kanály}{17}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Implementácia}{18}{subsubsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.3}Select}{20}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Implementácia}{21}{subsubsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.4}Synchronizačné primitíva}{22}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}WaitGroup}{22}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Mutex a RWMutex}{23}{subsubsection.3.4.2}%
+\contentsline {section}{\numberline {4}Chat server}{26}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Klientske spojenie}{26}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Algoritmus posielania správ}{27}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Algoritmus získania správ}{29}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Algoritmus príkazu select}{30}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Ďalšie možnosti použitia}{32}{section.5}%
+\contentsline {section}{\numberline {6}Záver}{33}{section.6}%
+\contentsline {section}{\numberline {7}Conclusion}{34}{section.7}%
+\contentsline {section}{\numberline {A}Obsah elektronických dát}{35}{appendix.A}%
+\contentsline {section}{Literatúra}{36}{section*.8}%
+\babel@toc {english}{}\relax 
+\babel@toc {slovak}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {slovak}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {slovak}{}\relax 
