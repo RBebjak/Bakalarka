@@ -4,7 +4,7 @@
 \contentsline {subsection}{\numberline {2.1}Komunikácia v CSP}{11}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Monitor v CSP}{13}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Jazyk Go}{15}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Goroutine}{16}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.1}Gorutiny}{16}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Komunikačné kanály}{17}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}Implementácia}{18}{subsubsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.3}Select}{20}{subsection.3.3}%

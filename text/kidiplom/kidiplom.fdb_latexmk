@@ -1,18 +1,18 @@
 # Fdb version 4
-["biber kidiplom"] 1773168124.07252 "kidiplom.bcf" "kidiplom.bbl" "kidiplom" 1773168328.04564 0
-  "bibliografie.bib" 1773167693.17683 4822 4cd657b44000a7c9c15171b44e85f0e9 ""
-  "kidiplom.bcf" 1773168327.9612 99732 215ab7fd6c49c8238d1439b57a337963 "pdflatex"
+["biber kidiplom"] 1785850361.96965 "kidiplom.bcf" "kidiplom.bbl" "kidiplom" 1785850367.52412 0
+  "bibliografie.bib" 1774471047.36239 5127 419dc687c55a6dea3fb8c8e92b682282 ""
+  "kidiplom.bcf" 1785850367.43837 99732 215ab7fd6c49c8238d1439b57a337963 "pdflatex"
   (generated)
   "kidiplom.bbl"
   "kidiplom.blg"
   (rewritten before read)
-["makeindex kidiplom.idx"] 1773166840.28098 "kidiplom.idx" "kidiplom.ind" "kidiplom" 1773168328.0455 0
-  "kidiplom.idx" 1773168327.15021 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex kidiplom.idx"] 1773166840.28098 "kidiplom.idx" "kidiplom.ind" "kidiplom" 1785850367.52401 0
+  "kidiplom.idx" 1785850366.6871 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "kidiplom.ilg"
   "kidiplom.ind"
   (rewritten before read)
-["pdflatex"] 1773168326.6966 "/home/richard/Bakalarka/text/kidiplom/kidiplom.tex" "kidiplom.pdf" "kidiplom" 1773168328.04582 0
+["pdflatex"] 1785850366.23182 "/home/richard/Bakalarka/text/kidiplom/kidiplom.tex" "kidiplom.pdf" "kidiplom" 1785850367.52431 0
   "/etc/texmf/web2c/texmf.cnf" 1757513971.43968 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/richard/Bakalarka/text/kidiplom/kidiplom.tex" 1773168325.19717 12733 e34463b572369d09d96168916040cbca ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -227,15 +227,15 @@
   "iso.bbx" 1771778656.49377 13233 9f9e9c852fe772bfe1efaacc6b415eb7 ""
   "kibase.sty" 1771778656.49301 23853 021ae8236751950ac5e18f6a5bcf1da7 ""
   "kidiplom.acr" 0 -1 0 ""
-  "kidiplom.aux" 1773168327.9402 12985 6ed058af551fe8b9a2ab6c71859711a5 "pdflatex"
-  "kidiplom.bbl" 1773168124.72233 24864 7e1b2d84370d2c1ccb2aec1c0bbeac52 "biber kidiplom"
-  "kidiplom.cls" 1771778656.49331 18598 7684b2d13ac67d7b017c4eea1e12fa0c ""
+  "kidiplom.aux" 1785850367.41836 13097 9eb3a79e169dcb83cc38f21256cc1a2e "pdflatex"
+  "kidiplom.bbl" 1785850363.37887 26723 40b535a098caa3a27d169a27c7f3a940 "biber kidiplom"
+  "kidiplom.cls" 1785850361.71824 19093 44c9976661b5862cb57514d5d4fcea5e ""
   "kidiplom.glsdefs" 1771778943.38081 525 791a05cd0a9f8650067804d8f5ff3f41 ""
   "kidiplom.ind" 1773166840.3824 0 d41d8cd98f00b204e9800998ecf8427e "makeindex kidiplom.idx"
-  "kidiplom.lot" 1773168327.96284 784 bfb1412313ddb91ef22c85c80a4e547c "pdflatex"
-  "kidiplom.run.xml" 1773168327.96284 2565 c9e15200f022ca9ce770b7ce2318cde1 "pdflatex"
+  "kidiplom.lot" 1785850367.44023 843 ea4159f37f91e48bde247c6ef55cccea "pdflatex"
+  "kidiplom.run.xml" 1785850367.44023 2565 c9e15200f022ca9ce770b7ce2318cde1 "pdflatex"
   "kidiplom.tex" 1773168325.19717 12733 e34463b572369d09d96168916040cbca ""
-  "kidiplom.toc" 1773168327.96284 2480 da356d31c656595cb53fd6e072379c5e "pdflatex"
+  "kidiplom.toc" 1785850367.44023 2539 e7c6817e9c0438e15a49feda191611da "pdflatex"
   "slovak.lbx" 1771778656.49252 23931 3ecb2be0846478eeab38da1cbc06bb32 ""
   (generated)
   "kidiplom.acn"
