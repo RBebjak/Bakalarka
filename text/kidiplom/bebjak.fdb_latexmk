@@ -1,20 +1,20 @@
 # Fdb version 4
-["biber bebjak"] 1785747211.86572 "bebjak.bcf" "bebjak.bbl" "bebjak" 1785873025.46963 0
-  "bebjak.bcf" 1785873025.38112 101071 904a550f655283afe2acfeba11b5b2cc "pdflatex"
+["biber bebjak"] 1785747211.86572 "bebjak.bcf" "bebjak.bbl" "bebjak" 1785914614.7728 0
+  "bebjak.bcf" 1785914614.6866 101071 904a550f655283afe2acfeba11b5b2cc "pdflatex"
   "bebjak.bib" 1785747134.41174 2505 d95da270f29705db0c25167ecc0834ed ""
   (generated)
   "bebjak.bbl"
   "bebjak.blg"
   (rewritten before read)
-["makeindex bebjak.idx"] 1785703284.54154 "bebjak.idx" "bebjak.ind" "bebjak" 1785873025.46952 0
-  "bebjak.idx" 1785873024.28758 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex bebjak.idx"] 1785703284.54154 "bebjak.idx" "bebjak.ind" "bebjak" 1785914614.77268 0
+  "bebjak.idx" 1785914613.59855 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "bebjak.ilg"
   "bebjak.ind"
   (rewritten before read)
-["pdflatex"] 1785873023.74381 "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" "bebjak.pdf" "bebjak" 1785873025.46984 0
+["pdflatex"] 1785914613.1602 "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" "bebjak.pdf" "bebjak" 1785914614.77297 0
   "/etc/texmf/web2c/texmf.cnf" 1757513971.43968 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" 1785873023.53443 60430 b5b504c379e19d661dff2cea52d19511 ""
+  "/home/richard/Bakalarka/text/kidiplom/bebjak.tex" 1785914611.27553 60439 372666c7b276f1c3513ec58c58133fa5 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -223,15 +223,15 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1757513991.50552 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1757514077 8215117 c567d941616b0da19a49769531f0f5a5 ""
-  "bebjak.aux" 1785873025.37012 16537 038c2660c5afe59d21565de49d45110e "pdflatex"
+  "bebjak.aux" 1785914614.6756 16537 bba38a8e593c9b3096fccfd09a200531 "pdflatex"
   "bebjak.bbl" 1785747212.40601 11299 bd569646f6084b7d7ecec290a3176791 "biber bebjak"
   "bebjak.ind" 1785703284.63431 0 d41d8cd98f00b204e9800998ecf8427e "makeindex bebjak.idx"
-  "bebjak.lof" 1785873025.38327 542 c588a10640a88f168fca1f068190141f "pdflatex"
-  "bebjak.lol" 1785873025.38327 767 244e98aa581d34d446971c7d62d323e8 "pdflatex"
-  "bebjak.lot" 1785873025.38327 595 fcff2ccf7486b484cce75968003b1479 "pdflatex"
-  "bebjak.run.xml" 1785873025.38327 2545 ae8d4b91b7f22fa744104a38fbc4af27 "pdflatex"
-  "bebjak.tex" 1785873023.53443 60430 b5b504c379e19d661dff2cea52d19511 ""
-  "bebjak.toc" 1785873025.38327 2066 29dc22231f2e291e9aba2b8ca1712f27 "pdflatex"
+  "bebjak.lof" 1785914614.6876 542 c588a10640a88f168fca1f068190141f "pdflatex"
+  "bebjak.lol" 1785914614.6876 767 244e98aa581d34d446971c7d62d323e8 "pdflatex"
+  "bebjak.lot" 1785914614.68746 595 fcff2ccf7486b484cce75968003b1479 "pdflatex"
+  "bebjak.run.xml" 1785914614.68746 2545 ae8d4b91b7f22fa744104a38fbc4af27 "pdflatex"
+  "bebjak.tex" 1785914611.27553 60439 372666c7b276f1c3513ec58c58133fa5 ""
+  "bebjak.toc" 1785914614.68746 2066 29dc22231f2e291e9aba2b8ca1712f27 "pdflatex"
   "channelDokaz .png" 1778081031.41698 265503 c8793cefeb85cd0ebede4a507383c2a2 ""
   "czech-iso.lbx" 1771778656.49127 294 7ce53d925459ba9e674024c57d6c7af9 ""
   "czech.lbx" 1771778656.49275 23857 01707bd906156286610d5e5bcb06aa09 ""
